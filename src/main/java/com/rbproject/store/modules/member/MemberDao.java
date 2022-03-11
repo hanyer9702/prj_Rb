@@ -15,14 +15,18 @@ public class MemberDao {
 	@Resource(name = "sqlSession")
 	private SqlSession sqlSession;
 	
-	private static String namespace = "com.junefw.infra.modules.member.MemberMpp";
+	private static String namespace = "com.rbproject.store.modules.member.MemberMpp";
 
 	public List<Member> selectList(){ 
 		return sqlSession.selectList(namespace + ".selectList", "");
 	}
 	
-	public int insert(Member dto){ 
-		return sqlSession.insert(namespace + ".insert", dto);
+	public Member selectOne(MemberVo vo){ 
+		return sqlSession.selectOne(namespace + ".selectOne", vo);
 	}
+	
+//	public int insert(Member dto){ 
+//		return sqlSession.insert(namespace + ".insert", dto);
+//	}
 
 }

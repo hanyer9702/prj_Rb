@@ -5,77 +5,288 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags" %>
 
-<%-- <c:choose>
-	<c:when test="${fn:length(list) eq 0}">
-		<tr>
-			<td class="text-center" colspan="9">There is no data!</td>
-		</tr>	
-	</c:when>
-	<c:otherwise>
-		<c:forEach items="${list}" var="item" varStatus="status">	
-		
-		<c:out value="${item.ifmmSeq}"/> | <c:out value="${item.ifmmId}"/> | <c:out value="${item.ifmmName}"/> <br>
-		
-		</c:forEach>
-	</c:otherwise>
-</c:choose>	  --%>
-
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="uTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>yerin's html projects</title>
+<link href="/resources/common/_bootstrap/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/resources/common/css/style.css" rel="stylesheet" type="text/css">
+<title>한예린</title>
 <style type="text/css">
- 	table, th, td {
- 		border: 1px solid black;
- 		border-collapse: collapse;
-	 }
-	 
-	 th, td {
-	 	padding: 5px;
-	 }
+	td, th{
+		white-space:nowrap;
+		word-break:nowrap;
+	}
+	.circle{
+		width: 60px;
+		height: 60px;
+	}
+	.circle img{
+		top: 4px;
+		left: 4px;
+	}
+	header{
+		padding: 20px;
+		display: block;
+	}
+	section{
+		padding: 10px;
+	}
+	h3{
+		text-align: center;
+	}
+	.middle_sec{
+		border: 1px solid #BDBDBD;
+		margin: 5px;
+		padding: 10px;
+	}
+	.middle_sec div{
+		padding-bottom: 5px;
+	}
+	.modalM{
+		display:none;
+	}
+	/* h1{
+		font-size: 3rem;
+	}
+	h5{
+		font-size: 2rem;
+	} */
+	@media screen and (max-width:540px){
+		h5{
+			display:none;
+		}
+		h1{
+			font-size:20px;
+		}
+		.circle{
+		width: 45px;
+		height: 45px;
+		}
+		.circle img{
+			top: 3px;
+			left: 4px;
+			width: 35px;
+			height: 35px;
+		}
+		.middle_sec{
+			display: none;
+		}
+		.modalM{
+			display: block;
+			text-align: center;
+		}
+		.modalBtn{
+			display: inline;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
 </style>
 </head>
-
 <body>
-	 memberList.jsp
-	<table border="1">
-		<tr>
-			<th>no</th>
-			<th>이름</th>
-			<th>아이디</th>
-			<th>주소</th>
-			<th>모바일</th>
-			<th>국적</th>
-		</tr>
-		<c:choose>
-			
-				<c:when test="${fn:length(list) eq 0}">
-					<tr>
-						<td class="text-center" colspan="9">There is no data!</td>	
+	 <%@include file="../include/top.jsp"%>
+	 
+	 <section>
+	 		<h3>회원 목록</h3>
+	 		
+	 		<div class="modalM">
+		 		<!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary modalBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+				  검색
+				</button>
+				
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+				        <div class="row row-cols-2 row-cols-sm-4 g-3 align-items-center">
+					 		<div class="col-6 col-sm-3">
+					 			<select class="form-select">
+								  <option selected>Open this select menu</option>
+								  <option value="1">One</option>
+								  <option value="2">Two</option>
+								  <option value="3">Three</option>
+								</select>
+					 		</div>
+					 		<div class="col-6 col-sm-3">
+					 			<select class="form-select">
+								  <option selected>Open this select menu</option>
+								  <option value="1">One</option>
+								  <option value="2">Two</option>
+								  <option value="3">Three</option>
+								</select>
+					 		</div>
+					 		<div class="col-6 col-sm-3">
+					 			<input type="text" id="startDate" class="form-control" placeholder="시작일">
+					 		</div>
+					 		<div class="col-6 col-sm-3">
+					 			<input type="text" id="endDate" class="form-control" placeholder="종료일">
+					 		</div>
+					 		<div class="col-6 col-sm-3">
+					 			<select class="form-select">
+								  <option selected>Open this select menu</option>
+								  <option value="1">One</option>
+								  <option value="2">Two</option>
+								  <option value="3">Three</option>
+								</select>
+					 		</div>
+					 		<div class="col-6 col-sm-3">
+					 			<input type="text" id="startDate" class="form-control" placeholder="검색어">
+					 		</div>
+		 				</div>
+				      </div>
+				      <div class="modal-footer">
+				        <!-- 
+				        <button type="button" class="btn btn-primary">Save changes</button> -->
+				        <button type="button" class="btn btn-outline-secondary">검색</button>
+					 	<button type="button" class="btn btn-outline-danger">초기화</button>
+					 	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+		 		<!-- modal end -->
+		 	</div>
+	 		
+	 		<div class="middle_sec">
+		 		<div class="row row-cols-2 row-cols-sm-4 g-3 align-items-center">
+			 		<div class="col-6 col-sm-3">
+			 			<select class="form-select">
+						  <option selected>Open this select menu</option>
+						  <option value="1">One</option>
+						  <option value="2">Two</option>
+						  <option value="3">Three</option>
+						</select>
+			 		</div>
+			 		<div class="col-6 col-sm-3">
+			 			<select class="form-select">
+						  <option selected>Open this select menu</option>
+						  <option value="1">One</option>
+						  <option value="2">Two</option>
+						  <option value="3">Three</option>
+						</select>
+			 		</div>
+			 		<div class="col-6 col-sm-3">
+			 			<input type="text" id="startDate" class="form-control" placeholder="시작일">
+			 		</div>
+			 		<div class="col-6 col-sm-3">
+			 			<input type="text" id="endDate" class="form-control" placeholder="종료일">
+			 		</div>
+			 		<div class="col-6 col-sm-3">
+			 			<select class="form-select">
+						  <option selected>Open this select menu</option>
+						  <option value="1">One</option>
+						  <option value="2">Two</option>
+						  <option value="3">Three</option>
+						</select>
+			 		</div>
+			 		<div class="col-6 col-sm-3">
+			 			<input type="text" id="startDate" class="form-control" placeholder="검색어">
+			 		</div>
+			 		<div>
+			 			<button type="button" class="btn btn-outline-secondary">검색</button>
+			 			<button type="button" class="btn btn-outline-danger">초기화</button>
+			 		</div>
+		 		</div>
+	 		</div>
+	 	</section>
+	 	<section>
+	 		<div class="row align-items-center">
+	 			<div class="col-6 col-sm-3">
+	 				<h4 style="float: left;">Total : ${fn:length(list)}</h4>
+	 			</div>
+	 			<div class="col-2 col-sm-1 offset-4 offset-sm-8 px-1 px-sm-3">
+	 				<select class="form-select form-select-sm" >
+						<option value="1" selected>5</option>
+						<option value="2">10</option>
+						<option value="3">20</option>
+					</select>
+	 			</div>
+	 		</div>
+	 		<div class="table-responsive-xxl">
+	 			<table class="table table-hover">
+					<tr class="table-secondary">
+						<td>
+							<div class="form-check">
+							  <input class="form-check-input" type="checkbox" value="" id="delCheck">
+							</div>
+						</td>
+						<td>이름</td>
+						<td>아이디</td>
+						<td>주소</td>
+						<td>모바일</td>
+						<td>이메일</td>
 					</tr>
-				</c:when>
-				<c:otherwise>
-				
-					<c:forEach items="${list}" var="item" varStatus="status">	
-						<tr>
-						
-							<td><c:out value="${item.ifmmSeq}"/></td>
-							<td><a href="/infra/member/memberView?ifcdSeq=${item.ifmmSeq}"><c:out value="${item.ifmmName}"/></a></td>
-							<td><c:out value="${item.ifmmId}"/></td>
-							<td><c:out value="${item.ifmaAddress1}"/></td>
-							<td><c:out value="${item.ifmpNumberDash}"/></td>
-							<td><c:out value="${item.ifnaName}"/></td>
-						
-						</tr>
-					</c:forEach>
-				
-				</c:otherwise>
-			
-		</c:choose>
-		
-	</table>
-	<a href="/infra/member/memberForm.jsp">등록</a>
+					<!-- <tr>
+						<td>
+							<div class="form-check">
+							  <input class="form-check-input" type="checkbox" value="" id="delCheck">
+							</div>
+						</td>
+						<td>skipperrrrrr</td>
+						<td>skipper1</td>
+						<td>aaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+						<td>01011111111</td>
+						<td>skipper1@gmail.com</td>
+					</tr> -->
+					<c:choose>
+						<c:when test="${fn:length(list) eq 0}">
+							<tr>
+								<td class="text-center" colspan="9">There is no data!</td>	
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${list}" var="item" varStatus="status">	
+								<tr>
+									<td>
+										<div class="form-check">
+										  <input class="form-check-input" type="checkbox" value="" id="delCheck">
+										</div>
+									</td>
+									<td><a href="/xdmin/member/memberView?ifmmSeq=${item.ifmmSeq}"><c:out value="${item.ifmmName}"/></a></td>
+									<td><c:out value="${item.ifmmId}"/></td>
+									<td><c:out value="${item.ifmaAddress}"/></td>
+									<td><c:out value="${item.ifmpNumberDash}"/></td>
+									<td><c:out value="${item.ifmeEmailFull}"/></td>
+								</tr>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</table>
+	 		</div>
+	 		<div>
+		 			<nav>
+					  <ul class="pagination justify-content-center">
+					    <li class="page-item">
+					      <a class="page-link" href="#" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+					    <li class="page-item"><a class="page-link" href="#">1</a></li>
+					    <li class="page-item"><a class="page-link" href="#">2</a></li>
+					    <li class="page-item"><a class="page-link" href="#">3</a></li>
+					    <li class="page-item">
+					      <a class="page-link" href="#" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+					  </ul>
+					</nav>
+					<div class="btn-group" style="float:right;" role="group">
+					  <button type="button" class="btn btn-primary" onclick="location.href='/infra/member/memberForm'">등록</button>
+					  <button type="button" class="btn btn-danger">삭제</button>
+					</div>
+	 		</div>
+	 	</section>
+	 
+	 <%@include file="../include/footer.jsp"%>
+	 <script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

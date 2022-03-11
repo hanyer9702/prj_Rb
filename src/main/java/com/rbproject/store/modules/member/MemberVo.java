@@ -2,8 +2,7 @@ package com.rbproject.store.modules.member;
 
 import java.util.Date;
 
-public class Member {
-	
+public class MemberVo {
 	private String ifmmSeq = "";
 	private String ifmmName= "";
 	private String ifmmId = "";
@@ -27,7 +26,6 @@ public class Member {
 	private String ifmpNumberDash = "";
 	private String ifmpHomeNumber = "";
 	private String ifnaName = "";
-	private String ifmpFaxNumber = "";
 	private Integer ifmmDelNy;
 //------------
 	public String getIfmmSeq() {
@@ -174,11 +172,4 @@ public class Member {
 	public void setIfmpHomeNumber(String ifmpHomeNumber) {
 		this.ifmpHomeNumber = ifmpHomeNumber;
 	}
-	public String getIfmpFaxNumber() {
-		return ifmpFaxNumber;
-	}
-	public void setIfmpFaxNumber(String ifmpFaxNumber) {
-		this.ifmpFaxNumber = ifmpFaxNumber;
-	}
-	
 }
