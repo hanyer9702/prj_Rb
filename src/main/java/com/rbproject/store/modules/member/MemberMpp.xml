@@ -16,6 +16,7 @@
 			    , concat("[",b.ifmaZipcode,"] ",b.ifmaAddress1," ",b.ifmaAddress2) as ifmaAddress
 			    , (select concat(substring(ifmpNumber,1,3),"-",substring(ifmpNumber,4,4),"-",substring(ifmpNumber,7,4)) from infrmemberphone where ifmpDeviceCd = 25 and ifmpDefaultNy = 1 and a.ifmmSeq = ifmmSeq) as ifmpNumberDash
 			    , (select ifnaName from infrNationality where ifnaSeq = g.ifnaSeq) as ifnaName
+			    , h.ifmpNumber
 			    
 			from infrMember a
 				left join infrMemberAddress b on b.ifmaDelNy = 0 and b.ifmaDefaultNy = 1 and b.ifmmSeq = a.ifmmSeq
@@ -23,6 +24,12 @@
 			    left join infrmemberphone h on h.ifmpDelNy = 0 and h.ifmpDefaultNy = 1 and h.ifmmSeq = a.ifmmSeq and h.ifmpDeviceCd = 25 and h.ifmpDefaultNy = 1
 			where 1=1
 				and a.ifmmDelNy = 0
+				<choose>
+					<when test="shOption == 1">AND a.ifmmName LIKE concat('%',#{shValue},'%')</when>
+					<when test="shOption == 2">AND a.ifmmId LIKE concat('%',#{shValue},'%')</when>
+					<when test="shOption == 3">AND concat(b.ifmaAddress1," ",b.ifmaAddress2) LIKE concat('%',#{shValue},'%')</when>
+					<when test="shOption == 4">AND h.ifmpNumber LIKE concat('%',#{shValue},'%')</when>
+				</choose>
 	</select>
 	
 	<select id="selectOne" resultMap="resultMapObj">
@@ -34,6 +41,7 @@
 			    , a.ifmmDob
 			    , (select ifcdName from infrCode where a.ifmmSavedCd = ifcdSeq) as ifmmSaved
 			    , (select ifcdName from infrCode where a.ifmmMarriageCd = ifcdSeq) as ifmmMarriage
+			    , a.ifmmMarriageDate
 			    , a.ifmmChildrenNum
 			    , a.ifmmFavoriteColor
 			    , a.ifmmEmailConsentNy

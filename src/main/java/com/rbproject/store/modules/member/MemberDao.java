@@ -17,8 +17,8 @@ public class MemberDao {
 	
 	private static String namespace = "com.rbproject.store.modules.member.MemberMpp";
 
-	public List<Member> selectList(){ 
-		return sqlSession.selectList(namespace + ".selectList", "");
+	public List<Member> selectList(MemberVo vo){ 
+		return sqlSession.selectList(namespace + ".selectList", vo);
 	}
 	
 	public Member selectOne(MemberVo vo){ 

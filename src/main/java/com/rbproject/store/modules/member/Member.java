@@ -11,6 +11,7 @@ public class Member {
 	private Date ifmmDob;
 	private String ifmmSaved = "";
 	private String ifmmMarriage = "";
+	private Date ifmmMarriageDate;
 	private Integer ifmmChildrenNum = 0;
 	private String ifmmFavoriteColor = "";
 	private Integer ifmmEmailConsentNy;
@@ -179,6 +180,12 @@ public class Member {
 	}
 	public void setIfmpFaxNumber(String ifmpFaxNumber) {
 		this.ifmpFaxNumber = ifmpFaxNumber;
+	}
+	public Date getIfmmMarriageDate() {
+		return ifmmMarriageDate;
+	}
+	public void setIfmmMarriageDate(Date ifmmMarriageDate) {
+		this.ifmmMarriageDate = ifmmMarriageDate;
 	}
 	
 }

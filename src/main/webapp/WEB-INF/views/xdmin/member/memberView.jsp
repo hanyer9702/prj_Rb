@@ -117,29 +117,29 @@
 				</tr>
 				<tr>
 					<th>비밀번호 찾기 문제</th>
-					<td><c:out value="${rt.ifmaAddress}"/></td>
+					<td><c:out value="${rt.ifjqQuestion}"/></td>
 					<th>비밀번호 찾기 답</th>
-					<td><c:out value="${rt.ifmaAddress}"/></td>
+					<td><c:out value="${rt.ifjqAnswer}"/></td>
 				</tr>
 				<tr>
 					<th>SNS</th>
-					<td><c:out value="${rt.ifmaAddress}"/></td>
+					<td><c:out value="${rt.ifmmSns}"/></td>
 					<th>홈페이지</th>
-					<td><c:out value="${rt.ifmaAddress}"/></td>
+					<td><c:out value="${rt.ifaoUrl}"/></td>
 				</tr>
 				<tr>
 					<th>결혼여부</th>
-					<td><c:out value="${rt.ifmaAddress}"/></td>
+					<td><c:out value="${rt.ifmmMarriage}"/></td>
 					<th>결혼기념일</th>
-					<td><c:out value="${rt.ifmaAddress}"/></td>
+					<td><c:out value="${rt.ifmmMarriageDate}"/></td>
 				</tr>
 				<tr>
 					<th>자녀수</th>
-					<td><c:out value="${rt.ifmaAddress}"/></td>
+					<td><c:out value="${rt.ifmmChildrenNum}"/></td>
 					<th>좋아하는 색깔</th>
 					<td>
 						<!-- <div class="mb-3 row"> class="form-control col-1"-->
-							<input type="color" id="userColor" value="<c:out value="${rt.ifmaAddress}"/>" disabled>
+							<input type="color" id="userColor" value="${rt.ifmmFavoriteColor}" disabled>
 						<!-- </div> -->
 					</td>
 				</tr>

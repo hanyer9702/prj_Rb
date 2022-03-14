@@ -155,47 +155,50 @@
 		 		<!-- modal end -->
 		 	</div>
 	 		
-	 		<div class="middle_sec">
-		 		<div class="row row-cols-2 row-cols-sm-4 g-3 align-items-center">
-			 		<div class="col-6 col-sm-3">
-			 			<select class="form-select">
-						  <option selected>Open this select menu</option>
-						  <option value="1">One</option>
-						  <option value="2">Two</option>
-						  <option value="3">Three</option>
-						</select>
-			 		</div>
-			 		<div class="col-6 col-sm-3">
-			 			<select class="form-select">
-						  <option selected>Open this select menu</option>
-						  <option value="1">One</option>
-						  <option value="2">Two</option>
-						  <option value="3">Three</option>
-						</select>
-			 		</div>
-			 		<div class="col-6 col-sm-3">
-			 			<input type="text" id="startDate" class="form-control" placeholder="시작일">
-			 		</div>
-			 		<div class="col-6 col-sm-3">
-			 			<input type="text" id="endDate" class="form-control" placeholder="종료일">
-			 		</div>
-			 		<div class="col-6 col-sm-3">
-			 			<select class="form-select">
-						  <option selected>Open this select menu</option>
-						  <option value="1">One</option>
-						  <option value="2">Two</option>
-						  <option value="3">Three</option>
-						</select>
-			 		</div>
-			 		<div class="col-6 col-sm-3">
-			 			<input type="text" id="startDate" class="form-control" placeholder="검색어">
-			 		</div>
-			 		<div>
-			 			<button type="button" class="btn btn-outline-secondary">검색</button>
-			 			<button type="button" class="btn btn-outline-danger">초기화</button>
+	 		<form id="" name="" method="get" action="memberList">
+		 		<div class="middle_sec">
+			 		<div class="row row-cols-2 row-cols-sm-4 g-3 align-items-center">
+				 		<div class="col-6 col-sm-3">
+				 			<select class="form-select">
+							  <option selected>Open this select menu</option>
+							  <option value="1">One</option>
+							  <option value="2">Two</option>
+							  <option value="3">Three</option>
+							</select>
+				 		</div>
+				 		<div class="col-6 col-sm-3">
+				 			<select class="form-select">
+							  <option selected>Open this select menu</option>
+							  <option value="1">One</option>
+							  <option value="2">Two</option>
+							  <option value="3">Three</option>
+							</select>
+				 		</div>
+				 		<div class="col-6 col-sm-3">
+				 			<input type="text" id="startDate" class="form-control" placeholder="시작일">
+				 		</div>
+				 		<div class="col-6 col-sm-3">
+				 			<input type="text" id="endDate" class="form-control" placeholder="종료일">
+				 		</div>
+				 		<div class="col-6 col-sm-3">
+				 			<select class="form-select" name="shOption">
+							  <option selected>선택</option>
+							  <option value="1">이름</option>
+							  <option value="2">id</option>
+							  <option value="3">주소</option>
+							  <option value="4">전화번호</option>
+							</select>
+				 		</div>
+				 		<div class="col-6 col-sm-3">
+				 			<input type="text" id="startDate" class="form-control" placeholder="검색어" name="shValue">
+				 		</div>
+				 		<div>
+				 			<button type="submit" class="btn btn-outline-secondary">검색</button>
+				 			<button type="reset" class="btn btn-outline-danger">초기화</button>
+				 		</div>
 			 		</div>
 		 		</div>
-	 		</div>
+		 	</form>
 	 	</section>
 	 	<section>
 	 		<div class="row align-items-center">
@@ -262,27 +265,27 @@
 				</table>
 	 		</div>
 	 		<div>
-		 			<nav>
-					  <ul class="pagination justify-content-center">
-					    <li class="page-item">
-					      <a class="page-link" href="#" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-					    </li>
-					    <li class="page-item"><a class="page-link" href="#">1</a></li>
-					    <li class="page-item"><a class="page-link" href="#">2</a></li>
-					    <li class="page-item"><a class="page-link" href="#">3</a></li>
-					    <li class="page-item">
-					      <a class="page-link" href="#" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </li>
-					  </ul>
-					</nav>
-					<div class="btn-group" style="float:right;" role="group">
-					  <button type="button" class="btn btn-primary" onclick="location.href='/infra/member/memberForm'">등록</button>
-					  <button type="button" class="btn btn-danger">삭제</button>
-					</div>
+	 			<nav>
+				  <ul class="pagination justify-content-center">
+				    <li class="page-item">
+				      <a class="page-link" href="#" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <li class="page-item"><a class="page-link" href="#">1</a></li>
+				    <li class="page-item"><a class="page-link" href="#">2</a></li>
+				    <li class="page-item"><a class="page-link" href="#">3</a></li>
+				    <li class="page-item">
+				      <a class="page-link" href="#" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
+				<div class="btn-group" style="float:right;" role="group">
+				  <button type="button" class="btn btn-primary" onclick="location.href='/infra/member/memberForm'">등록</button>
+				  <button type="button" class="btn btn-danger">삭제</button>
+				</div>
 	 		</div>
 	 	</section>
 	 
