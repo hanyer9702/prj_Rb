@@ -265,7 +265,7 @@
 				</table>
 	 		</div>
 	 		<div>
-	 			<nav>
+	 			<!-- <nav>
 				  <ul class="pagination justify-content-center">
 				    <li class="page-item">
 				      <a class="page-link" href="#" aria-label="Previous">
@@ -281,9 +281,30 @@
 				      </a>
 				    </li>
 				  </ul>
+				</nav> -->
+				<nav aria-label="...">
+				  <ul class="pagination">
+				    <c:if test="${vo.startPage gt vo.pageNumToShow}">
+						<li class="page-item"><a class="page-link" href="memberList?thisPage=${vo.startPage - 1}">Previous</a></li>
+					</c:if>
+					<c:forEach begin="${vo.startPage}" end="${vo.endPage}" varStatus="i">
+						<c:choose>
+							<c:when test="${i.index eq vo.thisPage}">
+					                <li class="page-item active"><a class="page-link" href="memberList?thisPage=${i.index}">${i.index}</a></li>
+							</c:when>
+							<c:otherwise>             
+					                <li class="page-item"><a class="page-link" href="memberList?thisPage=${i.index}">${i.index}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>     
+					<c:if test="${vo.endPage ne vo.totalPages}">                
+					                <li class="page-item"><a class="page-link" href="memberList?thisPage=${vo.endPage + 1}">Next</a></li>
+					</c:if>
+				  </ul>
 				</nav>
+				
 				<div class="btn-group" style="float:right;" role="group">
-				  <button type="button" class="btn btn-primary" onclick="location.href='/infra/member/memberForm'">등록</button>
+				  <button type="button" class="btn btn-primary" onclick="location.href='memberForm'">등록</button>
 				  <button type="button" class="btn btn-danger">삭제</button>
 				</div>
 	 		</div>

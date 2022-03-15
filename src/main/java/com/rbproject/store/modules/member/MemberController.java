@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -38,10 +39,21 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/xdmin/member/memberList")
-	public String memberList(MemberVo vo, Model model) throws Exception {
+	public String memberList(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
 		
-		List<Member> list = service.selectList(vo);
-		model.addAttribute("list", list);
+		// count 가져올것
+		
+		int count = service.selectOneCount(vo);
+				
+		vo.setParamsPaging(count);
+		
+		// count가 0이 아니면 list 가져오는 부분 수행 후 model 개체에 담기
+		if(count != 0) {
+			List<Member> list = service.selectList(vo);
+			model.addAttribute("list", list);
+		} else {
+			// by pass
+		}
 		
 		return "/xdmin/member/memberList";
 	}
