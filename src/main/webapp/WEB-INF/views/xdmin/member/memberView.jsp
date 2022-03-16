@@ -152,9 +152,9 @@
 					<td colspan="3"></td>
 				</tr>
 			</table>
-			<button type="button" class="btn btn-success" onclick="location.href='/infra/member/memberList'">목록</button>
+			<button type="button" class="btn btn-success" onclick="location.href='memberList'">목록</button>
 			<div class="float-end">
-				<button type="button" class="btn btn-warning" onclick="location.href='/infra/member/memberEdit'">수정</button>
+				<button type="button" class="btn btn-warning" onclick="location.href='memberEdit'">수정</button>
 				<button type="button" class="btn btn-danger" data-bs-toggle="modal"	data-bs-target="#deleteModal">삭제</button>
 			</div>
 		</div>
@@ -172,7 +172,7 @@
 				<div class="modal-body">정말로 삭제하시겠습니까?</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"	data-bs-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-danger" onclick="location.href='/infra/member/memberList'">삭제</button>
+					<button type="button" class="btn btn-danger" onclick="location.href='memberList'">삭제</button>
 				</div>
 			</div>
 		</div>

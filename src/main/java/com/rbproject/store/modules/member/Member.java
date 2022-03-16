@@ -30,6 +30,7 @@ public class Member {
 	private String ifnaName = "";
 	private String ifmpFaxNumber = "";
 	private Integer ifmmDelNy;
+	private String ifmmPassword = "";
 //------------
 	public String getIfmmSeq() {
 		return ifmmSeq;
@@ -186,6 +187,12 @@ public class Member {
 	}
 	public void setIfmmMarriageDate(Date ifmmMarriageDate) {
 		this.ifmmMarriageDate = ifmmMarriageDate;
+	}
+	public String getIfmmPassword() {
+		return ifmmPassword;
+	}
+	public void setIfmmPassword(String ifmmPassword) {
+		this.ifmmPassword = ifmmPassword;
 	}
 	
 }

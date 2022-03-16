@@ -203,15 +203,30 @@
 	 	<section>
 	 		<div class="row align-items-center">
 	 			<div class="col-6 col-sm-3">
-	 				<h4 style="float: left;">Total : ${fn:length(list)}</h4>
+	 				<h4 style="float: left;">Total : ${vo.totalRows}</h4>
 	 			</div>
-	 			<div class="col-2 col-sm-1 offset-4 offset-sm-8 px-1 px-sm-3">
-	 				<select class="form-select form-select-sm" >
-						<option value="1" selected>5</option>
-						<option value="2">10</option>
-						<option value="3">20</option>
+ 				<form class="col-2 col-sm-1 offset-4 offset-sm-8 px-1 px-sm-3" id="" name="" method="get">
+	 				<select class="form-select form-select-sm" id="selectRowNumShow" onchange="location.href=this.value">
+						<!-- <option value="5" selected>5</option>
+						<option value="10">10</option>
+						<option value="20">20</option> -->
+						<c:if test="${vo.rowNumToShow eq 5}">
+							<option value="5" selected>5</option>
+							<option value="memberList?rowNumToShow=10">10</option> 
+							<option value="memberList?rowNumToShow=20">20</option>
+						</c:if>
+						<c:if test="${vo.rowNumToShow eq 10}">
+							<option value="memberList?rowNumToShow=5">5</option>
+							<option value="10" selected>10</option>
+							<option value="memberList?rowNumToShow=20">20</option>
+						</c:if>
+						<c:if test="${vo.rowNumToShow eq 20}">
+							<option value="memberList?rowNumToShow=5">5</option>
+							<option value="memberList?rowNumToShow=10">10</option>
+							<option value="20" selected>20</option>
+						</c:if>
 					</select>
-	 			</div>
+				</form>
 	 		</div>
 	 		<div class="table-responsive-xxl">
 	 			<table class="table table-hover">
@@ -253,7 +268,7 @@
 										  <input class="form-check-input" type="checkbox" value="" id="delCheck">
 										</div>
 									</td>
-									<td><a href="/xdmin/member/memberView?ifmmSeq=${item.ifmmSeq}"><c:out value="${item.ifmmName}"/></a></td>
+									<td><a href="memberView?ifmmSeq=${item.ifmmSeq}"><c:out value="${item.ifmmName}"/></a></td>
 									<td><c:out value="${item.ifmmId}"/></td>
 									<td><c:out value="${item.ifmaAddress}"/></td>
 									<td><c:out value="${item.ifmpNumberDash}"/></td>
@@ -282,23 +297,23 @@
 				    </li>
 				  </ul>
 				</nav> -->
-				<nav aria-label="...">
-				  <ul class="pagination">
+				<nav aria-label="..."> 
+				  <ul class="pagination justify-content-center">
 				    <c:if test="${vo.startPage gt vo.pageNumToShow}">
-						<li class="page-item"><a class="page-link" href="memberList?thisPage=${vo.startPage - 1}">Previous</a></li>
+						<li class="page-item"><a class="page-link" href="memberList?rowNumToShow=${vo.rowNumToShow}&thisPage=${vo.startPage - 1}">&laquo;</a></li>
 					</c:if>
 					<c:forEach begin="${vo.startPage}" end="${vo.endPage}" varStatus="i">
 						<c:choose>
 							<c:when test="${i.index eq vo.thisPage}">
-					                <li class="page-item active"><a class="page-link" href="memberList?thisPage=${i.index}">${i.index}</a></li>
+					                <li class="page-item active"><a class="page-link" href="memberList?rowNumToShow=${vo.rowNumToShow}&thisPage=${i.index}">${i.index}</a></li>
 							</c:when>
 							<c:otherwise>             
-					                <li class="page-item"><a class="page-link" href="memberList?thisPage=${i.index}">${i.index}</a></li>
+					                <li class="page-item"><a class="page-link" href="memberList?rowNumToShow=${vo.rowNumToShow}&thisPage=${i.index}">${i.index}</a></li>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>     
 					<c:if test="${vo.endPage ne vo.totalPages}">                
-					                <li class="page-item"><a class="page-link" href="memberList?thisPage=${vo.endPage + 1}">Next</a></li>
+					                <li class="page-item"><a class="page-link" href="memberList?rowNumToShow=${vo.rowNumToShow}&thisPage=${vo.endPage + 1}">&raquo;</a></li>
 					</c:if>
 				  </ul>
 				</nav>
@@ -311,6 +326,7 @@
 	 	</section>
 	 
 	 <%@include file="../include/footer.jsp"%>
+	 
 	 <script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

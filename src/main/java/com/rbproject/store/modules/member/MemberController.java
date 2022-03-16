@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.junefw.infra.modules.code.Code;
+
 /**
  * Handles requests for the application home page.
  */
@@ -69,4 +71,18 @@ public class MemberController {
 		return "/xdmin/member/memberView";
 	}
 	
+	@RequestMapping(value = "/xdmin/member/memberForm")
+	public String memberForm() throws Exception {
+		
+		return "/xdmin/member/memberForm";
+	}
+	
+	@RequestMapping(value = "/xdmin/member/memberInst")
+	public String memberInst(Member dto) throws Exception {
+		
+//		입력 실행
+		service.insert(dto);
+		
+		return "redirect:/xdmin/member/memberList";
+	}
 }

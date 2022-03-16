@@ -83,15 +83,15 @@
 				AND a.ifmmSeq = #{ifmmSeq}
 	</select>
 	
-	<!-- <insert id="insert">
-			insert into infrMember(
-				ifmmId
-				,ifmmName
-				,ifmmDelNy
-			) values (
-				#{ifmmId}
-				,#{ifmmName}
-				,0
-			)
-	</insert> -->
+	<insert id="insert">
+		insert into infrMember(
+			ifmmId
+			,ifmmName
+			,ifmmDelNy
+		) values (
+			#{ifmmId}
+			,#{ifmmName}
+			,0
+		)
+	</insert>
 </mapper>
