@@ -115,46 +115,47 @@
 				  <div class="mb-3 col-sm-8 g-2">
 				  	<label for="userZipcode" class="form-label">주소</label>
 				  	<div class="input-group mb-2">
-					  <input type="text" class="form-control" id="userZipcode" disabled readonly>
+					  <!-- <input type="text" class="form-control" id="userZipcode" disabled readonly> -->
+					  <input type="text" class="form-control" id="ifmaZipcode" name="ifmaZipcode">
 					  <button class="btn btn-outline-secondary" type="button" id="userAddressButton" data-bs-toggle="modal" data-bs-target="#userAddressModal">주소찾기</button>
 					</div>
-				    <!-- <input type="text" class="form-control" id="userZipcode" disabled readonly> -->
-				    <input type="text" class="form-control mb-2" id="userAddress1" disabled readonly>
-				    <input type="text" class="form-control" id="userAddress2" placeholder="상세주소">
+				    <!-- <input type="text" class="form-control mb-2" id="userAddress1" disabled readonly> -->
+				    <input type="text" class="form-control mb-2" id="ifmaAddress1" name="ifmaAddress1">
+				    <input type="text" class="form-control" id="ifmaAddress2" name="ifmaAddress2" placeholder="상세주소">
 				  </div>
 				  <div class="mb-3 col-sm-6 row g-2 align-items-center">
 				  	<label for="userMobile" class="form-label">핸드폰</label>
 				  	<div class="col-3 col-md-2">
-						<select class="form-select form-select-sm">
+						<select class="form-select form-select-sm" id="ifmpTelecomCd" name="ifmpTelecomCd">
 							<option selected>통신사</option>
-							<option value="1">SKT</option>
-							<option value="2">KT</option>
-							<option value="3">LG</option>
-							<option value="4">알뜰폰</option>
+							<option value="28">SKT</option>
+							<option value="29">KT</option>
+							<option value="30">LG</option>
+							<option value="31">기타</option>
 						</select>
 					</div>
 					<div class="col-2 col-md-3">
-						<input type="text" class="form-control" id="userMobile1" name="userMobile1" size="2">
+						<input type="text" class="form-control" id="userMobile1" name="ifmpNumber1" size="2">
 					</div>
 					<div class="col-auto">-</div>
 					<div class="col-3">
-						<input type="text" class="form-control" id="userMobile2" name="userMobile2"	size="3">
+						<input type="text" class="form-control" id="userMobile2" name="ifmpNumber2"	size="3">
 					</div>
 					<div class="col-auto">-</div>
 					<div class="col-3">
-						<input type="text" class="form-control" id="userMobile3" name="userMobile3" size="3">
+						<input type="text" class="form-control" id="userMobile3" name="ifmpNumber3" size="3">
 					</div>
 				  </div>
 				  <div class="col-sm-6 row align-items-center mb-3 ps-3">
 				  	<label for="" class="form-label">모바일 마케팅 수신 동의</label>
 					  <div class="form-check col-3 col-md-2">
-						  <input class="form-check-input" type="radio" name="userMobileAgree" id="userMobileAgreeOk">
+						  <input class="form-check-input" type="radio" name="ifmmSmsConsentNy" id="userMobileAgreeOk">
 						  <label class="form-check-label" for="userMobileAgreeOk">
 						    동의
 						  </label>
 						</div>
 						<div class="form-check col-3 col-md-2">
-						  <input class="form-check-input" type="radio" name="userMobileAgree" id="userMobileAgreeNo">
+						  <input class="form-check-input" type="radio" name="ifmmSmsConsentNy" id="userMobileAgreeNo">
 						  <label class="form-check-label" for="userMobileAgreeNo">
 						    비동의
 						  </label>
@@ -163,25 +164,7 @@
 				<div class="mb-3 col-sm-6 row g-2 align-items-center">
 				  	<label for="userMobile" class="form-label">전화번호</label>
 					<div class="col-3">
-						<select class="form-select form-select-sm">
-							<option selected>지역번호</option>
-							<option value="1">02</option>
-							<option value="2">031</option>
-							<option value="3">032</option>
-							<option value="4">033</option>
-							<option value="5">041</option>
-							<option value="6">042</option>
-							<option value="7">043</option>
-							<option value="8">051</option>
-							<option value="9">052</option>
-							<option value="10">053</option>
-							<option value="11">054</option>
-							<option value="12">055</option>
-							<option value="13">061</option>
-							<option value="14">062</option>
-							<option value="15">063</option>
-							<option value="16">064</option>
-						</select>
+						<input type="text" class="form-control" id="userMobile2" name="userPhone2"	size="3">
 					</div>
 					<div class="col-auto">-</div>
 					<div class="col-4">

@@ -18,6 +18,9 @@ public class Member {
 	private Integer ifmmSmsConsentNy;
 	private Integer ifmmPushConsentNy;
 	private String ifmaAddress = "";
+	private String ifmaZipcode = "";
+	private String ifmaAddress1 = "";
+	private String ifmaAddress2 = "";
 	private String ifmmSns = "";
 	private String ifaoUrl = "";
 	private String ifmeEmailFull = "";
@@ -31,6 +34,9 @@ public class Member {
 	private String ifmpFaxNumber = "";
 	private Integer ifmmDelNy;
 	private String ifmmPassword = "";
+	private String ifnaSeq = "";
+	private Integer ifmpTelecomCd = 0;
+	
 //------------
 	public String getIfmmSeq() {
 		return ifmmSeq;
@@ -193,6 +199,30 @@ public class Member {
 	}
 	public void setIfmmPassword(String ifmmPassword) {
 		this.ifmmPassword = ifmmPassword;
+	}
+	public String getIfnaSeq() {
+		return ifnaSeq;
+	}
+	public void setIfnaSeq(String ifnaSeq) {
+		this.ifnaSeq = ifnaSeq;
+	}
+	public String getIfmaZipcode() {
+		return ifmaZipcode;
+	}
+	public void setIfmaZipcode(String ifmaZipcode) {
+		this.ifmaZipcode = ifmaZipcode;
+	}
+	public String getIfmaAddress1() {
+		return ifmaAddress1;
+	}
+	public void setIfmaAddress1(String ifmaAddress1) {
+		this.ifmaAddress1 = ifmaAddress1;
+	}
+	public String getIfmaAddress2() {
+		return ifmaAddress2;
+	}
+	public void setIfmaAddress2(String ifmaAddress2) {
+		this.ifmaAddress2 = ifmaAddress2;
 	}
 	
 }
