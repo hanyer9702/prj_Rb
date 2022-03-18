@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.junefw.infra.modules.code.Code;
 
 /**
  * Handles requests for the application home page.
@@ -81,7 +80,7 @@ public class MemberController {
 	public String memberInst(Member dto) throws Exception {
 		
 //		입력 실행
-		service.insert(dto);
+//		service.insert(dto);
 		
 		return "redirect:/xdmin/member/memberList";
 	}

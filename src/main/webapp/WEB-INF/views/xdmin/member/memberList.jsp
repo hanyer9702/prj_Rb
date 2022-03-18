@@ -97,62 +97,7 @@
 				  검색
 				</button>
 				
-				<!-- Modal -->
-				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				  <div class="modal-dialog">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				      </div>
-				      <div class="modal-body">
-				        <div class="row row-cols-2 row-cols-sm-4 g-3 align-items-center">
-					 		<div class="col-6 col-sm-3">
-					 			<select class="form-select">
-								  <option selected>Open this select menu</option>
-								  <option value="1">One</option>
-								  <option value="2">Two</option>
-								  <option value="3">Three</option>
-								</select>
-					 		</div>
-					 		<div class="col-6 col-sm-3">
-					 			<select class="form-select">
-								  <option selected>Open this select menu</option>
-								  <option value="1">One</option>
-								  <option value="2">Two</option>
-								  <option value="3">Three</option>
-								</select>
-					 		</div>
-					 		<div class="col-6 col-sm-3">
-					 			<input type="text" id="startDate" class="form-control" placeholder="시작일">
-					 		</div>
-					 		<div class="col-6 col-sm-3">
-					 			<input type="text" id="endDate" class="form-control" placeholder="종료일">
-					 		</div>
-					 		<div class="col-6 col-sm-3">
-					 			<select class="form-select">
-								  <option selected>Open this select menu</option>
-								  <option value="1">One</option>
-								  <option value="2">Two</option>
-								  <option value="3">Three</option>
-								</select>
-					 		</div>
-					 		<div class="col-6 col-sm-3">
-					 			<input type="text" id="startDate" class="form-control" placeholder="검색어">
-					 		</div>
-		 				</div>
-				      </div>
-				      <div class="modal-footer">
-				        <!-- 
-				        <button type="button" class="btn btn-primary">Save changes</button> -->
-				        <button type="button" class="btn btn-outline-secondary">검색</button>
-					 	<button type="button" class="btn btn-outline-danger">초기화</button>
-					 	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-		 		<!-- modal end -->
+				
 		 	</div>
 	 		
 	 		<form id="" name="" method="get" action="memberList">
@@ -183,17 +128,17 @@
 				 		<div class="col-6 col-sm-3">
 				 			<select class="form-select" name="shOption">
 							  <option selected>선택</option>
-							  <option value="1">이름</option>
-							  <option value="2">id</option>
-							  <option value="3">주소</option>
-							  <option value="4">전화번호</option>
+							  <option value="1" <c:if test="${vo.shOption eq 1}">selected</c:if>>이름</option>
+							  <option value="2" <c:if test="${vo.shOption eq 2}">selected</c:if>>id</option>
+							  <option value="3" <c:if test="${vo.shOption eq 3}">selected</c:if>>주소</option>
+							  <option value="4" <c:if test="${vo.shOption eq 4}">selected</c:if>>전화번호</option>
 							</select>
 				 		</div>
 				 		<div class="col-6 col-sm-3">
-				 			<input type="text" id="startDate" class="form-control" placeholder="검색어" name="shValue">
+				 			<input type="text" id="shValue" class="form-control" placeholder="검색어" name="shValue">
 				 		</div>
 				 		<div>
-				 			<button type="submit" class="btn btn-outline-secondary">검색</button>
+				 			<button type="submit" id="btnSubmit" class="btn btn-outline-secondary">검색</button>
 				 			<button type="reset" class="btn btn-outline-danger">초기화</button>
 				 		</div>
 			 		</div>
@@ -207,10 +152,10 @@
 	 			</div>
  				<form class="col-2 col-sm-1 offset-4 offset-sm-8 px-1 px-sm-3" id="" name="" method="get">
 	 				<select class="form-select form-select-sm" id="selectRowNumShow" onchange="location.href=this.value">
-						<!-- <option value="5" selected>5</option>
-						<option value="10">10</option>
-						<option value="20">20</option> -->
-						<c:if test="${vo.rowNumToShow eq 5}">
+						<option value="memberList?rowNumToShow=5" <c:if test="${vo.rowNumToShow eq 5}">selected</c:if>>5</option>
+						<option value="memberList?rowNumToShow=10" <c:if test="${vo.rowNumToShow eq 10}">selected</c:if>>10</option>
+						<option value="memberList?rowNumToShow=20" <c:if test="${vo.rowNumToShow eq 20}">selected</c:if>>20</option>
+						<%-- <c:if test="${vo.rowNumToShow eq 5}">
 							<option value="5" selected>5</option>
 							<option value="memberList?rowNumToShow=10">10</option> 
 							<option value="memberList?rowNumToShow=20">20</option>
@@ -224,7 +169,7 @@
 							<option value="memberList?rowNumToShow=5">5</option>
 							<option value="memberList?rowNumToShow=10">10</option>
 							<option value="20" selected>20</option>
-						</c:if>
+						</c:if> --%>
 					</select>
 				</form>
 	 		</div>
@@ -324,8 +269,99 @@
 				</div>
 	 		</div>
 	 	</section>
+	 	
+	 	<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <form id="" name="" method="get" action="memberList">
+			      <div class="modal-body">
+			        <div class="row row-cols-2 row-cols-sm-4 g-3 align-items-center">
+				 		<div class="col-6 col-sm-3">
+				 			<select class="form-select">
+							  <option selected>Open this select menu</option>
+							  <option value="1">One</option>
+							  <option value="2">Two</option>
+							  <option value="3">Three</option>
+							</select>
+				 		</div>
+				 		<div class="col-6 col-sm-3">
+				 			<select class="form-select">
+							  <option selected>Open this select menu</option>
+							  <option value="1">One</option>
+							  <option value="2">Two</option>
+							  <option value="3">Three</option>
+							</select>
+				 		</div>
+				 		<div class="col-6 col-sm-3">
+				 			<input type="text" id="startDate" class="form-control" placeholder="시작일">
+				 		</div>
+				 		<div class="col-6 col-sm-3">
+				 			<input type="text" id="endDate" class="form-control" placeholder="종료일">
+				 		</div>
+				 		<div class="col-6 col-sm-3">
+				 			<select class="form-select" name="shOption">
+							  <option selected>선택</option>
+							  <option value="1" <c:if test="${vo.shOption eq 1}">selected</c:if>>이름</option>
+							  <option value="2" <c:if test="${vo.shOption eq 2}">selected</c:if>>id</option>
+							  <option value="3" <c:if test="${vo.shOption eq 3}">selected</c:if>>주소</option>
+							  <option value="4" <c:if test="${vo.shOption eq 4}">selected</c:if>>전화번호</option>
+							</select>
+				 		</div>
+				 		<div class="col-6 col-sm-3">
+				 			<input type="text" id="shValue" name="shValue" class="form-control" placeholder="검색어">
+				 		</div>
+	 				</div>
+			      </div>
+			
+			      <div class="modal-footer">
+			        <button type="submit" id="btnSubmit2" class="btn btn-outline-secondary">검색</button>
+				 	<button type="button" class="btn btn-outline-danger">초기화</button>
+			 		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		     	 </div>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+ 		<!-- modal end -->
 	 
 	 <%@include file="../include/footer.jsp"%>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+	 <script src="/resources/xdmin/js/validation.js"></script>
+	 
+	 <script type="text/javascript">
+		$("#btnSubmit").on("click", function(){
+			
+			/* if($("#shIfcgName").val() == "" || $("#shIfcgName").val()  == null){
+				alert("null이다.");
+				$("#shIfcgName").focus();
+			} */
+			
+			if(!checkNull($("#shValue"), $("#shValue").val(), "검색어를 입력하세요!")) return false;
+			/* checkNull($("#shIfcgName"), $("#shIfcgName").val(), "shIfcgName null이다.");
+			checkNull($("#shOption"), $("#shOption").val(), "shOption null이다.");
+			checkNull($("#shValue"), $("#shValue").val(), "shValue null이다."); */
+			
+			/* alert($("#shOption").val()); */
+			
+			/* alert("hello javascript!!!");
+			confirm("진짜 삭제 하시겠습니까?") */
+			/* alert($("#shIfcgDelNy").val());		//jquery 방식
+			alert($("#shIfcgName").val());		//jquery 방식
+			alert($("#shOption").val());		//jquery 방식
+			alert($("#shValue").val());		//jquery 방식 */
+			/* alert(document.getElementById("shIfcgName").value);		//javascript 방식 */
+		})
+		$("#btnSubmit2").on("click", function(){
+			
+			if(!checkNull($("#shValue"), $("#shValue").val(), "검색어를 입력하세요!")) return false;
+			
+		})
+	</script>
 	 
 	 <script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
