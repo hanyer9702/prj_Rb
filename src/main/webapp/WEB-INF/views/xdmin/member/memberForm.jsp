@@ -264,7 +264,7 @@
 					<div class="mb-3 col-sm-6">
 					    <label for="userHomepage" class="form-label">홈페이지</label>
 					    <input type="text" class="form-control" id="userHomepage">
-					</div>
+					</div> 
 					<div class="col-sm-6 row align-items-center mb-3 ps-4 me-2">
 				  		<label for="" class="form-label">결혼여부</label>
 					  <div class="form-check col-3 col-md-2">
