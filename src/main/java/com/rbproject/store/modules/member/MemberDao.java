@@ -35,11 +35,10 @@ public class MemberDao {
 		sqlSession.insert(namespace + ".insertInfrMemberAddress", dto);
 		sqlSession.insert(namespace + ".insertInfrMemberMobile", dto);
 		sqlSession.insert(namespace + ".insertInfrMemberPhone", dto);
-		sqlSession.insert(namespace + ".insertInfrMemberPhone", dto);
 		sqlSession.insert(namespace + ".insertInfrMemberFax", dto);
 		sqlSession.insert(namespace + ".insertInfrMemberEmail", dto);
 		sqlSession.insert(namespace + ".insertInfrMemberJoinQna", dto);
-		sqlSession.insert(namespace + ".insertInfrMemberFax", dto);
+		sqlSession.insert(namespace + ".insertInfrMemberAddressOnline", dto);
 		
 		return 1;
 	}

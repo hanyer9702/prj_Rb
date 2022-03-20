@@ -67,7 +67,7 @@
 		 
 		 <section>
 		 	<h3 class="p-1">회원 등록</h3>
-		 	<form id="" name="" method="post" action="memberInst">
+		 	<form id="" name="" method="get" action="memberInst">
 		 		<div class="row g-3 p-2">
 				  <div class="mb-3 col-sm-6">
 				    <label for="userName" class="form-label">이름</label>
@@ -76,14 +76,14 @@
 				  <div class="col-sm-6 row align-items-center mb-3 ps-3">
 				  	<label for="" class="form-label">성별</label>
 					  <div class="form-check col-3 col-md-2">
-						  <input class="form-check-input" type="radio" name="ifmmGender" id="userGenderMan" value="3">
-						  <label class="form-check-label" for="userGenderMan">
+						  <input class="form-check-input" type="radio" name="ifmmGenderCd" id="ifmmGenderCdM" value="3">
+						  <label class="form-check-label" for="ifmmGenderCdM">
 						    남성
 						  </label>
 						</div>
 						<div class="form-check col-3 col-md-2">
-						  <input class="form-check-input" type="radio" name="ifmmGender" id="userGenderWoman" value="4">
-						  <label class="form-check-label" for="userGenderWoman">
+						  <input class="form-check-input" type="radio" name="ifmmGenderCd" id="ifmmGenderCdW" value="4">
+						  <label class="form-check-label" for=""ifmmGenderCdW"">
 						    여성
 						  </label>
 						</div>
@@ -226,7 +226,7 @@
 					</div>
 					<div class="mb-3 col-sm-6">
 					    <label for="userRecommender" class="form-label">추천인</label>
-					    <input type="text" class="form-control" id="ifmmRecommenderSeq" name="ifmmRecommenderSeq">
+					    <input type="text" class="form-control" id="ifmmRecommenderName" name="ifmmRecommenderName">
 					</div>
 					<div class="mb-3 col-sm-6">
 					    <label for="ifmmSavedCd" class="form-label">개인정보유효기간 동의</label>

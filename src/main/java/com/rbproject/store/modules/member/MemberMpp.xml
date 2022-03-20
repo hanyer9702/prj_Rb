@@ -23,6 +23,7 @@
 			</choose>
     </sql>
     
+    
     <select id="selectOneCount" resultType="Integer">
     	SELECT
 			count(*)
@@ -64,10 +65,10 @@
 			    , (select ifcdName from infrCode where f.ifjqQuestionCd = ifcdSeq) as ifjqQuestion
 			    , f.ifjqAnswer
 			    , (select ifcdName from infrCode where h.ifmpTelecomCd = ifcdSeq) as ifmpTelecom
-			    , ifmpNumber
+			    , h.ifmpNumber
 			    , concat(substring(ifmpNumber,1,3),"-",substring(ifmpNumber,4,4),"-",substring(ifmpNumber,7,4)) as ifmpNumberDash
-			    , (select concat(substring(ifmpNumber,1,2),"-",substring(ifmpNumber,3,3),"-",substring(ifmpNumber,6,4)) from infrmemberphone where ifmpDeviceCd = 24 and ifmpDefaultNy = 1) as ifmpHomeNumber
-			    , (select concat(substring(ifmpNumber,1,3),"-",substring(ifmpNumber,4,3),"-",substring(ifmpNumber,7,4)) from infrmemberphone where ifmpDeviceCd = 26 and ifmpDefaultNy = 1) as ifmpFaxNumber
+			    , (select concat(substring(ifmpNumber,1,2),"-",substring(ifmpNumber,3,3),"-",substring(ifmpNumber,6,4)) from infrmemberphone where ifmpDeviceCd = 24 and ifmpDefaultNy = 1 and ifmmSeq=a.ifmmSeq) as ifmpHomeNumber
+			    , (select concat(substring(ifmpNumber,1,3),"-",substring(ifmpNumber,4,3),"-",substring(ifmpNumber,7,4)) from infrmemberphone where ifmpDeviceCd = 26 and ifmpDefaultNy = 1 and ifmmSeq=a.ifmmSeq) as ifmpFaxNumber
 			    , (select ifnaName from infrNationality where ifnaSeq = g.ifnaSeq) as ifnaName
 			    
 			from infrMember a
@@ -108,7 +109,7 @@
 			,#{ifmmDob}
 			,#{ifmmSmsConsentNy}
 			,#{ifmmEmailConsentNy}
-			,(select a.ifmmSeq from infrMember a where a.ifmmName LIKE concat('%',#{ifmmRecommenderName},'%'))
+			,(select a.ifmmSeq from infrMember a where a.ifmmName LIKE #{ifmmRecommenderName})
 			,ifmmSavedCd
 			,ifmmMarriageCd
 			,ifmmMarriageDate
@@ -117,16 +118,21 @@
 			,ifmmDesc
 			,0
 		)
+		<selectKey resultType="string" keyProperty="ifmmSeq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>
 	</insert>
 	
 	<insert id="insertInfrMemberNationality">
 		insert into infrMemberNationality(
 			ifmmSeq
 			,ifnaSeq
+			,ifmnDefaultNy 
 			,ifmnDelNy
 		) values (
 			#{ifmmSeq}
 			,#{ifnaSeq}
+			,1
 			,0
 		)
 	</insert>
@@ -160,7 +166,7 @@
 		) values (
 			#{ifmmSeq}
 			,#{ifmpTelecomCd}
-			,#{ifmpNumberAll}
+			,concat(#{ifmpNumber1},#{ifmpNumber2},#{ifmpNumber3})
 			,25
 			,1
 			,0
@@ -176,7 +182,7 @@
 			,ifmpDelNy
 		) values (
 			#{ifmmSeq}
-			,#{ifmpPhoneAll}
+			,concat(#{ifmpPhone1},#{ifmpPhone2},#{ifmpPhone3})
 			,24
 			,1
 			,0
@@ -184,15 +190,15 @@
 	</insert>
 	
 	<insert id="insertInfrMemberFax">
-		insert into infrMemberFax(
+		insert into infrMemberPhone(
 			ifmmSeq
 			,ifmpNumber
 			,ifmpDeviceCd
 			,ifmpDefaultNy
 			,ifmpDelNy
-		) values (
+		) values ( 
 			#{ifmmSeq}
-			,#{ifmpFaxAll}
+			,concat(#{ifmpFax1},#{ifmpFax2},#{ifmpFax3})
 			,26
 			,1
 			,0
@@ -206,13 +212,12 @@
 			,ifmeEmailDomainCd
 			,ifmeEmailFull
 			,ifmeDefaultNy
-			,ifmpDelNy
+			,ifmeDelNy
 		) values (
-			#{ifmmSeq}
+			#{ifmmSeq} 
 			,#{ifmeEmailAccount}
 			,#{ifmeEmailDomainCd}
 			,concat(#{ifmeEmailAccount}, "@", (select ifcdName from infrCode where #{ifmeEmailDomainCd} = ifcdSeq))
-			,26
 			,1
 			,0
 		)
