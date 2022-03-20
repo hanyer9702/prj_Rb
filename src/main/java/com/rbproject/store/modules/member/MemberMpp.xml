@@ -83,15 +83,170 @@
 				AND a.ifmmSeq = #{ifmmSeq}
 	</select>
 	
-	<insert id="insert">
+	<insert id="insertInfrMember">
 		insert into infrMember(
 			ifmmId
 			,ifmmName
+			,ifmmGenderCd
+			,ifmmPassword
+			,ifmmDob
+			,ifmmSmsConsentNy
+			,ifmmEmailConsentNy
+			,ifmmRecommenderSeq
+			,ifmmSavedCd
+			,ifmmMarriageCd
+			,ifmmMarriageDate
+			,ifmmChildrenNum
+			,ifmmFavoriteColor
+			,ifmmDesc
 			,ifmmDelNy
 		) values (
 			#{ifmmId}
 			,#{ifmmName}
+			,#{ifmmGenderCd}
+			,#{ifmmPassword}
+			,#{ifmmDob}
+			,#{ifmmSmsConsentNy}
+			,#{ifmmEmailConsentNy}
+			,(select a.ifmmSeq from infrMember a where a.ifmmName LIKE concat('%',#{ifmmRecommenderName},'%'))
+			,ifmmSavedCd
+			,ifmmMarriageCd
+			,ifmmMarriageDate
+			,ifmmChildrenNum
+			,ifmmFavoriteColor
+			,ifmmDesc
 			,0
 		)
 	</insert>
+	
+	<insert id="insertInfrMemberNationality">
+		insert into infrMemberNationality(
+			ifmmSeq
+			,ifnaSeq
+			,ifmnDelNy
+		) values (
+			#{ifmmSeq}
+			,#{ifnaSeq}
+			,0
+		)
+	</insert>
+	
+	<insert id="insertInfrMemberAddress">
+		insert into infrMemberAddress(
+			ifmmSeq
+			,ifmaZipcode
+			,ifmaAddress1
+			,ifmaAddress2
+			,ifmaDefaultNy
+			,ifmaDelNy
+		) values (
+			#{ifmmSeq}
+			,#{ifmaZipcode}
+			,#{ifmaAddress1}
+			,#{ifmaAddress2}
+			,1
+			,0
+		)
+	</insert>
+	
+	<insert id="insertInfrMemberMobile">
+		insert into infrMemberPhone(
+			ifmmSeq
+			,ifmpTelecomCd
+			,ifmpNumber
+			,ifmpDeviceCd
+			,ifmpDefaultNy
+			,ifmpDelNy
+		) values (
+			#{ifmmSeq}
+			,#{ifmpTelecomCd}
+			,#{ifmpNumberAll}
+			,25
+			,1
+			,0
+		)
+	</insert>
+	
+	<insert id="insertInfrMemberPhone">
+		insert into infrMemberPhone(
+			ifmmSeq
+			,ifmpNumber
+			,ifmpDeviceCd
+			,ifmpDefaultNy
+			,ifmpDelNy
+		) values (
+			#{ifmmSeq}
+			,#{ifmpPhoneAll}
+			,24
+			,1
+			,0
+		)
+	</insert>
+	
+	<insert id="insertInfrMemberFax">
+		insert into infrMemberFax(
+			ifmmSeq
+			,ifmpNumber
+			,ifmpDeviceCd
+			,ifmpDefaultNy
+			,ifmpDelNy
+		) values (
+			#{ifmmSeq}
+			,#{ifmpFaxAll}
+			,26
+			,1
+			,0
+		)
+	</insert>
+	
+	<insert id="insertInfrMemberEmail">
+		insert into infrMemberEmail(
+			ifmmSeq
+			,ifmeEmailAccount
+			,ifmeEmailDomainCd
+			,ifmeEmailFull
+			,ifmeDefaultNy
+			,ifmpDelNy
+		) values (
+			#{ifmmSeq}
+			,#{ifmeEmailAccount}
+			,#{ifmeEmailDomainCd}
+			,concat(#{ifmeEmailAccount}, "@", (select ifcdName from infrCode where #{ifmeEmailDomainCd} = ifcdSeq))
+			,26
+			,1
+			,0
+		)
+	</insert>
+	
+	<insert id="insertInfrMemberJoinQna">
+		insert into infrMemberJoinQna(
+			ifmmSeq
+			,ifjqQuestionCd
+			,ifjqAnswer
+			,ifjqDelNy
+		) values (
+			#{ifmmSeq}
+			,#{ifjqQuestionCd}
+			,#{ifjqAnswer}
+			,0
+		)
+	</insert>
+	
+	<insert id="insertInfrMemberAddressOnline">
+		insert into infrMemberAddressOnline(
+			ifmmSeq
+			,ifaoSnsTypeCd
+			,ifaoUrl
+			,ifaoDefaultNy
+			,ifaoDelNy
+		) values (
+			#{ifmmSeq}
+			,#{ifaoSnsTypeCd}
+			,#{ifaoUrl}
+			,1
+			,0
+		)
+	</insert>
+	
+	
 </mapper>

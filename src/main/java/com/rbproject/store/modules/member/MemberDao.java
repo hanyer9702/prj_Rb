@@ -29,10 +29,19 @@ public class MemberDao {
 		return sqlSession.selectOne(namespace + ".selectOne", vo);
 	}
 	
+	public int insert(Member dto) {
+		sqlSession.insert(namespace + ".insertInfrMember", dto);
+		sqlSession.insert(namespace + ".insertInfrMemberNationality", dto);
+		sqlSession.insert(namespace + ".insertInfrMemberAddress", dto);
+		sqlSession.insert(namespace + ".insertInfrMemberMobile", dto);
+		sqlSession.insert(namespace + ".insertInfrMemberPhone", dto);
+		sqlSession.insert(namespace + ".insertInfrMemberPhone", dto);
+		sqlSession.insert(namespace + ".insertInfrMemberFax", dto);
+		sqlSession.insert(namespace + ".insertInfrMemberEmail", dto);
+		sqlSession.insert(namespace + ".insertInfrMemberJoinQna", dto);
+		sqlSession.insert(namespace + ".insertInfrMemberFax", dto);
+		
+		return 1;
+	}
 	
-	
-//	public int insert(Member dto){ 
-//		return sqlSession.insert(namespace + ".insert", dto);
-//	}
-
 }

@@ -104,8 +104,8 @@
 				    <input type="date" class="form-control" id="ifmmDob" name="ifmmDob">
 				  </div>
 				  <div class="mb-3 col-sm-6">
-				  	<label for="userNationality" class="form-label">국적</label>
-				  	<select class="form-select">
+				  	<label for="ifnaSeq" class="form-label">국적</label>
+				  	<select class="form-select" id="ifnaSeq" name="ifnaSeq">
 					  <option selected>선택하세요</option>
 					  <option value="1">한국</option>
 					  <option value="2">미국</option>
@@ -135,28 +135,28 @@
 						</select>
 					</div>
 					<div class="col-2 col-md-3">
-						<input type="text" class="form-control" id="userMobile1" name="ifmpNumber1" size="2">
+						<input type="text" class="form-control" id="ifmpNumber1" name="ifmpNumber1" size="2">
 					</div>
 					<div class="col-auto">-</div>
 					<div class="col-3">
-						<input type="text" class="form-control" id="userMobile2" name="ifmpNumber2"	size="3">
+						<input type="text" class="form-control" id="ifmpNumber2" name="ifmpNumber2"	size="3">
 					</div>
 					<div class="col-auto">-</div>
 					<div class="col-3">
-						<input type="text" class="form-control" id="userMobile3" name="ifmpNumber3" size="3">
+						<input type="text" class="form-control" id="ifmpNumber3" name="ifmpNumber3" size="3">
 					</div>
 				  </div>
 				  <div class="col-sm-6 row align-items-center mb-3 ps-3">
 				  	<label for="" class="form-label">모바일 마케팅 수신 동의</label>
 					  <div class="form-check col-3 col-md-2">
-						  <input class="form-check-input" type="radio" name="ifmmSmsConsentNy" id="userMobileAgreeOk">
-						  <label class="form-check-label" for="userMobileAgreeOk">
+						  <input class="form-check-input" type="radio" name="ifmmSmsConsentNy" id="ifmmSmsConsentY" value="1">
+						  <label class="form-check-label" for="ifmmSmsConsentY">
 						    동의
 						  </label>
 						</div>
 						<div class="form-check col-3 col-md-2">
-						  <input class="form-check-input" type="radio" name="ifmmSmsConsentNy" id="userMobileAgreeNo">
-						  <label class="form-check-label" for="userMobileAgreeNo">
+						  <input class="form-check-input" type="radio" name="ifmmSmsConsentNy" id="ifmmSmsConsentN" value="0">
+						  <label class="form-check-label" for="ifmmSmsConsentN">
 						    비동의
 						  </label>
 						</div>
@@ -164,47 +164,47 @@
 				<div class="mb-3 col-sm-6 row g-2 align-items-center">
 				  	<label for="userMobile" class="form-label">전화번호</label>
 					<div class="col-3">
-						<input type="text" class="form-control" id="userMobile2" name="userPhone2"	size="3">
+						<input type="text" class="form-control" id="ifmpPhone1" name="ifmpPhone1"	size="3">
 					</div>
 					<div class="col-auto">-</div>
 					<div class="col-4">
-						<input type="text" class="form-control" id="userMobile2" name="userPhone2"	size="3">
+						<input type="text" class="form-control" id="ifmpPhone2" name="ifmpPhone2"	size="3">
 					</div>
 					<div class="col-auto">-</div>
 					<div class="col-4">
-						<input type="text" class="form-control" id="userMobile3" name="userPhone3" size="3">
+						<input type="text" class="form-control" id="ifmpPhone3" name="ifmpPhone3" size="3">
 					</div>
 				  </div>
 				  <div class="mb-3 col-sm-6 row g-2 align-items-center">
 				  	<label for="userMobile" class="form-label">팩스</label>
 					<div class="col-3">
-						<input type="text" class="form-control" id="userMobile2" name="userFax1"	size="3">
+						<input type="text" class="form-control" id="ifmpFax1" name="ifmpFax1"	size="3">
 					</div>
 					<div class="col-auto">-</div>
 					<div class="col-4">
-						<input type="text" class="form-control" id="userMobile2" name="userFax2"	size="3">
+						<input type="text" class="form-control" id="ifmpFax2" name="ifmpFax2"	size="3">
 					</div>
 					<div class="col-auto">-</div>
 					<div class="col-4">
-						<input type="text" class="form-control" id="userMobile3" name="userFax3" size="3">
+						<input type="text" class="form-control" id="ifmpFax3" name="ifmpFax3" size="3">
 					</div>
 				  </div>
 				  <div class="col-sm-6 mb-3">
 				  	<label for="userEmail" class="form-label">이메일</label>
 				  	<div class="row g-3 align-items-center">
 						<div class="col-6 col-md-7">
-							<input type="text" id="userEmail" name="userEmail" class="form-control">
+							<input type="text" id="ifmeEmailAccount" name="ifmeEmailAccount" class="form-control">
 						</div>
 						<div class="col-1 col-md-auto">
 							@
 						</div>
 						<div class="col-5 col-md-4">
-							<select class="form-select">
+							<select class="form-select" id="ifmeEmailDomainCd" name="ifmeEmailDomainCd">
 							  <option selected>이메일</option>
-							  <option value="1">naver.com</option>
-							  <option value="2">daum.net</option>
-							  <option value="3">gmail.com</option>
-							  <option value="4">직접입력</option>
+							  <option value="16">naver.com</option>
+							  <option value="17">daum.net</option>
+							  <option value="18">gmail.com</option>
+							  <option value="19">직접입력</option>
 							</select>
 						</div>
 					</div>
@@ -212,108 +212,112 @@
 				  <div class="col-sm-6 row align-items-center mb-3 ps-3">
 				  	<label for="" class="form-label">이메일 마케팅 수신 동의</label>
 					  <div class="form-check col-3 col-md-2">
-						  <input class="form-check-input" type="radio" name="userEmailAgree" id="userEmailAgreeOk">
-						  <label class="form-check-label" for="userEmailAgreeOk">
+						  <input class="form-check-input" type="radio" name="ifmmEmailConsentNy" id="ifmmEmailConsentY" value="1">
+						  <label class="form-check-label" for="ifmmEmailConsentY">
 						    동의
 						  </label>
 						</div>
 						<div class="form-check col-3 col-md-2">
-						  <input class="form-check-input" type="radio" name="userEmailAgree" id="userEmailAgreeNo">
-						  <label class="form-check-label" for="userEmailAgreeNo">
+						  <input class="form-check-input" type="radio" name="ifmmEmailConsentNy" id="ifmmEmailConsentN" value="0">
+						  <label class="form-check-label" for="ifmmEmailConsentN">
 						    비동의
 						  </label>
 						</div>
 					</div>
 					<div class="mb-3 col-sm-6">
 					    <label for="userRecommender" class="form-label">추천인</label>
-					    <input type="text" class="form-control" id="userRecommender">
+					    <input type="text" class="form-control" id="ifmmRecommenderSeq" name="ifmmRecommenderSeq">
 					</div>
 					<div class="mb-3 col-sm-6">
-					    <label for="userSave" class="form-label">개인정보유효기간 동의</label>
-					    <select class="form-select">
+					    <label for="ifmmSavedCd" class="form-label">개인정보유효기간 동의</label>
+					    <select class="form-select" id="ifmmSavedCd" name="ifmmSavedCd">
 								<option selected>기간</option>
-								<option value="1">1년</option>
-								<option value="2">3년</option>
-								<option value="3">5년</option>
-								<option value="4">10년</option>
-								<option value="5">탈퇴시</option>
+								<option value="5">1년</option>
+								<option value="6">2년</option>
+								<option value="7">3년</option>
+								<option value="8">5년</option>
+								<option value="9">10년</option>
+								<option value="10">탈퇴시</option>
 						</select>
 					</div>
 					<div class="mb-3 col-sm-6">
-						<label for="userPasswordQuestion" class="form-label">비밀번호 찾기 문제</label>
-						<select id="userPasswordQuestion" name="userPasswordQuestion"	class="form-select">
+						<label for="ifjqQuestionCd" class="form-label">비밀번호 찾기 문제</label>
+						<select id="ifjqQuestionCd" name="ifjqQuestionCd" class="form-select">
 							<option selected>질문</option>
-							<option value="1">내가 졸업한 초등학교는?</option>
-							<option value="2">제일 친한 친구는?</option>
-							<option value="3">아버지 성함은?</option>
+							<option value="61">내가 태어난 병원은?</option>
+							<option value="62">내가 졸업한 초등학교는?</option>
+							<option value="63">가장 친한 친구는?</option>
+							<option value="64">아버지 성함은?</option>
+							<option value="65">존경하는 인물은?</option>
 						</select>
 					</div>
 					<div class="mb-3 col-sm-6">
-					    <label for="userPasswordAnswer" class="form-label">비밀번호 찾기 답</label>
-					    <input type="text" class="form-control" id="userPasswordAnswer">
+					    <label for="ifjqAnswer" class="form-label">비밀번호 찾기 답</label>
+					    <input type="text" class="form-control" id="ifjqAnswer" name="ifjqAnswer">
 					</div>
 					<div class="mb-3 col-sm-6">
-						<label for="userSns" class="form-label">SNS</label>
-						<select id="userSns" name="userSns"	class="form-select">
+						<label for="ifaoSnsTypeCd" class="form-label">SNS</label>
+						<select id="ifaoSnsTypeCd" name="ifaoSnsTypeCd"	class="form-select">
 							<option selected>sns선택</option>
-							<option value="1">인스타그램</option>
-							<option value="2">페이스북</option>
-							<option value="3">트위터</option>
+							<option value="34">페이스북</option>
+							<option value="35">인스타그램</option>
+							<option value="36">트위터</option>
+							<option value="37">카톡</option>
 						</select>
 					</div>
 					<div class="mb-3 col-sm-6">
-					    <label for="userHomepage" class="form-label">홈페이지</label>
-					    <input type="text" class="form-control" id="userHomepage">
+					    <label for="ifaoUrl" class="form-label">홈페이지</label>
+					    <input type="text" class="form-control" id="ifaoUrl" name="ifaoUrl">
 					</div> 
 					<div class="col-sm-6 row align-items-center mb-3 ps-4 me-2">
-				  		<label for="" class="form-label">결혼여부</label>
+				  		<label for="ifmmMarriageCd" class="form-label">결혼여부</label>
 					  <div class="form-check col-3 col-md-2">
-						  <input class="form-check-input" type="radio" name="userMarriage" id="userMarriageY">
-						  <label class="form-check-label" for="userMarriageY">
+						  <input class="form-check-input" type="radio" name="ifmmMarriageCd" id="ifmmMarriageCdY">
+						  <label class="form-check-label" for="ifmmMarriageCdY">
 						    기혼
 						  </label>
 						</div>
 						<div class="form-check col-3 col-md-2">
-						  <input class="form-check-input" type="radio" name="userMarriage" id="userMarriageN">
-						  <label class="form-check-label" for="userMarriageN">
+						  <input class="form-check-input" type="radio" name="ifmmMarriageCd" id="ifmmMarriageCdN">
+						  <label class="form-check-label" for="ifmmMarriageCdN">
 						    미혼
 						  </label>
 						</div>
 					</div>
 					<div class="mb-3 col-sm-6">
 					    <label for="userWeddingAniversary" class="form-label">결혼기념일</label>
-					    <input type="date" class="form-control" id="userWeddingAniversary">		
+					    <input type="date" class="form-control" id="ifmmMarriageDate" name="ifmmMarriageDate">		
 				  </div>
 				  <div class="mb-3 col-sm-6">
 					    <label for="userChildrenNum" class="form-label">자녀수</label>
-					    <input type="text" class="form-control" id="userChildrenNum">
+					    <input type="text" class="form-control" id="ifmmChildrenNum" name="ifmmChildrenNum">
 					</div>
 					<div class="mb-3 col-auto">
 					    <label for="userColor" class="form-label">좋아하는 색깔</label>
-					    <input type="color" class="form-control" id="userColor">
+					    <input type="color" class="form-control" id="ifmmFavoriteColor" name="ifmmFavoriteColor">
 					</div>
 					<div class="mb-3">
 						<label for="userHobby" class="form-label">취미</label>
 						<div class="mb-3">
-							<input type="checkbox" class="btn-check" id="userHobby1" autocomplete="off">
-							<label class="btn btn-outline-primary" for="userHobby1">영화보기</label>
-							<input type="checkbox" class="btn-check" id="userHobby2" autocomplete="off"> 
-							<label class="btn btn-outline-primary" for="userHobby2">음악감상</label> 
-							<input type="checkbox" class="btn-check" id="userHobby3" autocomplete="off">
-							<label class="btn btn-outline-primary" for="userHobby3">등산</label>
-							<input type="checkbox" class="btn-check" id="userHobby4" autocomplete="off"> 
-							<label class="btn btn-outline-primary" for="userHobby4">달리기</label> 
-							<input type="checkbox" class="btn-check" id="userHobby5" autocomplete="off">
-							<label class="btn btn-outline-primary" for="userHobby5">운동</label>
-							<input type="checkbox" class="btn-check" id="userHobby6" autocomplete="off"> 
-							<label class="btn btn-outline-primary" for="userHobby6">악기연주</label> 
-							<input type="checkbox" class="btn-check" id="userHobby7" autocomplete="off">
-							<label class="btn btn-outline-primary" for="userHobby7">독서</label>
+							<input type="checkbox" class="btn-check" id="ifmhHobbyCd1" name="ifmhHobbyCd1" value="38" autocomplete="off">
+							<label class="btn btn-outline-primary" for="ifmhHobbyCd1">독서</label>
+							<input type="checkbox" class="btn-check" id="ifmhHobbyCd2" name="ifmhHobbyCd2" value="39" autocomplete="off"> 
+							<label class="btn btn-outline-primary" for="ifmhHobbyCd2">걷기</label> 
+							<input type="checkbox" class="btn-check" id="ifmhHobbyCd3" name="ifmhHobbyCd3" value="40" autocomplete="off">
+							<label class="btn btn-outline-primary" for="ifmhHobbyCd3">달리기</label>
+							<input type="checkbox" class="btn-check" id="ifmhHobbyCd4" name="ifmhHobbyCd4" value="41" autocomplete="off"> 
+							<label class="btn btn-outline-primary" for="ifmhHobbyCd4">자전거타기</label> 
+							<input type="checkbox" class="btn-check" id="ifmhHobbyCd5" name="ifmhHobbyCd5" value="42" autocomplete="off">
+							<label class="btn btn-outline-primary" for="ifmhHobbyCd5">뜨개질</label>
+							<input type="checkbox" class="btn-check" id="ifmhHobbyCd6" name="ifmhHobbyCd6" value="43" autocomplete="off"> 
+							<label class="btn btn-outline-primary" for="ifmhHobbyCd6">종이접기</label> 
+							<input type="checkbox" class="btn-check" id="ifmhHobbyCd7" name="ifmhHobbyCd7" value="44" autocomplete="off">
+							<label class="btn btn-outline-primary" for="ifmhHobbyCd7">조각하기</label>
 						</div>
 					</div>
 					<div class="mb-3">
 						<label for="userIntroduce" class="form-label">자기소개</label>
-						<textarea class="form-control" id="userIntroduce" rows="3"></textarea>
+						<textarea class="form-control" id="ifmmDesc" name="ifmmDesc" rows="3"></textarea>
 					</div>
 				</div>
 			  <button type="button" class="btn btn-danger m-2">돌아가기</button>

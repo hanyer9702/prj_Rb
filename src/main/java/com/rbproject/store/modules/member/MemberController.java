@@ -80,7 +80,7 @@ public class MemberController {
 	public String memberInst(Member dto) throws Exception {
 		
 //		입력 실행
-//		service.insert(dto);
+		service.insert(dto);
 		
 		return "redirect:/xdmin/member/memberList";
 	}
