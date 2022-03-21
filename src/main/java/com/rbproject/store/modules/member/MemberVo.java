@@ -5,7 +5,7 @@ import java.util.Date;
 public class MemberVo {
 	
 	private String ifmmSeq = "";
-	
+		
 	private String shValue;
 	private String shOption;
 	

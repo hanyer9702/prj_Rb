@@ -154,7 +154,7 @@
 			</table>
 			<button type="button" class="btn btn-success" onclick="location.href='memberList'">목록</button>
 			<div class="float-end">
-				<button type="button" class="btn btn-warning" onclick="location.href='memberEdit'">수정</button>
+				<button type="button" class="btn btn-warning" onclick="location.href='memberEdit?ifmmSeq=${rt.ifmmSeq}'">수정</button>
 				<button type="button" class="btn btn-danger" data-bs-toggle="modal"	data-bs-target="#deleteModal">삭제</button>
 			</div>
 		</div>

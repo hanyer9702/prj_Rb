@@ -84,6 +84,15 @@
 				AND a.ifmmSeq = #{ifmmSeq}
 	</select>
 	
+	<select id="selectCode" resultMap="resultMapObj">
+		SELECT
+			ifcdSeq
+			,ifcdName
+			,ifcgSeq 
+		FROM
+			infrCode
+	</select>
+	
 	<insert id="insertInfrMember">
 		insert into infrMember(
 			ifmmId
@@ -93,13 +102,13 @@
 			,ifmmDob
 			,ifmmSmsConsentNy
 			,ifmmEmailConsentNy
-			,ifmmRecommenderSeq
 			,ifmmSavedCd
 			,ifmmMarriageCd
 			,ifmmMarriageDate
 			,ifmmChildrenNum
 			,ifmmFavoriteColor
 			,ifmmDesc
+			,ifmmRecommenderSeq
 			,ifmmDelNy
 		) values (
 			#{ifmmId}
@@ -109,13 +118,13 @@
 			,#{ifmmDob}
 			,#{ifmmSmsConsentNy}
 			,#{ifmmEmailConsentNy}
-			,(select a.ifmmSeq from infrMember a where a.ifmmName LIKE #{ifmmRecommenderName})
-			,ifmmSavedCd
-			,ifmmMarriageCd
-			,ifmmMarriageDate
-			,ifmmChildrenNum
-			,ifmmFavoriteColor
-			,ifmmDesc
+			,#{ifmmSavedCd}
+			,#{ifmmMarriageCd}
+			,#{ifmmMarriageDate}
+			,#{ifmmChildrenNum}
+			,#{ifmmFavoriteColor}
+			,#{ifmmDesc}
+			<if test="ifmmRecommenderName != null and !ifmmRecommenderName.equals('')">,(select a.ifmmSeq from infrMember a where a.ifmmName LIKE #{ifmmRecommenderName})</if>
 			,0
 		)
 		<selectKey resultType="string" keyProperty="ifmmSeq" order="AFTER">
@@ -253,5 +262,26 @@
 		)
 	</insert>
 	
+	<insert id="insertInfrMemberHobby">
+		insert into infrMemberHobby( 
+			ifmmSeq
+			,ifmhHobbyCd
+			,ifmhUseNy
+			,ifmaDelNy
+		) values (
+			#{ifmmSeq}
+			,#{ifmhHobbyCd}
+			,1
+			,0
+		)
+	</insert>
 	
+	<update id="updateMember">
+		UPDATE
+			infrMember
+		SET 
+			ifcdName = #{ifcdName}
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</update>
 </mapper>

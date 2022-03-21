@@ -64,14 +64,15 @@ public class MemberController {
 		
 		Member rt = service.selectOne(vo);
 		model.addAttribute("rt", rt);
-		
-		System.out.println("view");
-		
+				
 		return "/xdmin/member/memberView";
 	}
 	
 	@RequestMapping(value = "/xdmin/member/memberForm")
-	public String memberForm() throws Exception {
+	public String memberForm(Member dto, Model model) throws Exception {
+		
+		List<Member> codeList = service.selectCode(dto);
+		model.addAttribute("codeList", codeList);
 		
 		return "/xdmin/member/memberForm";
 	}
@@ -83,5 +84,22 @@ public class MemberController {
 		service.insert(dto);
 		
 		return "redirect:/xdmin/member/memberList";
+	}
+	
+	@RequestMapping(value = "/xdmin/member/memberEdit")
+	public String memberEdit(MemberVo vo, Model model) throws Exception {
+		
+		Member rt = service.selectOne(vo);
+		model.addAttribute("rt", rt);
+		
+		return "/xdmin/member/memberEdit";
+	}
+	
+	@RequestMapping(value = "/xdmin/member/memberUpdt")
+	public String memberUpdt(Member dto) throws Exception {
+		
+		service.update(dto);
+		
+		return "redirect:/xdmin/member/memberEdit";
 	}
 }

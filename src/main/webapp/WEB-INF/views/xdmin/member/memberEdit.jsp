@@ -71,7 +71,7 @@
 		 		<div class="row g-3 p-2">
 				  <div class="mb-3 col-sm-6">
 				    <label for="userName" class="form-label">이름</label>
-				    <input type="text" class="form-control" id="ifmmName" name="ifmmName">
+				    <input type="text" class="form-control" id="ifmmName" name="ifmmName" value="${rt.ifmmName}">
 				  </div>
 				  <div class="col-sm-6 row align-items-center mb-3 ps-3">
 				  	<label for="" class="form-label">성별</label>
@@ -83,7 +83,7 @@
 						</div>
 						<div class="form-check col-3 col-md-2">
 						  <input class="form-check-input" type="radio" name="ifmmGenderCd" id="ifmmGenderCdW" value="4">
-						  <label class="form-check-label" for="ifmmGenderCdW">
+						  <label class="form-check-label" for=""ifmmGenderCdW"">
 						    여성
 						  </label>
 						</div>
@@ -115,29 +115,23 @@
 				  <div class="mb-3 col-sm-8 g-2">
 				  	<label for="userZipcode" class="form-label">주소</label>
 				  	<div class="input-group mb-2">
-					  <input type="text" class="form-control" id="ifmaZipcode" name="ifmaZipcode" disabled readonly>
-					  <!-- <input type="text" class="form-control" id="ifmaZipcode" name="ifmaZipcode"> -->
-					  <button class="btn btn-outline-secondary" type="button" id="userAddressButton" onclick="execDaumPostcode()">주소찾기</button>
+					  <!-- <input type="text" class="form-control" id="userZipcode" disabled readonly> -->
+					  <input type="text" class="form-control" id="ifmaZipcode" name="ifmaZipcode">
+					  <button class="btn btn-outline-secondary" type="button" id="userAddressButton" data-bs-toggle="modal" data-bs-target="#userAddressModal">주소찾기</button>
 					</div>
-				    <input type="text" class="form-control mb-2" id="ifmaAddress1" name="ifmaAddress1" disabled readonly>
-				    <!-- <input type="text" class="form-control mb-2" id="ifmaAddress1" name="ifmaAddress1"> -->
-				    <input type="text" class="form-control mb-2" id="ifmaAddress2" name="ifmaAddress2" placeholder="상세주소">
-				    <input type="text" class="form-control" id="ifmaAddress3" name="ifmaAddress3" placeholder="참고항목">
+				    <!-- <input type="text" class="form-control mb-2" id="userAddress1" disabled readonly> -->
+				    <input type="text" class="form-control mb-2" id="ifmaAddress1" name="ifmaAddress1">
+				    <input type="text" class="form-control" id="ifmaAddress2" name="ifmaAddress2" placeholder="상세주소">
 				  </div>
 				  <div class="mb-3 col-sm-6 row g-2 align-items-center">
 				  	<label for="userMobile" class="form-label">핸드폰</label>
 				  	<div class="col-3 col-md-2">
 						<select class="form-select form-select-sm" id="ifmpTelecomCd" name="ifmpTelecomCd">
 							<option selected>통신사</option>
-							<!-- <option value="28">SKT</option>
+							<option value="28">SKT</option>
 							<option value="29">KT</option>
 							<option value="30">LG</option>
-							<option value="31">기타</option> -->
-							<c:forEach items="${codeList}" var="item" varStatus="status">
-								<c:if test="${item.ifcgSeq eq 9}">
-									<option value="${item.ifcdSeq}"><c:out value="${item.ifcdName}"/></option>
-								</c:if>
-							</c:forEach>
+							<option value="31">기타</option>
 						</select>
 					</div>
 					<div class="col-2 col-md-3">
@@ -206,16 +200,11 @@
 						</div>
 						<div class="col-5 col-md-4">
 							<select class="form-select" id="ifmeEmailDomainCd" name="ifmeEmailDomainCd">
-								<option selected>이메일</option>
-									<!-- <option value="16">naver.com</option>
-									<option value="17">daum.net</option>
-									<option value="18">gmail.com</option>
-									<option value="19">직접입력</option> -->
-									<c:forEach items="${codeList}" var="item" varStatus="status">
-										<c:if test="${item.ifcgSeq eq 6}">
-											<option value="${item.ifcdSeq}"><c:out value="${item.ifcdName}"/></option>
-										</c:if>
-									</c:forEach>
+							  <option selected>이메일</option>
+							  <option value="16">naver.com</option>
+							  <option value="17">daum.net</option>
+							  <option value="18">gmail.com</option>
+							  <option value="19">직접입력</option>
 							</select>
 						</div>
 					</div>
@@ -243,33 +232,23 @@
 					    <label for="ifmmSavedCd" class="form-label">개인정보유효기간 동의</label>
 					    <select class="form-select" id="ifmmSavedCd" name="ifmmSavedCd">
 								<option selected>기간</option>
-								<!-- <option value="5">1년</option>
+								<option value="5">1년</option>
 								<option value="6">2년</option>
 								<option value="7">3년</option>
 								<option value="8">5년</option>
 								<option value="9">10년</option>
-								<option value="10">탈퇴시</option> -->
-								<c:forEach items="${codeList}" var="item" varStatus="status">
-									<c:if test="${item.ifcgSeq eq 3}">
-										<option value="${item.ifcdSeq}"><c:out value="${item.ifcdName}"/></option>
-									</c:if>
-								</c:forEach>
+								<option value="10">탈퇴시</option>
 						</select>
 					</div>
 					<div class="mb-3 col-sm-6">
 						<label for="ifjqQuestionCd" class="form-label">비밀번호 찾기 문제</label>
 						<select id="ifjqQuestionCd" name="ifjqQuestionCd" class="form-select">
 							<option selected>질문</option>
-							<!-- <option value="61">내가 태어난 병원은?</option>
+							<option value="61">내가 태어난 병원은?</option>
 							<option value="62">내가 졸업한 초등학교는?</option>
 							<option value="63">가장 친한 친구는?</option>
 							<option value="64">아버지 성함은?</option>
-							<option value="65">존경하는 인물은?</option> -->
-							<c:forEach items="${codeList}" var="item" varStatus="status">
-								<c:if test="${item.ifcgSeq eq 14}">
-									<option value="${item.ifcdSeq}"><c:out value="${item.ifcdName}"/></option>
-								</c:if>
-							</c:forEach>
+							<option value="65">존경하는 인물은?</option>
 						</select>
 					</div>
 					<div class="mb-3 col-sm-6">
@@ -280,15 +259,10 @@
 						<label for="ifaoSnsTypeCd" class="form-label">SNS</label>
 						<select id="ifaoSnsTypeCd" name="ifaoSnsTypeCd"	class="form-select">
 							<option selected>sns선택</option>
-							<!-- <option value="34">페이스북</option>
+							<option value="34">페이스북</option>
 							<option value="35">인스타그램</option>
 							<option value="36">트위터</option>
-							<option value="37">카톡</option> -->
-							<c:forEach items="${codeList}" var="item" varStatus="status">
-								<c:if test="${item.ifcgSeq eq 11}">
-									<option value="${item.ifcdSeq}"><c:out value="${item.ifcdName}"/></option>
-								</c:if>
-							</c:forEach>
+							<option value="37">카톡</option>
 						</select>
 					</div>
 					<div class="mb-3 col-sm-6">
@@ -325,7 +299,7 @@
 					<div class="mb-3">
 						<label for="userHobby" class="form-label">취미</label>
 						<div class="mb-3">
-							<!-- <input type="checkbox" class="btn-check" id="ifmhHobbyCd1" name="ifmhHobbyCd1" value="38" autocomplete="off">
+							<input type="checkbox" class="btn-check" id="ifmhHobbyCd1" name="ifmhHobbyCd1" value="38" autocomplete="off">
 							<label class="btn btn-outline-primary" for="ifmhHobbyCd1">독서</label>
 							<input type="checkbox" class="btn-check" id="ifmhHobbyCd2" name="ifmhHobbyCd2" value="39" autocomplete="off"> 
 							<label class="btn btn-outline-primary" for="ifmhHobbyCd2">걷기</label> 
@@ -338,14 +312,8 @@
 							<input type="checkbox" class="btn-check" id="ifmhHobbyCd6" name="ifmhHobbyCd6" value="43" autocomplete="off"> 
 							<label class="btn btn-outline-primary" for="ifmhHobbyCd6">종이접기</label> 
 							<input type="checkbox" class="btn-check" id="ifmhHobbyCd7" name="ifmhHobbyCd7" value="44" autocomplete="off">
-							<label class="btn btn-outline-primary" for="ifmhHobbyCd7">조각하기</label> -->
-							<c:forEach items="${codeList}" var="item" varStatus="status">
-								<c:if test="${item.ifcgSeq eq 12}">
-									<input type="checkbox" class="btn-check" id="ifmhHobbyCd${item.ifcdSeq}" name="ifmhHobbyCd" value="${item.ifcdSeq}" autocomplete="off">
-									<label class="btn btn-outline-primary" for="ifmhHobbyCd${item.ifcdSeq}"><c:out value="${item.ifcdName}"/></label>
-								</c:if>
-							</c:forEach>
-						</div> 
+							<label class="btn btn-outline-primary" for="ifmhHobbyCd7">조각하기</label>
+						</div>
 					</div>
 					<div class="mb-3">
 						<label for="userIntroduce" class="form-label">자기소개</label>
@@ -353,7 +321,7 @@
 					</div>
 				</div>
 			  <button type="button" class="btn btn-danger m-2" onclick="location.href='memberList'">돌아가기</button>
-			  <button type="submit" id="btnSubmit" class="btn btn-primary m-2 float-end">등록</button>
+			  <button type="submit" class="btn btn-primary m-2 float-end">등록</button>
 			</form>
 		 
 		 </section>
@@ -393,75 +361,49 @@
 		</div>
 	</div> -->
 	<!-- modal id check false end -->
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
-	 <script src="/resources/xdmin/js/validation.js"></script>
 	 
-	 <script type="text/javascript">
-		$("#btnSubmit").on("click", function(){
-			if(!checkNull($("#ifmmName"), $("#ifmmName").val(), "이름을 입력하세요!")) return false;
-			if(!checkNull($("#ifmmId"), $("#ifmmId").val(), "아이디를 입력하세요!")) return false;
-		})
-		
-	</script>
+	 
+	<!-- modal address -->
 	
+	<div class="modal fade" id="userAddressModal" tabindex="-1">
+	  <div class="modal-dialog" >
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">주소 검색</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+	      </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="mb-3">
+	            <input type="text" class="form-control" id="recipient-name" placeholder="예) 판교역로 235, 분당 주공, 삼평동 681">
+	          </div>
+	          <div class="mb-3">
+	            <div style="margin: 10px;">
+	            	<h4>tip</h4>
+	            	<h6>아래와 같은 조합으로 검색을 하시면 더욱 정확한 결과가 검색됩니다.<h6></h6><br>
+	            	
+	            	<h6>도로명 + 건물번호</h6>
+	            	<h6 class="b6">예) 판교역로 235, 제주 첨단로 242</h6>
+	            	<h6>지역명(동/리) + 번지</h6>
+	            	<h6 class="b6">예) 삼평동 681, 제주 영평동 2181</h6>
+	            	<h6>지역명(동/리) + 건물명(아파트명)</h6>
+	            	<h6 class="b6">예) 분당 주공, 연수동 주공3차</h6>
+	            	<h6>사서함명 + 번호</h6>
+	            	<h6 class="b6">예) 분당우체국사서함 1~100</h6>
+	            </div>
+	          </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- modal address end -->
 	
 	<%@include file="../include/footer.jsp"%>
-	
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	
-	<!-- 지도 -->
-	<script>
-	    function execDaumPostcode() {
-	        new daum.Postcode({
-	            oncomplete: function(data) {
-	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-	
-	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	                var addr = ''; // 주소 변수
-	                var extraAddr = ''; // 참고항목 변수
-	
-	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                    addr = data.roadAddress;
-	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	                    addr = data.jibunAddress;
-	                }
-	
-	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-	                if(data.userSelectedType === 'R'){
-	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-	                        extraAddr += data.bname;
-	                    }
-	                    // 건물명이 있고, 공동주택일 경우 추가한다.
-	                    if(data.buildingName !== '' && data.apartment === 'Y'){
-	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	                    }
-	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-	                    if(extraAddr !== ''){
-	                        extraAddr = ' (' + extraAddr + ')';
-	                    }
-	                    // 조합된 참고항목을 해당 필드에 넣는다.
-	                    document.getElementById("ifmaAddress3").value = extraAddr;
-	                
-	                } else {
-	                    document.getElementById("ifmaAddress3").value = '';
-	                }
-	
-	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById('ifmaZipcode').value = data.zonecode;
-	                document.getElementById("ifmaAddress1").value = addr;
-	                // 커서를 상세주소 필드로 이동한다.
-	                document.getElementById("ifmaAddress2").focus();
-	            }
-	        }).open();
-	    }
-	</script>
-	
-	<!-- 지도 -->
 	 
 	<script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>

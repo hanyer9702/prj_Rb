@@ -90,8 +90,8 @@
 	 	<header class="container-fluid">
 	 		<div class="row">
 	 			<div class="col-11 col-sm-6">
-	 				<img style="max-width:15%;" class="mainIcon" alt="" src="/resources/xdmin/image/icon_main_128.png" onclick="location.href='';">
-		 			<h1 style="display: inline-block; padding-left: 10px;">Rebecca Company</h1>
+	 				<img style="max-width:15%;" class="mainIcon" alt="" src="/resources/xdmin/image/icon_main_128.png" onclick="location.href='memberList';">
+		 			<h1 style="display: inline-block; padding-left: 10px;">RB</h1>
 	 			</div>
 	 			<div class="col-1 col-sm-4 offset-sm-2">
 	 				<div style="float: right; max-length:20%; display: inline-block; padding-left: 10px;">

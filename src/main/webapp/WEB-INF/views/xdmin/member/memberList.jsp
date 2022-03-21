@@ -126,8 +126,8 @@
 				 			<input type="text" id="endDate" class="form-control" placeholder="종료일">
 				 		</div>
 				 		<div class="col-6 col-sm-3">
-				 			<select class="form-select" name="shOption">
-							  <option selected>선택</option>
+				 			<select class="form-select" name="shOption" id="shOption">
+							  <option value=""  selected>선택</option>
 							  <option value="1" <c:if test="${vo.shOption eq 1}">selected</c:if>>이름</option>
 							  <option value="2" <c:if test="${vo.shOption eq 2}">selected</c:if>>id</option>
 							  <option value="3" <c:if test="${vo.shOption eq 3}">selected</c:if>>주소</option>
@@ -135,11 +135,11 @@
 							</select>
 				 		</div>
 				 		<div class="col-6 col-sm-3">
-				 			<input type="text" id="shValue" class="form-control" placeholder="검색어" name="shValue">
+				 			<input type="text" id="shValue" class="form-control" placeholder="검색어" name="shValue" <c:if test="${vo.shValue ne null}">value="${vo.shValue}"</c:if>>
 				 		</div>
 				 		<div>
 				 			<button type="submit" id="btnSubmit" class="btn btn-outline-secondary">검색</button>
-				 			<button type="reset" class="btn btn-outline-danger">초기화</button>
+				 			<button type="reset" id="btnReset" class="btn btn-outline-danger">초기화</button>
 				 		</div>
 			 		</div>
 		 		</div>
@@ -155,26 +155,11 @@
 						<option value="memberList?rowNumToShow=5" <c:if test="${vo.rowNumToShow eq 5}">selected</c:if>>5</option>
 						<option value="memberList?rowNumToShow=10" <c:if test="${vo.rowNumToShow eq 10}">selected</c:if>>10</option>
 						<option value="memberList?rowNumToShow=20" <c:if test="${vo.rowNumToShow eq 20}">selected</c:if>>20</option>
-						<%-- <c:if test="${vo.rowNumToShow eq 5}">
-							<option value="5" selected>5</option>
-							<option value="memberList?rowNumToShow=10">10</option> 
-							<option value="memberList?rowNumToShow=20">20</option>
-						</c:if>
-						<c:if test="${vo.rowNumToShow eq 10}">
-							<option value="memberList?rowNumToShow=5">5</option>
-							<option value="10" selected>10</option>
-							<option value="memberList?rowNumToShow=20">20</option>
-						</c:if>
-						<c:if test="${vo.rowNumToShow eq 20}">
-							<option value="memberList?rowNumToShow=5">5</option>
-							<option value="memberList?rowNumToShow=10">10</option>
-							<option value="20" selected>20</option>
-						</c:if> --%>
 					</select>
 				</form>
 	 		</div>
 	 		<div class="table-responsive-xxl">
-	 			<table class="table table-hover">
+	 			<table class="table table-hover table-light"> 
 					<tr class="table-secondary">
 						<td>
 							<div class="form-check">
@@ -187,18 +172,6 @@
 						<td>모바일</td>
 						<td>이메일</td>
 					</tr>
-					<!-- <tr>
-						<td>
-							<div class="form-check">
-							  <input class="form-check-input" type="checkbox" value="" id="delCheck">
-							</div>
-						</td>
-						<td>skipperrrrrr</td>
-						<td>skipper1</td>
-						<td>aaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
-						<td>01011111111</td>
-						<td>skipper1@gmail.com</td>
-					</tr> -->
 					<c:choose>
 						<c:when test="${fn:length(list) eq 0}">
 							<tr>
@@ -225,23 +198,6 @@
 				</table>
 	 		</div>
 	 		<div>
-	 			<!-- <nav>
-				  <ul class="pagination justify-content-center">
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				    <li class="page-item"><a class="page-link" href="#">1</a></li>
-				    <li class="page-item"><a class="page-link" href="#">2</a></li>
-				    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				    </li>
-				  </ul>
-				</nav> -->
 				<nav aria-label="..."> 
 				  <ul class="pagination justify-content-center">
 				    <c:if test="${vo.startPage gt vo.pageNumToShow}">
@@ -304,8 +260,8 @@
 				 			<input type="text" id="endDate" class="form-control" placeholder="종료일">
 				 		</div>
 				 		<div class="col-6 col-sm-3">
-				 			<select class="form-select" name="shOption">
-							  <option selected>선택</option>
+				 			<select class="form-select" name="shOption" id="shOptionModal">
+							  <option value="" selected>선택</option>
 							  <option value="1" <c:if test="${vo.shOption eq 1}">selected</c:if>>이름</option>
 							  <option value="2" <c:if test="${vo.shOption eq 2}">selected</c:if>>id</option>
 							  <option value="3" <c:if test="${vo.shOption eq 3}">selected</c:if>>주소</option>
@@ -313,7 +269,7 @@
 							</select>
 				 		</div>
 				 		<div class="col-6 col-sm-3">
-				 			<input type="text" id="shValue" name="shValue" class="form-control" placeholder="검색어">
+				 			<input type="text" id="shValueModal" name="shValue" class="form-control" placeholder="검색어">
 				 		</div>
 	 				</div>
 			      </div>
@@ -335,31 +291,18 @@
 	 
 	 <script type="text/javascript">
 		$("#btnSubmit").on("click", function(){
-			
-			/* if($("#shIfcgName").val() == "" || $("#shIfcgName").val()  == null){
-				alert("null이다.");
-				$("#shIfcgName").focus();
-			} */
-			
+			if(!checkNull($("#shOption"), $("#shOption").val(), "항목을 선택하세요!")) return false;
 			if(!checkNull($("#shValue"), $("#shValue").val(), "검색어를 입력하세요!")) return false;
-			/* checkNull($("#shIfcgName"), $("#shIfcgName").val(), "shIfcgName null이다.");
-			checkNull($("#shOption"), $("#shOption").val(), "shOption null이다.");
-			checkNull($("#shValue"), $("#shValue").val(), "shValue null이다."); */
-			
-			/* alert($("#shOption").val()); */
-			
-			/* alert("hello javascript!!!");
-			confirm("진짜 삭제 하시겠습니까?") */
-			/* alert($("#shIfcgDelNy").val());		//jquery 방식
-			alert($("#shIfcgName").val());		//jquery 방식
-			alert($("#shOption").val());		//jquery 방식
-			alert($("#shValue").val());		//jquery 방식 */
-			/* alert(document.getElementById("shIfcgName").value);		//javascript 방식 */
 		})
+		
 		$("#btnSubmit2").on("click", function(){
-			
-			if(!checkNull($("#shValue"), $("#shValue").val(), "검색어를 입력하세요!")) return false;
-			
+			if(!checkNull($("#shOptionModal"), $("#shOptionModal").val(), "항목을 선택하세요!")) return false;
+			if(!checkNull($("#shValueModal"), $("#shValueModal").val(), "검색어를 입력하세요!")) return false;
+		})
+		
+		$("#btnReset").on("click", function(){
+			$("#shOption").val('');
+			$("#shValue").val('');
 		})
 	</script>
 	 

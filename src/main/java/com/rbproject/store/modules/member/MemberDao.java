@@ -29,6 +29,10 @@ public class MemberDao {
 		return sqlSession.selectOne(namespace + ".selectOne", vo);
 	}
 	
+	public List<Member> selectCode(Member dto){ 
+		return sqlSession.selectList(namespace + ".selectCode", dto);
+	}
+	
 	public int insert(Member dto) {
 		sqlSession.insert(namespace + ".insertInfrMember", dto);
 		sqlSession.insert(namespace + ".insertInfrMemberNationality", dto);
@@ -39,8 +43,13 @@ public class MemberDao {
 		sqlSession.insert(namespace + ".insertInfrMemberEmail", dto);
 		sqlSession.insert(namespace + ".insertInfrMemberJoinQna", dto);
 		sqlSession.insert(namespace + ".insertInfrMemberAddressOnline", dto);
+		sqlSession.insert(namespace + ".insertInfrMemberHobby", dto);
 		
 		return 1;
+	}
+	
+	public int update(Member dto) {
+		return sqlSession.update(namespace + ".update", dto);
 	}
 	
 }
