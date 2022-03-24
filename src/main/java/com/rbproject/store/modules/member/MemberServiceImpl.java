@@ -1,9 +1,13 @@
 package com.rbproject.store.modules.member;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -42,5 +46,25 @@ public class MemberServiceImpl implements MemberService{
 		return dao.selectCode(dto);
 	}
 
+	@PostConstruct
+	public void selectListForCache() throws Exception{
+		List<Member> codeLIstFromDb = (ArrayList<Member>) dao.selectListForCache();
+		
+		Member.cachedCodeArrayList.clear();
+		Member.cachedCodeArrayList.addAll(codeLIstFromDb);
+		System.out.println("cachedCodeArrayList: " + Member.cachedCodeArrayList.size() + " Checked!");		
+	}
 	
+	public static List<Member> selectListCachedCode(String ifcgSeq) throws Exception {
+		List<Member> rt = new ArrayList<Member>();
+		for(Member codeRow : Member.cachedCodeArrayList) {
+			if(codeRow.getIfcdSeq().equals(ifcgSeq)) {
+				rt.add(codeRow);
+			} else {
+				// by pass
+			}
+		}
+		
+		return rt;
+	}
 }

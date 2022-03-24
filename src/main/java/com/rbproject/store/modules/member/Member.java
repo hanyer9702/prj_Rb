@@ -1,6 +1,9 @@
 package com.rbproject.store.modules.member;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 
 public class Member {
 	
@@ -65,6 +68,11 @@ public class Member {
 	private String ifcdSeq = "";
 	private String ifcdName = "";
 	private String ifcgSeq = "";
+	private String ifcdDelNy = "";
+	private String ifcdUseNy = "";
+	
+//	for cache
+	public static List<Member> cachedCodeArrayList = new ArrayList<Member>(); 
 	
 //------------
 	public String getIfmmSeq() {
@@ -410,6 +418,18 @@ public class Member {
 	}
 	public void setIfcgSeq(String ifcgSeq) {
 		this.ifcgSeq = ifcgSeq;
+	}
+	public String getIfcdDelNy() {
+		return ifcdDelNy;
+	}
+	public void setIfcdDelNy(String ifcdDelNy) {
+		this.ifcdDelNy = ifcdDelNy;
+	}
+	public String getIfcdUseNy() {
+		return ifcdUseNy;
+	}
+	public void setIfcdUseNy(String ifcdUseNy) {
+		this.ifcdUseNy = ifcdUseNy;
 	}
 	
 }

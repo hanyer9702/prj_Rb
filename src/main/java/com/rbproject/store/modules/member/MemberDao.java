@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
 public class MemberDao {
 	
@@ -52,4 +53,7 @@ public class MemberDao {
 		return sqlSession.update(namespace + ".update", dto);
 	}
 	
+	public List<Member> selectListForCache() {
+		return sqlSession.selectList(namespace + ".selectListForCache", "");
+	}
 }
