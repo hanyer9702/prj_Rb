@@ -67,4 +67,19 @@ public class MemberServiceImpl implements MemberService{
 		
 		return rt;
 	}
+
+	@Override
+	public String checkId(MemberVo vo) throws Exception {
+		System.out.println("impl");
+		int tmp = 0;
+		List<Member> member = dao.checkId(vo);
+		
+		if (!member.isEmpty()) {
+			tmp = 0;
+		} else {
+			tmp = 1;
+		}
+		System.out.println("impl");
+		return tmp + "";
+	}
 }

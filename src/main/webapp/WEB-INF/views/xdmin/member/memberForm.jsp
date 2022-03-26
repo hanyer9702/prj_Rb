@@ -67,25 +67,28 @@
 		 
 		 <section>
 		 	<h3 class="p-1">회원 등록</h3>
-		 	<form id="formMember" name="formMember" method="post" action="memberInst">
+		 	<form id="formMember" name="formMember" method="post" action="memberInst" class="needs-validation" novalidate>
 		 		<input type="hidden" id="thisPage" name="thisPage" value="${vo.thisPage}">
 				<input type="hidden" id="shOption" name="shOption" value="${vo.shOption}">
 				<input type="hidden" id="shValue" name="shValue" value="${vo.shValue}">
 		 		<div class="row g-3 p-2">
 				  <div class="mb-3 col-sm-6">
 				    <label for="userName" class="form-label">이름</label>
-				    <input type="text" class="form-control" id="ifmmName" name="ifmmName">
+				    <input type="text" class="form-control" id="ifmmName" name="ifmmName" required>
+					<div class="invalid-feedback">
+						이름을 입력하세요.
+					</div>
 				  </div>
 				  <div class="col-sm-6 row align-items-center mb-3 ps-3">
 				  	<label for="" class="form-label">성별</label>
 					  <div class="form-check col-3 col-md-2">
-						  <input class="form-check-input" type="radio" name="ifmmGenderCd" id="ifmmGenderCdM" value="3">
+						  <input class="form-check-input" type="radio" name="ifmmGenderCd" id="ifmmGenderCdM" value="3" required>
 						  <label class="form-check-label" for="ifmmGenderCdM">
 						    남성
 						  </label>
 						</div>
 						<div class="form-check col-3 col-md-2">
-						  <input class="form-check-input" type="radio" name="ifmmGenderCd" id="ifmmGenderCdW" value="4">
+						  <input class="form-check-input" type="radio" name="ifmmGenderCd" id="ifmmGenderCdW" value="4" required>
 						  <label class="form-check-label" for="ifmmGenderCdW">
 						    여성
 						  </label>
@@ -93,18 +96,22 @@
 					</div>
 					<div class="col-sm-6">
 						<label for="userId" class="form-label">아이디</label>
-						<div class="input-group mb-3">
-						  <input type="text" class="form-control" id="ifmmId" name="ifmmId">
-						  <button class="btn btn-outline-secondary" type="button" id="userIdCheckButton" data-bs-toggle="modal" data-bs-target="#userIdModal">중복확인</button>
+						<div class="input-group mb-3 row">
+						  <div class="col-12">
+							  <input type="text" class="form-control ifmmId" id="ifmmId" name="ifmmId">
+						  </div>
+						  <div class="col-12">
+							  <font id = "checkId" class="px-1" style="font-size:13px;"></font>
+						  </div>
 						</div>
 					</div>
 				  <div class="mb-3 col-sm-6">
 				    <label for="userPassword" class="form-label">비밀번호</label>
-				    <input type="password" class="form-control" id="ifmmPassword" name="ifmmPassword">
+				    <input type="password" class="form-control" id="ifmmPassword" name="ifmmPassword" required>
 				  </div>
 				  <div class="mb-3 col-sm-6">
 				    <label for="userBirth" class="form-label">생일</label>
-				    <input type="date" class="form-control" id="ifmmDob" name="ifmmDob">
+				    <input type="date" class="form-control" id="ifmmDob" name="ifmmDob" required>
 				  </div>
 				  <div class="mb-3 col-sm-6">
 				  	<label for="ifnaSeq" class="form-label">국적</label>
@@ -124,7 +131,7 @@
 					</div>
 				    <input type="text" class="form-control mb-2" id="ifmaAddress1" name="ifmaAddress1" disabled readonly>
 				    <!-- <input type="text" class="form-control mb-2" id="ifmaAddress1" name="ifmaAddress1"> -->
-				    <input type="text" class="form-control mb-2" id="ifmaAddress2" name="ifmaAddress2" placeholder="상세주소">
+				    <input type="text" class="form-control mb-2" id="ifmaAddress2" name="ifmaAddress2" placeholder="상세주소" required>
 				    <input type="text" class="form-control" id="ifmaAddress3" name="ifmaAddress3" placeholder="참고항목">
 				  </div>
 				  <div class="mb-3 col-sm-6 row g-2 align-items-center">
@@ -406,16 +413,62 @@
 	 <script src="/resources/xdmin/js/validation.js"></script>
 	 
 	 <script type="text/javascript">
-		$("#btnSubmit").on("click", function(){
+		/* $("#btnSubmit").on("click", function(){
 			if(!checkNull($("#ifmmName"), $("#ifmmName").val(), "이름을 입력하세요!")) return false;
 			if(!checkNull($("#ifmmId"), $("#ifmmId").val(), "아이디를 입력하세요!")) return false;
-		})
+		}) */
+		
+		// 유효하지 않은 필드가 있는 경우 양식 제출을 비활성화하기 위한 예제 스타터 JavaScript
+		(function () {
+		  'use strict'
+
+		  // 사용자 정의 부트스트랩 유효성 검사 스타일을 적용하려는 모든 양식을 가져옵니다.
+		  var forms = document.querySelectorAll('.needs-validation')
+
+		  // 루프를 돌고 제출을 방지합니다.
+		  Array.prototype.slice.call(forms)
+		    .forEach(function (form) {
+		      form.addEventListener('submit', function (event) {
+		        if (!form.checkValidity()) {
+		          event.preventDefault()
+		          event.stopPropagation()
+		        }
+
+		        form.classList.add('was-validated')
+		      }, false)
+		    })
+		})()
 		
 		goList = function(){
 			$("#formMember").attr("action","memberList");
 			$("#formMember").submit();
 		} 
+		
+		$('.ifmmId').focusout(function(){
+			let ifmmId = $('.ifmmId').val();
+			
+			$.ajax({
+				url : "/IdCheckService",
+				type : "post",
+				data : {ifmmId: ifmmId},
+				dataType : 'json',
+				success : function(result){
+					if(result == 0){
+						$('#checkId').html('중복된 아이디입니다.');
+						$('#checkId').attr('color','red');
+					} else{
+						$('#checkId').html('사용 가능한 아이디입니다.');
+						$('#checkId').attr('color','green');
+					}
+				},
+				error : function(){
+					alert("서버요청실패");
+				}
+			})
+		})
 	</script>
+	
+	
 	
 	
 	<!-- 지도 -->

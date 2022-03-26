@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
@@ -82,6 +83,8 @@ public class MemberController {
 		List<Member> codeList = service.selectCode(dto);
 		model.addAttribute("codeList", codeList);
 		
+		
+		
 		return "/xdmin/member/memberForm";
 	}
 	
@@ -110,4 +113,19 @@ public class MemberController {
 		
 		return "redirect:/xdmin/member/memberEdit" + makeQueryString(vo);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/IdCheckService")
+	public String IdCheckService(MemberVo vo) throws Exception {
+		
+		String result = "";
+		
+		result = service.checkId(vo);
+		
+		System.out.println(result);
+		
+		return result;
+	}
+	
+	
 }

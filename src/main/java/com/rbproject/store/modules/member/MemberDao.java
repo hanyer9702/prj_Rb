@@ -56,4 +56,9 @@ public class MemberDao {
 	public List<Member> selectListForCache() {
 		return sqlSession.selectList(namespace + ".selectListForCache", "");
 	}
+	
+	public List<Member> checkId(MemberVo vo) {
+		System.out.println("dao");
+		return sqlSession.selectList(namespace + ".checkId", vo);
+	}
 }

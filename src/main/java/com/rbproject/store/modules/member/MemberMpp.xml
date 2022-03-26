@@ -297,4 +297,13 @@
 			AND ifcdDelNy = 0
 			AND ifcdUseNy = 1
 	</select>
+	
+	<select id="checkId" resultMap="resultMapObj">
+		SELECT
+			ifmmSeq
+		FROM
+			infrMember
+		WHERE
+			ifmmId LIKE #{ifmmId}
+	</select>
 </mapper>

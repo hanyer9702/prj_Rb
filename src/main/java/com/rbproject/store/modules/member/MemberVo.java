@@ -5,6 +5,7 @@ import java.util.Date;
 public class MemberVo {
 	
 	private String ifmmSeq = "";
+	private String ifmmId = "";
 		
 	private String shValue;
 	private String shOption;
@@ -199,6 +200,14 @@ public class MemberVo {
 
 	public void setIfcgSeq(String ifcgSeq) {
 		this.ifcgSeq = ifcgSeq;
+	}
+
+	public String getIfmmId() {
+		return ifmmId;
+	}
+
+	public void setIfmmId(String ifmmId) {
+		this.ifmmId = ifmmId;
 	}
 	
 }
