@@ -152,13 +152,19 @@
 					<td colspan="3"></td>
 				</tr>
 			</table>
-			<button type="button" class="btn btn-success" onclick="location.href='memberList'">목록</button>
+			<button type="button" class="btn btn-success" onclick="javascript:goList()">목록</button>
 			<div class="float-end">
 				<button type="button" class="btn btn-warning" onclick="location.href='memberEdit?ifmmSeq=${rt.ifmmSeq}'">수정</button>
 				<button type="button" class="btn btn-danger" data-bs-toggle="modal"	data-bs-target="#deleteModal">삭제</button>
 			</div>
 		</div>
 	</section>
+	<form id="formView" name="formView" method="post" action="memberList">
+		<input type="hidden" id="thisPage" name="thisPage" value="${vo.thisPage}">
+		<input type="hidden" id="shOption" name="shOption" value="${vo.shOption}">
+		<input type="hidden" id="shValue" name="shValue" value="${vo.shValue}">
+		<!-- <input type="submit"> -->
+	</form>
 	
 	<!-- modal delete s -->
 
@@ -182,5 +188,14 @@
 	 
 	 <%@include file="../include/footer.jsp"%>
 	 <script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+
+	<script type="text/javascript">
+		goList = function(){
+			$("#formView").attr("action","memberList");
+			$("#formView").submit();
+		} 
+		
+	</script>
 </body>
 </html>

@@ -87,145 +87,152 @@
 </head>
 <body>
 	 <%@include file="../include/top.jsp"%>
-	 
-	 <section>
-	 		<h3>회원 목록</h3>
-	 		
-	 		<div class="modalM">
-		 		<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary modalBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-				  검색
-				</button>
-				
-				
-		 	</div>
-	 		
-	 		<form id="" name="" method="get" action="memberList">
-		 		<div class="middle_sec">
-			 		<div class="row row-cols-2 row-cols-sm-4 g-3 align-items-center">
-				 		<div class="col-6 col-sm-3">
-				 			<select class="form-select">
-							  <option selected>Open this select menu</option>
-							  <option value="1">One</option>
-							  <option value="2">Two</option>
-							  <option value="3">Three</option>
-							</select>
-				 		</div>
-				 		<div class="col-6 col-sm-3">
-				 			<select class="form-select">
-							  <option selected>Open this select menu</option>
-							  <option value="1">One</option>
-							  <option value="2">Two</option>
-							  <option value="3">Three</option>
-							</select>
-				 		</div>
-				 		<div class="col-6 col-sm-3">
-				 			<input type="text" id="startDate" class="form-control" placeholder="시작일">
-				 		</div>
-				 		<div class="col-6 col-sm-3">
-				 			<input type="text" id="endDate" class="form-control" placeholder="종료일">
-				 		</div>
-				 		<div class="col-6 col-sm-3">
-				 			<select class="form-select" name="shOption" id="shOption">
-							  <option value=""  selected>선택</option>
-							  <option value="1" <c:if test="${vo.shOption eq 1}">selected</c:if>>이름</option>
-							  <option value="2" <c:if test="${vo.shOption eq 2}">selected</c:if>>id</option>
-							  <option value="3" <c:if test="${vo.shOption eq 3}">selected</c:if>>주소</option>
-							  <option value="4" <c:if test="${vo.shOption eq 4}">selected</c:if>>전화번호</option>
-							</select>
-				 		</div>
-				 		<div class="col-6 col-sm-3">
-				 			<input type="text" id="shValue" class="form-control" placeholder="검색어" name="shValue" <c:if test="${vo.shValue ne null}">value="${vo.shValue}"</c:if>>
-				 		</div>
-				 		<div>
-				 			<button type="submit" id="btnSubmit" class="btn btn-outline-secondary">검색</button>
-				 			<button type="reset" id="btnReset" class="btn btn-outline-danger">초기화</button>
+	 <form id="formList" name="formList" method="post" action="memberList">
+	 	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>">
+	 	<input type="hidden" id="rowNumToShow" name="rowNumToShow" value="<c:out value="${vo.rowNumToShow}" default="5"/>">
+	 	<input type="hidden" id="ifmmSeq" name="ifmmSeq">
+		 <section>
+		 		<h3>회원 목록</h3>
+		 		
+		 		<div class="modalM">
+			 		<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary modalBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+					  검색
+					</button>
+					
+					
+			 	</div>
+		 		
+		 		
+			 		<div class="middle_sec">
+				 		<div class="row row-cols-2 row-cols-sm-4 g-3 align-items-center">
+					 		<div class="col-6 col-sm-3">
+					 			<select class="form-select">
+								  <option selected>Open this select menu</option>
+								  <option value="1">One</option>
+								  <option value="2">Two</option>
+								  <option value="3">Three</option>
+								</select>
+					 		</div>
+					 		<div class="col-6 col-sm-3">
+					 			<select class="form-select">
+								  <option selected>Open this select menu</option>
+								  <option value="1">One</option>
+								  <option value="2">Two</option>
+								  <option value="3">Three</option>
+								</select>
+					 		</div>
+					 		<div class="col-6 col-sm-3">
+					 			<input type="text" id="startDate" class="form-control" placeholder="시작일">
+					 		</div>
+					 		<div class="col-6 col-sm-3">
+					 			<input type="text" id="endDate" class="form-control" placeholder="종료일">
+					 		</div>
+					 		<div class="col-6 col-sm-3">
+					 			<select class="form-select" name="shOption" id="shOption">
+								  <option value=""  selected>선택</option>
+								  <option value="1" <c:if test="${vo.shOption eq 1}">selected</c:if>>이름</option>
+								  <option value="2" <c:if test="${vo.shOption eq 2}">selected</c:if>>id</option>
+								  <option value="3" <c:if test="${vo.shOption eq 3}">selected</c:if>>주소</option>
+								  <option value="4" <c:if test="${vo.shOption eq 4}">selected</c:if>>전화번호</option>
+								</select>
+					 		</div>
+					 		<div class="col-6 col-sm-3">
+					 			<input type="text" id="shValue" class="form-control" placeholder="검색어" name="shValue" <c:if test="${vo.shValue ne null}">value="${vo.shValue}"</c:if>>
+					 		</div>
+					 		<div>
+					 			<button type="submit" id="btnSubmit" class="btn btn-outline-secondary">검색</button>
+					 			<button type="reset" id="btnReset" class="btn btn-outline-danger">초기화</button>
+					 		</div>
 				 		</div>
 			 		</div>
+			 	
+		 	</section>
+		 	<section>
+		 		<div class="row align-items-center">
+		 			<div class="col-6 col-sm-3">
+		 				<h4 style="float: left;">Total : ${vo.totalRows}</h4>
+		 			</div>
+	 				<!-- <form class="col-2 col-sm-1 offset-4 offset-sm-8 px-1 px-sm-3" id="" name="" method="get"> -->
+					<div class="col-2 col-sm-1 offset-4 offset-sm-8 px-1 px-sm-3">
+		 				<select class="form-select form-select-sm" id="selectRowNumShow" onchange="changeSelectedValue()">
+							<option value="5" <c:if test="${vo.rowNumToShow eq 5}">selected</c:if>>5</option>
+							<option value="10" <c:if test="${vo.rowNumToShow eq 10}">selected</c:if>>10</option>
+							<option value="20" <c:if test="${vo.rowNumToShow eq 20}">selected</c:if>>20</option>
+						</select>
+					</div>
+					<!-- </form> -->
 		 		</div>
-		 	</form>
-	 	</section>
-	 	<section>
-	 		<div class="row align-items-center">
-	 			<div class="col-6 col-sm-3">
-	 				<h4 style="float: left;">Total : ${vo.totalRows}</h4>
-	 			</div>
- 				<form class="col-2 col-sm-1 offset-4 offset-sm-8 px-1 px-sm-3" id="" name="" method="get">
-	 				<select class="form-select form-select-sm" id="selectRowNumShow" onchange="location.href=this.value">
-						<option value="memberList?rowNumToShow=5" <c:if test="${vo.rowNumToShow eq 5}">selected</c:if>>5</option>
-						<option value="memberList?rowNumToShow=10" <c:if test="${vo.rowNumToShow eq 10}">selected</c:if>>10</option>
-						<option value="memberList?rowNumToShow=20" <c:if test="${vo.rowNumToShow eq 20}">selected</c:if>>20</option>
-					</select>
-				</form>
-	 		</div>
-	 		<div class="table-responsive-xxl">
-	 			<table class="table table-hover table-light"> 
-					<tr class="table-secondary">
-						<td>
-							<div class="form-check">
-							  <input class="form-check-input" type="checkbox" value="" id="delCheck">
-							</div>
-						</td>
-						<td>이름</td>
-						<td>아이디</td>
-						<td>주소</td>
-						<td>모바일</td>
-						<td>이메일</td>
-					</tr>
-					<c:choose>
-						<c:when test="${fn:length(list) eq 0}">
-							<tr>
-								<td class="text-center" colspan="9">There is no data!</td>	
-							</tr>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${list}" var="item" varStatus="status">	
-								<tr>
-									<td>
-										<div class="form-check">
-										  <input class="form-check-input" type="checkbox" value="" id="delCheck">
-										</div>
-									</td>
-									<td><a href="memberView?ifmmSeq=${item.ifmmSeq}"><c:out value="${item.ifmmName}"/></a></td>
-									<td><c:out value="${item.ifmmId}"/></td>
-									<td><c:out value="${item.ifmaAddress}"/></td>
-									<td><c:out value="${item.ifmpNumberDash}"/></td>
-									<td><c:out value="${item.ifmeEmailFull}"/></td>
-								</tr>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
-				</table>
-	 		</div>
-	 		<div>
-				<nav aria-label="..."> 
-				  <ul class="pagination justify-content-center">
-				    <c:if test="${vo.startPage gt vo.pageNumToShow}">
-						<li class="page-item"><a class="page-link" href="memberList?rowNumToShow=${vo.rowNumToShow}&thisPage=${vo.startPage - 1}">&laquo;</a></li>
-					</c:if>
-					<c:forEach begin="${vo.startPage}" end="${vo.endPage}" varStatus="i">
+		 		<div class="table-responsive-xxl">
+		 			<table class="table table-hover table-light"> 
+						<tr class="table-secondary">
+							<td>
+								<div class="form-check">
+								  <input class="form-check-input" type="checkbox" value="" id="delCheck">
+								</div>
+							</td>
+							<td>이름</td>
+							<td>아이디</td>
+							<td>주소</td>
+							<td>모바일</td>
+							<td>이메일</td>
+						</tr>
 						<c:choose>
-							<c:when test="${i.index eq vo.thisPage}">
-					                <li class="page-item active"><a class="page-link" href="memberList?rowNumToShow=${vo.rowNumToShow}&thisPage=${i.index}">${i.index}</a></li>
+							<c:when test="${fn:length(list) eq 0}">
+								<tr>
+									<td class="text-center" colspan="9">There is no data!</td>	
+								</tr>
 							</c:when>
-							<c:otherwise>             
-					                <li class="page-item"><a class="page-link" href="memberList?rowNumToShow=${vo.rowNumToShow}&thisPage=${i.index}">${i.index}</a></li>
+							<c:otherwise>
+								<c:forEach items="${list}" var="item" varStatus="status">	
+									<tr>
+										<td>
+											<div class="form-check">
+											  <input class="form-check-input" type="checkbox" value="" id="delCheck">
+											</div>
+										</td>
+										<%-- <td><a href="memberView?ifmmSeq=${item.ifmmSeq}"><c:out value="${item.ifmmName}"/></a></td> --%>
+										<td><a href="javascript:goView(${item.ifmmSeq})"><c:out value="${item.ifmmName}"/></a></td>
+										<td><c:out value="${item.ifmmId}"/></td>
+										<td><c:out value="${item.ifmaAddress}"/></td>
+										<td><c:out value="${item.ifmpNumberDash}"/></td>
+										<td><c:out value="${item.ifmeEmailFull}"/></td>
+									</tr>
+								</c:forEach>
 							</c:otherwise>
 						</c:choose>
-					</c:forEach>     
-					<c:if test="${vo.endPage ne vo.totalPages}">                
-					                <li class="page-item"><a class="page-link" href="memberList?rowNumToShow=${vo.rowNumToShow}&thisPage=${vo.endPage + 1}">&raquo;</a></li>
-					</c:if>
-				  </ul>
-				</nav>
-				
-				<div class="btn-group" style="float:right;" role="group">
-				  <button type="button" class="btn btn-primary" onclick="location.href='memberForm'">등록</button>
-				  <button type="button" class="btn btn-danger">삭제</button>
-				</div>
-	 		</div>
-	 	</section>
-	 	
+					</table>
+		 		</div>
+		 		<div>
+					<nav aria-label="..."> 
+					  <ul class="pagination justify-content-center">
+					    <c:if test="${vo.startPage gt vo.pageNumToShow}">
+							<%-- <li class="page-item"><a class="page-link" href="memberList?rowNumToShow=${vo.rowNumToShow}&thisPage=${vo.startPage - 1}">&laquo;</a></li> --%>
+							<li class="page-item"><a class="page-link" href="javascript:goList(${vo.startPage - 1})">&laquo;</a></li>
+						</c:if>
+						<c:forEach begin="${vo.startPage}" end="${vo.endPage}" varStatus="i">
+							<c:choose>
+								<c:when test="${i.index eq vo.thisPage}">
+						                <li class="page-item active"><a class="page-link" href="javascript:goList(${i.index})">${i.index}</a></li>
+								</c:when>
+								<c:otherwise>             
+						                <li class="page-item"><a class="page-link" href="javascript:goList(${i.index})">${i.index}</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>     
+						<c:if test="${vo.endPage ne vo.totalPages}">                
+						                <li class="page-item"><a class="page-link" href="javascript:goList(${vo.endPage + 1})">&raquo;</a></li>
+						</c:if>
+					  </ul>
+					</nav>
+					
+					<div class="btn-group" style="float:right;" role="group">
+					  <button type="button" class="btn btn-primary" onclick="javascript:goForm()">등록</button>
+					  <button type="button" class="btn btn-danger">삭제</button>
+					</div>
+		 		</div>
+		 	</section>
+	 	</form>
 	 	<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
@@ -304,6 +311,36 @@
 			$("#shOption").val('');
 			$("#shValue").val('');
 		})
+		
+		goList = function(seq){
+			$("#thisPage").val(seq);
+			$("#formList").submit();
+		} 
+		
+		goListModal = function(seq){
+			$("#thisPage").val(seq);
+			$("#formList").submit();
+		} 
+		
+		goView = function(seq){
+			$("#ifmmSeq").val(seq);
+			$("#formList").attr("action","memberView");
+			$("#formList").submit();
+		} 
+		
+		goForm = function(){
+			$("#formList").attr("action","memberForm");
+			$("#formList").submit();
+		} 
+		
+		function changeSelectedValue(){
+		    var rowNumSelect = document.getElementById("selectRowNumShow");
+		      
+		    var selectedValue = rowNumSelect.options[rowNumSelect.selectedIndex].value;
+		  
+		    $("#rowNumToShow").val(selectedValue);
+			$("#formList").submit();
+		}
 	</script>
 	 
 	 <script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>

@@ -67,7 +67,10 @@
 		 
 		 <section>
 		 	<h3 class="p-1">회원 등록</h3>
-		 	<form id="" name="" method="get" action="memberInst">
+		 	<form id="formMember" name="formMember" method="post" action="memberInst">
+		 		<input type="hidden" id="thisPage" name="thisPage" value="${vo.thisPage}">
+				<input type="hidden" id="shOption" name="shOption" value="${vo.shOption}">
+				<input type="hidden" id="shValue" name="shValue" value="${vo.shValue}">
 		 		<div class="row g-3 p-2">
 				  <div class="mb-3 col-sm-6">
 				    <label for="userName" class="form-label">이름</label>
@@ -352,7 +355,7 @@
 						<textarea class="form-control" id="ifmmDesc" name="ifmmDesc" rows="3"></textarea>
 					</div>
 				</div>
-			  <button type="button" class="btn btn-danger m-2" onclick="location.href='memberList'">돌아가기</button>
+			  <button type="button" class="btn btn-danger m-2" onclick="javascript:goList()">돌아가기</button>
 			  <button type="submit" id="btnSubmit" class="btn btn-primary m-2 float-end">등록</button>
 			</form>
 		 
@@ -394,6 +397,11 @@
 	</div> -->
 	<!-- modal id check false end -->
 	
+	
+	
+	<%@include file="../include/footer.jsp"%>
+	
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
 	 <script src="/resources/xdmin/js/validation.js"></script>
 	 
@@ -403,12 +411,12 @@
 			if(!checkNull($("#ifmmId"), $("#ifmmId").val(), "아이디를 입력하세요!")) return false;
 		})
 		
+		goList = function(){
+			$("#formMember").attr("action","memberList");
+			$("#formMember").submit();
+		} 
 	</script>
 	
-	
-	<%@include file="../include/footer.jsp"%>
-	
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	
 	<!-- 지도 -->
 	<script>

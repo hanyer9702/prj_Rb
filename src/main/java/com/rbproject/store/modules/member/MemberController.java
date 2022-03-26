@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
+
 /**
  * Handles requests for the application home page.
  */
@@ -23,6 +24,13 @@ public class MemberController {
 	
 	@Autowired
 	MemberServiceImpl service;
+	
+	public String makeQueryString(MemberVo vo) {
+		String tmp =  "&thisPage=" + vo.getThisPage() 
+					+ "&shOption=" + vo.getShOption() 
+					+ "&shValue=" + vo.getShValue();
+		return tmp;
+	}
 	
 	@RequestMapping(value = "/xdmin/include/top")
 	public String top(Model model) throws Exception {
@@ -60,7 +68,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/xdmin/member/memberView")
-	public String memberView(MemberVo vo, Model model) throws Exception {
+	public String memberView(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
 		
 		Member rt = service.selectOne(vo);
 		model.addAttribute("rt", rt);
@@ -69,7 +77,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/xdmin/member/memberForm")
-	public String memberForm(Member dto, Model model) throws Exception {
+	public String memberForm(@ModelAttribute("vo") MemberVo vo, Member dto, Model model) throws Exception {
 		
 		List<Member> codeList = service.selectCode(dto);
 		model.addAttribute("codeList", codeList);
@@ -78,12 +86,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/xdmin/member/memberInst")
-	public String memberInst(Member dto) throws Exception {
+	public String memberInst(@ModelAttribute("vo") MemberVo vo, Member dto) throws Exception {
 		
 //		입력 실행
 		service.insert(dto);
 		
-		return "redirect:/xdmin/member/memberList";
+		return "redirect:/xdmin/member/memberList" + makeQueryString(vo);
 	}
 	
 	@RequestMapping(value = "/xdmin/member/memberEdit")
@@ -96,10 +104,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/xdmin/member/memberUpdt")
-	public String memberUpdt(Member dto) throws Exception {
+	public String memberUpdt(@ModelAttribute("vo") MemberVo vo, Member dto) throws Exception {
 		
 		service.update(dto);
 		
-		return "redirect:/xdmin/member/memberEdit";
+		return "redirect:/xdmin/member/memberEdit" + makeQueryString(vo);
 	}
 }
