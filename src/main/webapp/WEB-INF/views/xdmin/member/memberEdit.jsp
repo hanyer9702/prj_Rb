@@ -67,7 +67,7 @@
 		 <%@include file="../include/top.jsp"%>
 		 
 		 <section>
-		 	<h3 class="p-1">회원 등록</h3>
+		 	<h3 class="p-1">회원 수정</h3>
 		 	<form id="formEdit" name="formEdit" method="post" action="memberUpdt" class="needs-validation" novalidate>
 		 		<input type="hidden" id="thisPage" name="thisPage" value="${vo.thisPage}">
 				<input type="hidden" id="shOption" name="shOption" value="${vo.shOption}">
@@ -372,8 +372,8 @@
 						<textarea class="form-control" id="ifmmDesc" name="ifmmDesc" rows="3" value="${rt.ifmmDesc}"></textarea>
 					</div>
 				</div>
-			  <button type="button" class="btn btn-danger m-2" onclick="javascript:goList()">돌아가기</button>
-			  <button type="submit" id="btnSubmit" class="btn btn-primary m-2 float-end" onclick="javascript:goUpdt(${rt.ifmmSeq})">등록</button>
+			  <button type="button" class="btn btn-danger m-2" onclick="javascript:goList(${rt.ifmmSeq})">돌아가기</button>
+			  <button type="submit" id="btnSubmit" class="btn btn-warning m-2 float-end" onclick="javascript:goUpdt(${rt.ifmmSeq})">수정</button>
 			</form>
 		 
 		 </section>
@@ -389,34 +389,40 @@
 					<h5 class="modal-title" id="passwordChangeModalLabel">비밀번호 변경</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<form class="row g-3 needs-validation" action="./memberEdit.html" method="post" id="passwordChangeForm" name="" enctype="multipart/form-data" novalidate>
-				<div class="modal-body">
+				<form class="row g-3 needs-validation" id="passwordChangeForm" name="passwordChangeForm" method="post" action="updtPassword" enctype="multipart/form-data" novalidate>
+					<div class="modal-body">
 						<div class="mb-3">
 							<label for="passwordCurrent" class="col-form-label">현재 비밀번호</label> 
-							<input type="password" class="form-control" id="passwordCurrent" required>
+							<input type="password" class="form-control" id="passwordCurrent"name="passwordCurrent" required>
 							<div class="invalid-feedback">
-						        현재 비밀번호를 입력하세요.
 						      </div>
+						        <font id="checkPassword" style="font-size:13px;">현재 비밀번호를 입력하세요.</font>
 						</div>
 						<div class="mb-3">
 							<label for="passwordChange" class="col-form-label">변경 비밀번호</label>
-							 <input type="password" class="form-control" id="passwordChange" required>
+							 <input type="password" id="passwordChange" name="passwordChange" class="form-control"  required>
 							 <div class="invalid-feedback">
-						     	변경할 비밀번호를 입력하세요.
+						     	<font id="">변경할 비밀번호를 입력하세요.</font>
 						    </div>
 						</div>
 						<div class="mb-3">
 							<label for="passwordChangeAgain" class="col-form-label">변경 비밀번호 재입력</label> 
-							<input type="password" class="form-control" id="passwordChangeAgain" required>
+							<input type="password" id="ifmmPassword" name="ifmmPassword" class="form-control"  required>
 							<div class="invalid-feedback">
-						      변경할 비밀번호를 한번 더 입력하세요.
 						    </div>
+						      <font id="passwordChangeAgainFont" style="font-size:13px;">변경할 비밀번호를 한번 더 입력하세요.</font>
 						</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"	data-bs-dismiss="modal">취소</button>
-					<button type="submit" class="btn btn-primary">변경하기</button>
-				</div>
+						<input type="hidden" id="thisPage" name="thisPage" value="${vo.thisPage}">
+						<input type="hidden" id="shOption" name="shOption" value="${vo.shOption}">
+						<input type="hidden" id="shValue" name="shValue" value="${vo.shValue}">
+						<input type="hidden" id="rowNumToShow" name="rowNumToShow" value="${vo.rowNumToShow}">
+						<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="${rt.ifmmSeq}">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"	data-bs-dismiss="modal">취소</button>
+						<%-- <button type="button" class="btn btn-primary" onclick="javascript:updtPasswordfunc(${rt.ifmmSeq})">변경하기</button> --%>
+						<button type="submit" class="btn btn-primary" data-bs-dismiss="modal">변경하기</button>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -508,21 +514,74 @@
 			$("#formEdit").submit();
 		} 
 		
-		$('.ifmmId').focusout(function(){
-			let ifmmId = $('.ifmmId').val();
+		/* updtPasswordfunc = function(seq){
+			alert(seq);
+			$("#ifmmSeq").val(seq);
+			$("#passwordChangeForm").attr("action","updtPassword");
+			$("#passwordChangeForm").submit();
+		}  */
+		
+		$(document).ready(function(){	
+			$("#passwordChangeForm").submit(function(event){
+				submitForm();
+				return false;
+			});
+		});
+		
+		function submitForm(){
+			let ifmmPassword = $('#ifmmPassword').val();
+			let ifmmSeq = $('#ifmmSeq').val();
+			
+			 $.ajax({
+				type: "POST",
+				url: "/updtPassword",
+				data: {ifmmPassword: ifmmPassword, ifmmSeq: ifmmSeq},
+				dataType : 'json',
+				success: function(response){
+					/* $("#passwordChangeModal").modal('hide'); */
+					$(".modal-fade").modal("hide");
+					$(".modal-backdrop").remove();
+				},
+				error: function(){
+					alert("Error");
+				}
+			});
+		}
+		
+		/* $('#passwordChangeForm').submit(function() {
+			
+			$("#passwordChangeForm").attr("action","updtPassword");
+
+		}); */
+		
+		$('#ifmmPassword').focusout(function(){
+			let p1 = $('#passwordChange').val();
+			let p2 = $('#ifmmPassword').val();
+			
+			if(p1 == p2){
+				$('#passwordChangeAgainFont').html('');
+			} else{
+				$('#passwordChangeAgainFont').html('비밀번호가 같지 않습니다.');
+				$('#passwordChangeAgainFont').attr('color','red');
+			}
+		})
+		
+		$('#passwordCurrent').focusout(function(){
+			let passwordCurrentVal = $('#passwordCurrent').val();
+			let ifmmSeq = $('#ifmmSeq').val();
 			
 			$.ajax({
-				url : "/IdCheckService",
+				url : "/PasswordCheck",
 				type : "post",
-				data : {ifmmId: ifmmId},
+				data : {ifmmPassword: passwordCurrentVal, ifmmSeq: ifmmSeq},
 				dataType : 'json',
 				success : function(result){
 					if(result == 0){
-						$('#checkId').html('중복된 아이디입니다.');
-						$('#checkId').attr('color','red');
+						$('#checkPassword').html('비밀번호가 틀렸습니다.');
+						$('#checkPassword').attr('color','red');
 					} else{
-						$('#checkId').html('사용 가능한 아이디입니다.');
-						$('#checkId').attr('color','green');
+						$('#checkPassword').html('');
+						$('#checkPassword').attr('color','green');
 					}
 				},
 				error : function(){

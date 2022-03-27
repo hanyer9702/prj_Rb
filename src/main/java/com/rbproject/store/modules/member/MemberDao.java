@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 
+
 @Repository
 public class MemberDao {
 	
@@ -68,9 +69,36 @@ public class MemberDao {
 	public int updateMember(Member dto) {
 		return sqlSession.update(namespace + ".updateMember", dto);
 	}
-	
 	public int updateAddress(Member dto) {
 		return sqlSession.update(namespace + ".updateAddress", dto);
+	}
+	public int updateMobile(Member dto) {
+		return sqlSession.update(namespace + ".updateMobile", dto);
+	}
+	public int updatePhone(Member dto) {
+		return sqlSession.update(namespace + ".updatePhone", dto);
+	}
+	public int updateFax(Member dto) {
+		return sqlSession.update(namespace + ".updateFax", dto);
+	}
+	public int updateEmail(Member dto) {
+		return sqlSession.update(namespace + ".updateEmail", dto);
+	}
+	public int updateJoinQna(Member dto) {
+		return sqlSession.update(namespace + ".updateJoinQna", dto);
+	}
+	public int updateAddressOnline(Member dto) {
+		return sqlSession.update(namespace + ".updateAddressOnline", dto);
+	}
+	public int updateHobby(Member dto) {
+		return sqlSession.update(namespace + ".updateHobby", dto);
+	}
+	
+	public Member checkPassword(MemberVo vo) {
+		return sqlSession.selectOne(namespace + ".checkPassword", vo);
+	}
+	public int updatePassword(MemberVo vo) {
+		return sqlSession.update(namespace + ".updatePassword", vo);
 	}
 	
 	public List<Member> selectListForCache() {
@@ -80,6 +108,35 @@ public class MemberDao {
 	public List<Member> checkId(MemberVo vo) {
 		System.out.println("dao");
 		return sqlSession.selectList(namespace + ".checkId", vo);
+	}
+	
+	public int updateDelete(MemberVo vo) {
+		return sqlSession.update(namespace + ".updateDelete", vo);
+	}
+	
+	public int deleteMember(MemberVo vo) {
+		return sqlSession.delete(namespace + ".deleteMember", vo);
+	}
+	public int deleteMemberNationality(MemberVo vo) {
+		return sqlSession.delete(namespace + ".deleteMemberNationality", vo);
+	}
+	public int deleteMemberAddress(MemberVo vo) {
+		return sqlSession.delete(namespace + ".deleteMemberAddress", vo);
+	}
+	public int deleteMemberMobile(MemberVo vo) {
+		return sqlSession.delete(namespace + ".deleteMemberMobile", vo);
+	}
+	public int deleteMemberEmail(MemberVo vo) {
+		return sqlSession.delete(namespace + ".deleteMemberEmail", vo);
+	}
+	public int deleteMemberJoinQna(MemberVo vo) {
+		return sqlSession.delete(namespace + ".deleteMemberJoinQna", vo);
+	}
+	public int deleteMemberAddressOnline(MemberVo vo) {
+		return sqlSession.delete(namespace + ".deleteMemberAddressOnline", vo);
+	}
+	public int deleteMemberHobby(MemberVo vo) {
+		return sqlSession.delete(namespace + ".deleteMemberHobby", vo);
 	}
 	
 }

@@ -145,14 +145,106 @@ public class MemberController {
 	@RequestMapping(value = "/IdCheckService")
 	public String IdCheckService(MemberVo vo) throws Exception {
 		
-		String result = "";
+		int tmp = 0;
+		List<Member> member = service.checkId(vo);
 		
-		result = service.checkId(vo);
+		if (!member.isEmpty()) {
+			tmp = 0;
+		} else {
+			tmp = 1;
+		}
 		
-		System.out.println(result);
+		System.out.println(tmp);
 		
-		return result;
+		return tmp + "";
 	}
 	
+	@RequestMapping(value = "/xdmin/member/memberUpdateDel")
+	public String memberUpdateDel(@ModelAttribute("vo") MemberVo vo, Member dto, RedirectAttributes redirectAttributes) throws Exception {
+		
+		service.updateDelete(vo);
+		
+		redirectAttributes.addAttribute("thisPage", vo.getThisPage());	//get
+		redirectAttributes.addAttribute("shOption", vo.getShOption());	//get
+		redirectAttributes.addAttribute("shValue", vo.getShValue());	//get
+		redirectAttributes.addAttribute("rowNumToShow", vo.getRowNumToShow());	//get
+		redirectAttributes.addAttribute("ifmmSeq", vo.getIfmmSeq());	//get
+		
+		return "redirect:/xdmin/member/memberList";
+	}
 	
+	@RequestMapping(value = "/xdmin/member/memberDelete")
+	public String memberDelete(@ModelAttribute("vo") MemberVo vo, Member dto, RedirectAttributes redirectAttributes) throws Exception {
+		
+		service.delete(vo);
+		
+		redirectAttributes.addAttribute("thisPage", vo.getThisPage());	//get
+		redirectAttributes.addAttribute("shOption", vo.getShOption());	//get
+		redirectAttributes.addAttribute("shValue", vo.getShValue());	//get
+		redirectAttributes.addAttribute("rowNumToShow", vo.getRowNumToShow());	//get
+		redirectAttributes.addAttribute("ifmmSeq", vo.getIfmmSeq());	//get
+		
+		return "redirect:/xdmin/member/memberList";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/PasswordCheck")
+	public String passwordCheck(MemberVo vo) throws Exception {
+		System.out.println(vo.getIfmmPassword());
+		int tmp = 0;
+		Member member = service.checkPassword(vo);
+		
+		if (!member.getIfmmPassword().equals(vo.getIfmmPassword())) {
+			tmp = 0;
+		} else {
+			tmp = 1;
+		}
+		
+		System.out.println(tmp);
+		
+		return tmp + "";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/updtPassword")
+	public String updtPassword(@ModelAttribute("vo") MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
+				
+		service.updatePassword(vo);
+		
+		return "1";
+	}
+	
+	@RequestMapping(value = "/xdmin/member/goMemberEdit")
+	public String goMemberEdit(@ModelAttribute("vo") MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
+				
+		redirectAttributes.addAttribute("thisPage", vo.getThisPage());	//get
+		redirectAttributes.addAttribute("shOption", vo.getShOption());	//get
+		redirectAttributes.addAttribute("shValue", vo.getShValue());	//get
+		redirectAttributes.addAttribute("rowNumToShow", vo.getRowNumToShow());	//get
+		redirectAttributes.addAttribute("ifmmSeq", vo.getIfmmSeq());	//get
+		
+		return "redirect:/xdmin/member/memberEdit" + vo.getIfmmSeq();
+	}
+	
+//	@RequestMapping(value = "/xdmin/member/updtPassword")
+//	public String updtPassword(@ModelAttribute("vo") MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
+//		
+//		
+//		System.out.println("updtPassword--------------------------");
+//		System.out.println("vo.getIfmmSeq() : " + vo.getIfmmSeq());
+//		System.out.println("vo.getIfmmPassword() : " + vo.getIfmmPassword());
+//		System.out.println("vo.thisPage() : " + vo.getThisPage());
+//		System.out.println("vo.rowNumToShow() : " + vo.getRowNumToShow());
+//		System.out.println("vo.gmmPassword() : " + vo.getIfmmPassword());
+//		
+//		service.updatePassword(vo);
+//		
+//		redirectAttributes.addAttribute("thisPage", vo.getThisPage());	//get
+//		redirectAttributes.addAttribute("shOption", vo.getShOption());	//get
+//		redirectAttributes.addAttribute("shValue", vo.getShValue());	//get
+//		redirectAttributes.addAttribute("rowNumToShow", vo.getRowNumToShow());	//get
+//		redirectAttributes.addAttribute("ifmmSeq", vo.getIfmmSeq());	//get
+//		
+//		return "redirect:/xdmin/member/memberEdit";
+//	}
 }

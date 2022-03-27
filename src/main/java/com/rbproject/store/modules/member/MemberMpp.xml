@@ -65,6 +65,7 @@
 			    , b.ifmaAddress1
 			    , b.ifmaAddress2 
 			    , ifnull((select ifcdName from infrCode where c.ifaoSnsTypeCd = ifcdSeq),"-") as ifmmSns
+			   	, c.ifaoSnsTypeCd
 			    , ifnull(c.ifaoUrl,"-") as ifaoUrl
 			    , d.ifmeEmailFull
 			    , d.ifmeEmailAccount
@@ -322,9 +323,27 @@
 			ifmmSeq
 		FROM
 			infrMember
-		WHERE
-			ifmmId LIKE #{ifmmId}
+		WHERE 1=1
+			AND ifmmId LIKE #{ifmmId}
 	</select>
+	
+	<select id="checkPassword" resultMap="resultMapObj">
+		SELECT
+			ifmmPassword
+		FROM
+			infrMember
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</select>
+	
+	<update id="updatePassword">
+		UPDATE
+			infrMember
+		SET 
+			ifmmPassword = #{ifmmPassword}
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</update>
 	
 	<update id="updateMember">
 		UPDATE
@@ -338,15 +357,6 @@
 			,ifmmChildrenNum = #{ifmmChildrenNum}
 			,ifmmFavoriteColor = #{ifmmFavoriteColor}
 			,ifmmDesc = #{ifmmDesc}
-		WHERE 1=1
-			AND ifmmSeq = #{ifmmSeq}
-	</update>
-	
-	<update id="updatePassword">
-		UPDATE
-			infrMember
-		SET 
-			ifmmPassword = #{ifmmPassword}
 		WHERE 1=1
 			AND ifmmSeq = #{ifmmSeq}
 	</update>
@@ -427,7 +437,7 @@
 			,ifaoUrl = #{ifaoUrl}
 		WHERE 1=1
 			AND ifmmSeq = #{ifmmSeq}
-			AND ifaoDefaultNy = #{ifaoDefaultNy}
+			AND ifaoDefaultNy = 1
 	</update>
 	
 	<update id="updateHobby">
@@ -438,4 +448,70 @@
 		WHERE 1=1
 			AND ifmmSeq = #{ifmmSeq}
 	</update>
+	
+	<update id="updateDelete">
+		UPDATE 
+			infrMember 
+		SET 
+			ifmmDelNy = 1
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</update>
+	
+	<delete id="deleteMember">
+		DELETE
+		FROM 
+			infrMember
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</delete>
+	<delete id="deleteMemberNationality">
+		DELETE
+		FROM 
+			infrMemberNationality
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</delete>
+	<delete id="deleteMemberAddress">
+		DELETE
+		FROM 
+			infrMemberAddress
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</delete>
+	<delete id="deleteMemberMobile">
+		DELETE
+		FROM 
+			infrMemberPhone
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</delete>
+	<delete id="deleteMemberEmail">
+		DELETE
+		FROM 
+			infrMemberEmail
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</delete>
+	<delete id="deleteMemberJoinQna">
+		DELETE
+		FROM 
+			infrMemberJoinQna
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</delete>
+	<delete id="deleteMemberAddressOnline">
+		DELETE
+		FROM 
+			infrMemberAddressOnline
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</delete>
+	<delete id="deleteMemberHobby">
+		DELETE
+		FROM 
+			infrMemberHobby
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</delete>
 </mapper>

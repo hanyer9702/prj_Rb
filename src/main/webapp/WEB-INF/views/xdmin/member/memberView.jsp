@@ -175,7 +175,8 @@
 			<button type="button" class="btn btn-success" onclick="javascript:goList()">목록</button>
 			<div class="float-end">
 				<button type="button" class="btn btn-warning" onclick="javascript:goEdit(${rt.ifmmSeq})">수정</button>
-				<button type="button" class="btn btn-danger" data-bs-toggle="modal"	data-bs-target="#deleteModal">삭제</button>
+				<button type="button" class="btn btn-danger" onclick="javascript:btnUpdateDel(${rt.ifmmSeq})">목록에서 삭제</button>
+				<button type="button" class="btn btn-dark" onclick="javascript:btnDelete(${rt.ifmmSeq})">DB에서 삭제</button>
 			</div>
 		</div>
 	</section>
@@ -222,7 +223,31 @@
 			$("#formView").attr("action","memberEdit");
 			$("#formView").submit();
 		} 
-	
+		
+		btnDelete = function(seq){
+			var num = confirm("진짜로 DB에서 삭제 하시겠습니까?");
+			
+			if(num){
+				$("#ifmmSeq").val(seq);
+				$("#formView").attr("action","memberDelete");
+				$("#formView").submit();
+			} else {
+				return false;
+			}
+		}
+		
+		btnUpdateDel = function(seq){
+			var num = confirm("목록에서 삭제 하시겠습니까?");
+			
+			if(num){
+				$("#ifmmSeq").val(seq);
+				$("#formView").attr("action","memberUpdateDel");
+				$("#formView").submit();
+			} else {
+				return false;
+			}
+		}
+		
 	</script>
 </body>
 </html>

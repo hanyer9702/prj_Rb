@@ -49,6 +49,14 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int update(Member dto) throws Exception {
 		dao.updateMember(dto);
+		dao.updateAddress(dto);
+		dao.updateMobile(dto);
+		dao.updatePhone(dto);
+		dao.updateFax(dto);
+		dao.updateEmail(dto);
+		dao.updateJoinQna(dto);
+		dao.updateAddressOnline(dto);
+//		dao.updateHobby(dto);
 		
 		return 1;
 	}
@@ -82,17 +90,38 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public String checkId(MemberVo vo) throws Exception {
-		System.out.println("impl");
-		int tmp = 0;
-		List<Member> member = dao.checkId(vo);
-		
-		if (!member.isEmpty()) {
-			tmp = 0;
-		} else {
-			tmp = 1;
-		}
-		System.out.println("impl");
-		return tmp + "";
+	public List<Member> checkId(MemberVo vo) throws Exception {
+		return dao.checkId(vo);
 	}
+	
+	@Override
+	public int updateDelete(MemberVo vo) throws Exception {
+		return dao.updateDelete(vo);
+	}
+	
+	@Override
+	public int delete(MemberVo vo) throws Exception {
+		dao.deleteMemberNationality(vo);
+		dao.deleteMemberAddress(vo);
+		dao.deleteMemberMobile(vo);
+		dao.deleteMemberEmail(vo);
+		dao.deleteMemberJoinQna(vo);
+		dao.deleteMemberAddressOnline(vo);
+		dao.deleteMemberHobby(vo);
+		dao.deleteMember(vo);
+		
+		return 1;
+	}
+
+	@Override
+	public Member checkPassword(MemberVo vo) throws Exception {
+		return dao.checkPassword(vo);
+	}
+
+	@Override
+	public int updatePassword(MemberVo vo) throws Exception {
+		return dao.updatePassword(vo);
+	}
+	
+	
 }

@@ -475,14 +475,15 @@
 		$('.ifmmId').focusout(function(){
 			let ifmmId = $('.ifmmId').val();
 			
+			
 			$.ajax({
 				url : "/IdCheckService",
 				type : "post",
 				data : {ifmmId: ifmmId},
 				dataType : 'json',
 				success : function(result){
-					if(result == 0){
-						$('#checkId').html('중복된 아이디입니다.');
+					if(result == 0 || ifmmId == "" || ifmmId == null){
+						$('#checkId').html('불가능한 아이디입니다.');
 						$('#checkId').attr('color','red');
 					} else{
 						$('#checkId').html('사용 가능한 아이디입니다.');

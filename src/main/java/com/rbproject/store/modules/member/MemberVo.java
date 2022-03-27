@@ -6,6 +6,7 @@ public class MemberVo {
 	
 	private String ifmmSeq = "";
 	private String ifmmId = "";
+	private String ifmmPassword = "";
 		
 	private String shValue;
 	private String shOption;
@@ -208,6 +209,14 @@ public class MemberVo {
 
 	public void setIfmmId(String ifmmId) {
 		this.ifmmId = ifmmId;
+	}
+
+	public String getIfmmPassword() {
+		return ifmmPassword;
+	}
+
+	public void setIfmmPassword(String ifmmPassword) {
+		this.ifmmPassword = ifmmPassword;
 	}
 	
 }
