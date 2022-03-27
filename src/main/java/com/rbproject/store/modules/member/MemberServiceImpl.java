@@ -32,12 +32,25 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int insert(Member dto) throws Exception {
-		return dao.insert(dto);
+		dao.insertInfrMember(dto);
+		dao.insertInfrMemberNationality(dto);
+		dao.insertInfrMemberAddress(dto);
+		dao.insertInfrMemberMobile(dto);
+		dao.insertInfrMemberPhone(dto);
+		dao.insertInfrMemberFax(dto);
+		dao.insertInfrMemberEmail(dto);
+		dao.insertInfrMemberJoinQna(dto);
+		dao.insertInfrMemberAddressOnline(dto);
+		dao.insertInfrMemberHobby(dto);
+		
+		return 1;
 	}
 
 	@Override
 	public int update(Member dto) throws Exception {
-		return dao.update(dto);
+		dao.updateMember(dto);
+		
+		return 1;
 	}
 	
 
@@ -58,7 +71,7 @@ public class MemberServiceImpl implements MemberService{
 	public static List<Member> selectListCachedCode(String ifcgSeq) throws Exception {
 		List<Member> rt = new ArrayList<Member>();
 		for(Member codeRow : Member.cachedCodeArrayList) {
-			if(codeRow.getIfcdSeq().equals(ifcgSeq)) {
+			if(codeRow.getIfcgSeq().equals(ifcgSeq)) {
 				rt.add(codeRow);
 			} else {
 				// by pass

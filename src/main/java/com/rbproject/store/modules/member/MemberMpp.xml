@@ -36,7 +36,7 @@
 		    , a.ifmmName
 		    , a.ifmmId
 		    , concat("[",b.ifmaZipcode,"] ",b.ifmaAddress1," ",b.ifmaAddress2) as ifmaAddress
-		    , (select concat(substring(ifmpNumber,1,3),"-",substring(ifmpNumber,4,4),"-",substring(ifmpNumber,7,4)) from infrmemberphone where ifmpDeviceCd = 25 and ifmpDefaultNy = 1 and a.ifmmSeq = ifmmSeq) as ifmpNumberDash
+		    , (select concat(substring(ifmpNumber,1,3),"-",substring(ifmpNumber,4,4),"-",substring(ifmpNumber,8,4)) from infrmemberphone where ifmpDeviceCd = 25 and ifmpDefaultNy = 1 and a.ifmmSeq = ifmmSeq) as ifmpNumberDash
 		    , (select ifnaName from infrNationality where ifnaSeq = g.ifnaSeq) as ifnaName
 		    , h.ifmpNumber
 		 <include refid="selectCommon" />
@@ -51,7 +51,9 @@
 			    , (select ifcdName from infrCode where a.ifmmGenderCd = ifcdSeq) as ifmmGender
 			    , a.ifmmDob
 			    , (select ifcdName from infrCode where a.ifmmSavedCd = ifcdSeq) as ifmmSaved
+			    , a.ifmmSavedCd
 			    , (select ifcdName from infrCode where a.ifmmMarriageCd = ifcdSeq) as ifmmMarriage
+			    , a.ifmmMarriageCd
 			    , a.ifmmMarriageDate
 			    , a.ifmmChildrenNum
 			    , a.ifmmFavoriteColor
@@ -59,16 +61,32 @@
 			    , a.ifmmSmsConsentNy
 			    , a.ifmmPushConsentNy
 			    , concat("[",b.ifmaZipcode,"] ",b.ifmaAddress1," ",b.ifmaAddress2) as ifmaAddress
+			    , b.ifmaZipcode
+			    , b.ifmaAddress1
+			    , b.ifmaAddress2 
 			    , ifnull((select ifcdName from infrCode where c.ifaoSnsTypeCd = ifcdSeq),"-") as ifmmSns
 			    , ifnull(c.ifaoUrl,"-") as ifaoUrl
 			    , d.ifmeEmailFull
+			    , d.ifmeEmailAccount
+			    , d.ifmeEmailDomainCd
 			    , (select ifcdName from infrCode where f.ifjqQuestionCd = ifcdSeq) as ifjqQuestion
+			    , f.ifjqQuestionCd 
 			    , f.ifjqAnswer
 			    , (select ifcdName from infrCode where h.ifmpTelecomCd = ifcdSeq) as ifmpTelecom
+			    , h.ifmpTelecomCd
 			    , h.ifmpNumber
-			    , concat(substring(ifmpNumber,1,3),"-",substring(ifmpNumber,4,4),"-",substring(ifmpNumber,7,4)) as ifmpNumberDash
+			    , concat(substring(h.ifmpNumber,1,3),"-",substring(h.ifmpNumber,4,4),"-",substring(h.ifmpNumber,7,4)) as ifmpNumberDash
+			    , substring(h.ifmpNumber,1,3) as ifmpNumber1
+			    , substring(h.ifmpNumber,4,4) as ifmpNumber2
+			    , substring(h.ifmpNumber,7,4) as ifmpNumber3
 			    , (select concat(substring(ifmpNumber,1,2),"-",substring(ifmpNumber,3,3),"-",substring(ifmpNumber,6,4)) from infrmemberphone where ifmpDeviceCd = 24 and ifmpDefaultNy = 1 and ifmmSeq=a.ifmmSeq) as ifmpHomeNumber
+			    , substring(i.ifmpNumber,1,2) as ifmpPhone1
+			    , substring(i.ifmpNumber,3,3) as ifmpPhone2
+			    , substring(i.ifmpNumber,6,4) as ifmpPhone3
 			    , (select concat(substring(ifmpNumber,1,3),"-",substring(ifmpNumber,4,3),"-",substring(ifmpNumber,7,4)) from infrmemberphone where ifmpDeviceCd = 26 and ifmpDefaultNy = 1 and ifmmSeq=a.ifmmSeq) as ifmpFaxNumber
+			    , substring(j.ifmpNumber,1,3) as ifmpFax1
+			    , substring(j.ifmpNumber,3,3) as ifmpFax2
+			    , substring(j.ifmpNumber,6,4) as ifmpFax3
 			    , (select ifnaName from infrNationality where ifnaSeq = g.ifnaSeq) as ifnaName
 			    
 			from infrMember a
@@ -79,6 +97,8 @@
 			    left join infrMemberJoinQna f on f.ifjqDelNy = 0 and f.ifmmSeq = a.ifmmSeq
 			    left join infrMemberNationality g on g.ifmnDefaultNy = 1 and g.ifmnDelNy = 0 and g.ifmmSeq = a.ifmmSeq
 			    left join infrmemberphone h on h.ifmpDelNy = 0 and h.ifmpDefaultNy = 1 and h.ifmmSeq = a.ifmmSeq and h.ifmpDeviceCd = 25 and h.ifmpDefaultNy = 1
+			    left join infrmemberphone i on i.ifmpDelNy = 0 and i.ifmpDefaultNy = 1 and i.ifmmSeq = a.ifmmSeq and i.ifmpDeviceCd = 24 and i.ifmpDefaultNy = 1
+			    left join infrmemberphone j on j.ifmpDelNy = 0 and j.ifmpDefaultNy = 1 and j.ifmmSeq = a.ifmmSeq and j.ifmpDeviceCd = 26 and j.ifmpDefaultNy = 1
 			where 1=1
 				and a.ifmmDelNy = 0
 				AND a.ifmmSeq = #{ifmmSeq}
@@ -121,10 +141,18 @@
 			,#{ifmmSavedCd}
 			,#{ifmmMarriageCd}
 			,#{ifmmMarriageDate}
-			,#{ifmmChildrenNum}
+			<!-- ,#{ifmmChildrenNum} -->
+			<choose>
+				<when test="ifmmChildrenNum != null and ifmmChildrenNum.equals('')">,#{ifmmChildrenNum}</when>
+				<when test="ifmmChildrenNum == null or ifmmChildrenNum.equals('')">,null</when>
+			</choose>
 			,#{ifmmFavoriteColor}
 			,#{ifmmDesc}
-			<if test="ifmmRecommenderName != null and !ifmmRecommenderName.equals('')">,(select a.ifmmSeq from infrMember a where a.ifmmName LIKE #{ifmmRecommenderName})</if>
+			<!-- <if test="ifmmRecommenderName != null and !ifmmRecommenderName.equals('')">,(select a.ifmmSeq from infrMember a where a.ifmmName LIKE #{ifmmRecommenderName})</if> -->
+			<choose>
+				<when test="ifmmRecommenderName != null and !ifmmRecommenderName.equals('')">,(select a.ifmmSeq from infrMember a where a.ifmmName LIKE #{ifmmRecommenderName})</when>
+				<when test="ifmmRecommenderName == null or ifmmRecommenderName.equals('')">,null</when>
+			</choose>
 			,0
 		)
 		<selectKey resultType="string" keyProperty="ifmmSeq" order="AFTER">
@@ -276,15 +304,6 @@
 		)
 	</insert>
 	
-	<update id="updateMember">
-		UPDATE
-			infrMember
-		SET 
-			ifcdName = #{ifcdName}
-		WHERE 1=1
-			AND ifmmSeq = #{ifmmSeq}
-	</update>
-	
 	<select id="selectListForCache" resultMap="resultMapObj">
 		SELECT
 			a.ifcdSeq
@@ -306,4 +325,117 @@
 		WHERE
 			ifmmId LIKE #{ifmmId}
 	</select>
+	
+	<update id="updateMember">
+		UPDATE
+			infrMember
+		SET 
+			ifmmSmsConsentNy = #{ifmmSmsConsentNy}
+			,ifmmEmailConsentNy = #{ifmmEmailConsentNy}
+			,ifmmSavedCd = #{ifmmSavedCd}
+			,ifmmMarriageCd = #{ifmmMarriageCd}
+			,ifmmMarriageDate = #{ifmmMarriageDate}
+			,ifmmChildrenNum = #{ifmmChildrenNum}
+			,ifmmFavoriteColor = #{ifmmFavoriteColor}
+			,ifmmDesc = #{ifmmDesc}
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</update>
+	
+	<update id="updatePassword">
+		UPDATE
+			infrMember
+		SET 
+			ifmmPassword = #{ifmmPassword}
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</update>
+	
+	<update id="updateAddress">
+		UPDATE
+			infrMemberAddress
+		SET 
+			ifmaZipcode = #{ifmaZipcode}
+			,ifmaAddress1 = #{ifmaAddress1}
+			,ifmaAddress2 = #{ifmaAddress2}	
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+			AND ifmaDefaultNy = 1
+	</update>
+	
+	<update id="updateMobile">
+		UPDATE
+			infrMemberPhone
+		SET 
+			ifmpTelecomCd = #{ifmpTelecomCd}
+			,ifmpNumber = concat(#{ifmpNumber1},#{ifmpNumber2},#{ifmpNumber3})
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+			AND ifmpDefaultNy = 1
+			AND ifmpDeviceCd = 25
+	</update>
+	
+	<update id="updatePhone">
+		UPDATE
+			infrMemberPhone
+		SET 
+			ifmpNumber = concat(#{ifmpPhone1},#{ifmpPhone2},#{ifmpPhone3})
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+			AND ifmpDefaultNy = 1
+			AND ifmpDeviceCd = 24
+	</update>
+	
+	<update id="updateFax">
+		UPDATE
+			infrMemberPhone
+		SET 
+			ifmpNumber = concat(#{ifmpFax1},#{ifmpFax2},#{ifmpFax3})
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+			AND ifmpDefaultNy = 1
+			AND ifmpDeviceCd = 26
+	</update>
+	
+	<update id="updateEmail">
+		UPDATE
+			infrMemberEmail
+		SET 
+			ifmeEmailAccount = #{ifmeEmailAccount}
+			,ifmeEmailDomainCd = #{ifmeEmailDomainCd}
+			,ifmeEmailFull = concat(#{ifmeEmailAccount}, "@", (select ifcdName from infrCode where #{ifmeEmailDomainCd} = ifcdSeq))
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+			AND ifmeDefaultNy = 1
+	</update>
+	
+	<update id="updateJoinQna">
+		UPDATE
+			infrMemberJoinQna
+		SET 
+			ifjqQuestionCd = #{ifjqQuestionCd}
+			,ifjqAnswer = #{ifjqAnswer}
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</update>
+	
+	<update id="updateAddressOnline">
+		UPDATE
+			infrMemberAddressOnline
+		SET 
+			ifaoSnsTypeCd = #{ifaoSnsTypeCd}
+			,ifaoUrl = #{ifaoUrl}
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+			AND ifaoDefaultNy = #{ifaoDefaultNy}
+	</update>
+	
+	<update id="updateHobby">
+		UPDATE
+			infrMemberHobby
+		SET 
+			ifmhHobbyCd = #{ifmhHobbyCd}
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</update>
 </mapper>

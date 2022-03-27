@@ -12,6 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="/resources/common/_bootstrap/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="/resources/common/css/style.css" rel="stylesheet" type="text/css">
+<link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet">
 <title>한예린</title>
 <style type="text/css">
 	.circle{
@@ -71,6 +72,7 @@
 		 		<input type="hidden" id="thisPage" name="thisPage" value="${vo.thisPage}">
 				<input type="hidden" id="shOption" name="shOption" value="${vo.shOption}">
 				<input type="hidden" id="shValue" name="shValue" value="${vo.shValue}">
+				<input type="hidden" id="rowNumToShow" name="rowNumToShow" value="${vo.rowNumToShow}">
 		 		<div class="row g-3 p-2">
 				  <div class="mb-3 col-sm-6">
 				    <label for="userName" class="form-label">이름</label>
@@ -81,7 +83,7 @@
 				  </div>
 				  <div class="col-sm-6 row align-items-center mb-3 ps-3">
 				  	<label for="" class="form-label">성별</label>
-					  <div class="form-check col-3 col-md-2">
+					  <!-- <div class="form-check col-3 col-md-2">
 						  <input class="form-check-input" type="radio" name="ifmmGenderCd" id="ifmmGenderCdM" value="3" required>
 						  <label class="form-check-label" for="ifmmGenderCdM">
 						    남성
@@ -92,7 +94,16 @@
 						  <label class="form-check-label" for="ifmmGenderCdW">
 						    여성
 						  </label>
-						</div>
+						</div> -->
+						<c:forEach items="${codeGender}" var="itemGender" varStatus="statusGender">
+							<%-- <option value="<c:out value="${itemGender.ifcdSeq}"/>" <c:if test="${item.kbmmGenderCd eq itemGender.ifcdOrder }">selected</c:if> ><c:out value="${itemGender.ifcdName}"/></option> --%>
+							<div class="form-check col-3 col-md-2">
+								<input class="form-check-input" type="radio" name="ifmmGenderCd" id="ifmmGenderCd<c:out value="${itemGender.ifcdSeq}"/>" value="<c:out value="${itemGender.ifcdSeq}"/>" required>
+								<label class="form-check-label" for="ifmmGenderCd<c:out value="${itemGender.ifcdSeq}"/>">
+									<c:out value="${itemGender.ifcdName}"/>
+								</label>
+							</div>
+						</c:forEach>
 					</div>
 					<div class="col-sm-6">
 						<label for="userId" class="form-label">아이디</label>
@@ -111,7 +122,7 @@
 				  </div>
 				  <div class="mb-3 col-sm-6">
 				    <label for="userBirth" class="form-label">생일</label>
-				    <input type="date" class="form-control" id="ifmmDob" name="ifmmDob" required>
+				    <input type="text" class="form-control" id="ifmmDob" name="ifmmDob" required>
 				  </div>
 				  <div class="mb-3 col-sm-6">
 				  	<label for="ifnaSeq" class="form-label">국적</label>
@@ -125,11 +136,11 @@
 				  <div class="mb-3 col-sm-8 g-2">
 				  	<label for="userZipcode" class="form-label">주소</label>
 				  	<div class="input-group mb-2">
-					  <input type="text" class="form-control" id="ifmaZipcode" name="ifmaZipcode" disabled readonly>
+					  <input type="text" class="form-control" id="ifmaZipcode" name="ifmaZipcode" readonly>
 					  <!-- <input type="text" class="form-control" id="ifmaZipcode" name="ifmaZipcode"> -->
 					  <button class="btn btn-outline-secondary" type="button" id="userAddressButton" onclick="execDaumPostcode()">주소찾기</button>
 					</div>
-				    <input type="text" class="form-control mb-2" id="ifmaAddress1" name="ifmaAddress1" disabled readonly>
+				    <input type="text" class="form-control mb-2" id="ifmaAddress1" name="ifmaAddress1" readonly>
 				    <!-- <input type="text" class="form-control mb-2" id="ifmaAddress1" name="ifmaAddress1"> -->
 				    <input type="text" class="form-control mb-2" id="ifmaAddress2" name="ifmaAddress2" placeholder="상세주소" required>
 				    <input type="text" class="form-control" id="ifmaAddress3" name="ifmaAddress3" placeholder="참고항목">
@@ -143,10 +154,8 @@
 							<option value="29">KT</option>
 							<option value="30">LG</option>
 							<option value="31">기타</option> -->
-							<c:forEach items="${codeList}" var="item" varStatus="status">
-								<c:if test="${item.ifcgSeq eq 9}">
-									<option value="${item.ifcdSeq}"><c:out value="${item.ifcdName}"/></option>
-								</c:if>
+							<c:forEach items="${codeTelecom}" var="itemTelecom" varStatus="statusTelecom">
+								<option value="${itemTelecom.ifcdSeq}"><c:out value="${itemTelecom.ifcdName}"/></option>
 							</c:forEach>
 						</select>
 					</div>
@@ -221,10 +230,8 @@
 									<option value="17">daum.net</option>
 									<option value="18">gmail.com</option>
 									<option value="19">직접입력</option> -->
-									<c:forEach items="${codeList}" var="item" varStatus="status">
-										<c:if test="${item.ifcgSeq eq 6}">
-											<option value="${item.ifcdSeq}"><c:out value="${item.ifcdName}"/></option>
-										</c:if>
+									<c:forEach items="${codeEmailDomain}" var="itemEmailDomain" varStatus="statusEmailDomain">
+										<option value="${itemEmailDomain.ifcdSeq}"><c:out value="${itemEmailDomain.ifcdName}"/></option>
 									</c:forEach>
 							</select>
 						</div>
@@ -259,10 +266,8 @@
 								<option value="8">5년</option>
 								<option value="9">10년</option>
 								<option value="10">탈퇴시</option> -->
-								<c:forEach items="${codeList}" var="item" varStatus="status">
-									<c:if test="${item.ifcgSeq eq 3}">
-										<option value="${item.ifcdSeq}"><c:out value="${item.ifcdName}"/></option>
-									</c:if>
+								<c:forEach items="${codeAgreePeriod}" var="itemAgreePeriod" varStatus="statusAgreePeriod">
+									<option value="${itemAgreePeriod.ifcdSeq}"><c:out value="${itemAgreePeriod.ifcdName}"/></option>
 								</c:forEach>
 						</select>
 					</div>
@@ -275,10 +280,8 @@
 							<option value="63">가장 친한 친구는?</option>
 							<option value="64">아버지 성함은?</option>
 							<option value="65">존경하는 인물은?</option> -->
-							<c:forEach items="${codeList}" var="item" varStatus="status">
-								<c:if test="${item.ifcgSeq eq 14}">
-									<option value="${item.ifcdSeq}"><c:out value="${item.ifcdName}"/></option>
-								</c:if>
+							<c:forEach items="${codeQuestion}" var="itemQuestion" varStatus="statusQuestion">
+								<option value="${itemQuestion.ifcdSeq}"><c:out value="${itemQuestion.ifcdName}"/></option>
 							</c:forEach>
 						</select>
 					</div>
@@ -294,10 +297,8 @@
 							<option value="35">인스타그램</option>
 							<option value="36">트위터</option>
 							<option value="37">카톡</option> -->
-							<c:forEach items="${codeList}" var="item" varStatus="status">
-								<c:if test="${item.ifcgSeq eq 11}">
-									<option value="${item.ifcdSeq}"><c:out value="${item.ifcdName}"/></option>
-								</c:if>
+							<c:forEach items="${codeSns}" var="itemSns" varStatus="statusSns">
+								<option value="${itemSns.ifcdSeq}"><c:out value="${itemSns.ifcdName}"/></option>
 							</c:forEach>
 						</select>
 					</div>
@@ -307,22 +308,30 @@
 					</div> 
 					<div class="col-sm-6 row align-items-center mb-3 ps-4 me-2">
 				  		<label for="ifmmMarriageCd" class="form-label">결혼여부</label>
-					  <div class="form-check col-3 col-md-2">
-						  <input class="form-check-input" type="radio" name="ifmmMarriageCd" id="ifmmMarriageCdY">
+					 	 <!-- <div class="form-check col-3 col-md-2">
+						  <input class="form-check-input" type="radio" name="ifmmMarriageCd" id="ifmmMarriageCdY" value="12">
 						  <label class="form-check-label" for="ifmmMarriageCdY">
 						    기혼
 						  </label>
 						</div>
 						<div class="form-check col-3 col-md-2">
-						  <input class="form-check-input" type="radio" name="ifmmMarriageCd" id="ifmmMarriageCdN">
+						  <input class="form-check-input" type="radio" name="ifmmMarriageCd" id="ifmmMarriageCdN" value="11">
 						  <label class="form-check-label" for="ifmmMarriageCdN">
 						    미혼
 						  </label>
-						</div>
+						</div> -->
+						<c:forEach items="${codeMarriageNy}" var="itemMarriageNy" varStatus="statusMarriageNy">
+							<div class="form-check col-3 col-md-2">
+								<input class="form-check-input" type="radio" name="ifmmMarriageCd" id="ifmmMarriageCd<c:out value="${itemMarriageNy.ifcdSeq}"/>" value="<c:out value="${itemMarriageNy.ifcdSeq}"/>" required>
+								<label class="form-check-label" for="ifmmMarriageCd<c:out value="${itemMarriageNy.ifcdSeq}"/>">
+									<c:out value="${itemMarriageNy.ifcdName}"/>
+								</label>
+							</div>
+						</c:forEach>
 					</div>
 					<div class="mb-3 col-sm-6">
 					    <label for="userWeddingAniversary" class="form-label">결혼기념일</label>
-					    <input type="date" class="form-control" id="ifmmMarriageDate" name="ifmmMarriageDate">		
+					    <input type="text" class="form-control" id="ifmmMarriageDate" name="ifmmMarriageDate">		
 				  </div>
 				  <div class="mb-3 col-sm-6">
 					    <label for="userChildrenNum" class="form-label">자녀수</label>
@@ -349,11 +358,9 @@
 							<label class="btn btn-outline-primary" for="ifmhHobbyCd6">종이접기</label> 
 							<input type="checkbox" class="btn-check" id="ifmhHobbyCd7" name="ifmhHobbyCd7" value="44" autocomplete="off">
 							<label class="btn btn-outline-primary" for="ifmhHobbyCd7">조각하기</label> -->
-							<c:forEach items="${codeList}" var="item" varStatus="status">
-								<c:if test="${item.ifcgSeq eq 12}">
-									<input type="checkbox" class="btn-check" id="ifmhHobbyCd${item.ifcdSeq}" name="ifmhHobbyCd" value="${item.ifcdSeq}" autocomplete="off">
-									<label class="btn btn-outline-primary" for="ifmhHobbyCd${item.ifcdSeq}"><c:out value="${item.ifcdName}"/></label>
-								</c:if>
+							<c:forEach items="${codeHobby}" var="itemHobby" varStatus="statusHobby">
+								<input type="checkbox" class="btn-check" id="ifmhHobbyCd<c:out value="${itemHobby.ifcdSeq}"/>" name="ifmhHobbyCd" value="${itemHobby.ifcdSeq}" autocomplete="off">
+								<label class="btn btn-outline-primary" for="ifmhHobbyCd<c:out value="${itemHobby.ifcdSeq}"/>"><c:out value="${itemHobby.ifcdName}"/></label>
 							</c:forEach>
 						</div> 
 					</div>
@@ -409,14 +416,35 @@
 	<%@include file="../include/footer.jsp"%>
 	
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
 	 <script src="/resources/xdmin/js/validation.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+	 <script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 	 
 	 <script type="text/javascript">
 		/* $("#btnSubmit").on("click", function(){
 			if(!checkNull($("#ifmmName"), $("#ifmmName").val(), "이름을 입력하세요!")) return false;
 			if(!checkNull($("#ifmmId"), $("#ifmmId").val(), "아이디를 입력하세요!")) return false;
 		}) */
+		
+		$(document).ready(function(){ 
+			$("#ifmmDob").datepicker();
+		});
+		$(document).ready(function(){ 
+			$("#ifmmMarriageDate").datepicker();
+		});
+		
+		$.datepicker.setDefaults({
+		    dateFormat: 'yy-mm-dd',
+		    prevText: '이전 달',
+		    nextText: '다음 달',
+		    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+		    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+		    dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+		    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+		    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+		    showMonthAfterYear: true,
+		    yearSuffix: '년'
+		});
 		
 		// 유효하지 않은 필드가 있는 경우 양식 제출을 비활성화하기 위한 예제 스타터 JavaScript
 		(function () {
@@ -466,6 +494,8 @@
 				}
 			})
 		})
+		
+		
 	</script>
 	
 	

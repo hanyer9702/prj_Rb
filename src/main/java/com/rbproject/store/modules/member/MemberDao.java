@@ -34,23 +34,43 @@ public class MemberDao {
 		return sqlSession.selectList(namespace + ".selectCode", dto);
 	}
 	
-	public int insert(Member dto) {
-		sqlSession.insert(namespace + ".insertInfrMember", dto);
-		sqlSession.insert(namespace + ".insertInfrMemberNationality", dto);
-		sqlSession.insert(namespace + ".insertInfrMemberAddress", dto);
-		sqlSession.insert(namespace + ".insertInfrMemberMobile", dto);
-		sqlSession.insert(namespace + ".insertInfrMemberPhone", dto);
-		sqlSession.insert(namespace + ".insertInfrMemberFax", dto);
-		sqlSession.insert(namespace + ".insertInfrMemberEmail", dto);
-		sqlSession.insert(namespace + ".insertInfrMemberJoinQna", dto);
-		sqlSession.insert(namespace + ".insertInfrMemberAddressOnline", dto);
-		sqlSession.insert(namespace + ".insertInfrMemberHobby", dto);
-		
-		return 1;
+	public int insertInfrMember(Member dto) {
+		return sqlSession.insert(namespace + ".insertInfrMember", dto);
+	}
+	public int insertInfrMemberNationality(Member dto) {
+		return sqlSession.insert(namespace + ".insertInfrMemberNationality", dto);
+	}
+	public int insertInfrMemberAddress(Member dto) {
+		return sqlSession.insert(namespace + ".insertInfrMemberAddress", dto);
+	}
+	public int insertInfrMemberMobile(Member dto) {
+		return sqlSession.insert(namespace + ".insertInfrMemberMobile", dto);
+	}
+	public int insertInfrMemberPhone(Member dto) {
+		return sqlSession.insert(namespace + ".insertInfrMemberPhone", dto);
+	}
+	public int insertInfrMemberFax(Member dto) {
+		return sqlSession.insert(namespace + ".insertInfrMemberFax", dto);
+	}
+	public int insertInfrMemberEmail(Member dto) {
+		return sqlSession.insert(namespace + ".insertInfrMemberEmail", dto);
+	}
+	public int insertInfrMemberJoinQna(Member dto) {
+		return sqlSession.insert(namespace + ".insertInfrMemberJoinQna", dto);
+	}
+	public int insertInfrMemberAddressOnline(Member dto) {
+		return sqlSession.insert(namespace + ".insertInfrMemberAddressOnline", dto);
+	}
+	public int insertInfrMemberHobby(Member dto) {
+		return sqlSession.insert(namespace + ".insertInfrMemberHobby", dto);
 	}
 	
-	public int update(Member dto) {
-		return sqlSession.update(namespace + ".update", dto);
+	public int updateMember(Member dto) {
+		return sqlSession.update(namespace + ".updateMember", dto);
+	}
+	
+	public int updateAddress(Member dto) {
+		return sqlSession.update(namespace + ".updateAddress", dto);
 	}
 	
 	public List<Member> selectListForCache() {
@@ -61,4 +81,5 @@ public class MemberDao {
 		System.out.println("dao");
 		return sqlSession.selectList(namespace + ".checkId", vo);
 	}
+	
 }

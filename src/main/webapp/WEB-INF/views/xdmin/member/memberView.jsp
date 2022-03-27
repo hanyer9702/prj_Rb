@@ -97,7 +97,17 @@
 					<th>핸드폰</th>
 					<td><c:out value="${rt.ifmpNumberDash}"/></td>
 					<th>모바일 마케팅 수신 동의</th>
-					<td><c:out value="${rt.ifmmSmsConsentNy}"/></td>
+					<%-- <td><c:out value="${rt.ifmmSmsConsentNy}"/></td> --%>
+					<td>
+						<c:choose>
+							<c:when test="${rt.ifmmSmsConsentNy eq 0}">
+								동의하지 않음
+							</c:when>
+							<c:when test="${rt.ifmmSmsConsentNy eq 1}">
+								동의함
+							</c:when>
+						</c:choose>
+					</td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
@@ -109,7 +119,17 @@
 					<th>이메일</th>
 					<td><c:out value="${rt.ifmeEmailFull}"/></td>
 					<th>이메일 마케팅 수신 동의</th>
-					<td><c:out value="${rt.ifmmEmailConsentNy}"/></td>
+					<%-- <td><c:out value="${rt.ifmmEmailConsentNy}"/></td> --%>
+					<td>
+						<c:choose>
+							<c:when test="${rt.ifmmEmailConsentNy eq 0}">
+								동의하지 않음
+							</c:when>
+							<c:when test="${rt.ifmmEmailConsentNy eq 1}">
+								동의함
+							</c:when>
+						</c:choose>
+					</td>
 				</tr>
 				<tr>
 					<th>개인정보유효기간 동의</th>
@@ -154,15 +174,17 @@
 			</table>
 			<button type="button" class="btn btn-success" onclick="javascript:goList()">목록</button>
 			<div class="float-end">
-				<button type="button" class="btn btn-warning" onclick="location.href='memberEdit?ifmmSeq=${rt.ifmmSeq}'">수정</button>
+				<button type="button" class="btn btn-warning" onclick="javascript:goEdit(${rt.ifmmSeq})">수정</button>
 				<button type="button" class="btn btn-danger" data-bs-toggle="modal"	data-bs-target="#deleteModal">삭제</button>
 			</div>
 		</div>
 	</section>
-	<form id="formView" name="formView" method="post" action="memberList">
+	<form id="formView" name="formView" method="post" action="">
 		<input type="hidden" id="thisPage" name="thisPage" value="${vo.thisPage}">
 		<input type="hidden" id="shOption" name="shOption" value="${vo.shOption}">
 		<input type="hidden" id="shValue" name="shValue" value="${vo.shValue}">
+		<input type="hidden" id="rowNumToShow" name="rowNumToShow" value="${vo.rowNumToShow}">
+		<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="${vo.ifmmSeq}">
 		<!-- <input type="submit"> -->
 	</form>
 	
@@ -195,7 +217,12 @@
 			$("#formView").attr("action","memberList");
 			$("#formView").submit();
 		} 
-		
+		goEdit = function(seq){
+			$("#ifmmSeq").val(seq);
+			$("#formView").attr("action","memberEdit");
+			$("#formView").submit();
+		} 
+	
 	</script>
 </body>
 </html>

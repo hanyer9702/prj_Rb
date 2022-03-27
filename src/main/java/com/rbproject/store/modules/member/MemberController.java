@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 
 
@@ -31,6 +33,17 @@ public class MemberController {
 					+ "&shOption=" + vo.getShOption() 
 					+ "&shValue=" + vo.getShValue();
 		return tmp;
+	}
+	
+	public void getCode(Model model) throws Exception {
+		model.addAttribute("codeGender", MemberServiceImpl.selectListCachedCode("2"));
+		model.addAttribute("codeAgreePeriod", MemberServiceImpl.selectListCachedCode("3"));
+		model.addAttribute("codeMarriageNy", MemberServiceImpl.selectListCachedCode("4"));
+		model.addAttribute("codeEmailDomain", MemberServiceImpl.selectListCachedCode("6"));
+		model.addAttribute("codeTelecom", MemberServiceImpl.selectListCachedCode("9"));
+		model.addAttribute("codeSns", MemberServiceImpl.selectListCachedCode("11"));
+		model.addAttribute("codeHobby", MemberServiceImpl.selectListCachedCode("12"));
+		model.addAttribute("codeQuestion", MemberServiceImpl.selectListCachedCode("14"));
 	}
 	
 	@RequestMapping(value = "/xdmin/include/top")
@@ -83,35 +96,49 @@ public class MemberController {
 		List<Member> codeList = service.selectCode(dto);
 		model.addAttribute("codeList", codeList);
 		
+		getCode(model);
 		
 		
 		return "/xdmin/member/memberForm";
 	}
 	
 	@RequestMapping(value = "/xdmin/member/memberInst")
-	public String memberInst(@ModelAttribute("vo") MemberVo vo, Member dto) throws Exception {
+	public String memberInst(@ModelAttribute("vo") MemberVo vo, Member dto, RedirectAttributes redirectAttributes) throws Exception {
 		
 //		입력 실행
 		service.insert(dto);
 		
-		return "redirect:/xdmin/member/memberList" + makeQueryString(vo);
+		redirectAttributes.addAttribute("thisPage", vo.getThisPage());	//get
+		redirectAttributes.addAttribute("shOption", vo.getShOption());	//get
+		redirectAttributes.addAttribute("shValue", vo.getShValue());	//get
+		redirectAttributes.addAttribute("rowNumToShow", vo.getRowNumToShow());	//get
+		
+		return "redirect:/xdmin/member/memberList";
 	}
 	
 	@RequestMapping(value = "/xdmin/member/memberEdit")
-	public String memberEdit(MemberVo vo, Model model) throws Exception {
+	public String memberEdit(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
 		
 		Member rt = service.selectOne(vo);
 		model.addAttribute("rt", rt);
+		
+		getCode(model);
 		
 		return "/xdmin/member/memberEdit";
 	}
 	
 	@RequestMapping(value = "/xdmin/member/memberUpdt")
-	public String memberUpdt(@ModelAttribute("vo") MemberVo vo, Member dto) throws Exception {
+	public String memberUpdt(@ModelAttribute("vo") MemberVo vo, Member dto, RedirectAttributes redirectAttributes) throws Exception {
 		
 		service.update(dto);
 		
-		return "redirect:/xdmin/member/memberEdit" + makeQueryString(vo);
+		redirectAttributes.addAttribute("thisPage", vo.getThisPage());	//get
+		redirectAttributes.addAttribute("shOption", vo.getShOption());	//get
+		redirectAttributes.addAttribute("shValue", vo.getShValue());	//get
+		redirectAttributes.addAttribute("rowNumToShow", vo.getRowNumToShow());	//get
+		redirectAttributes.addAttribute("ifmmSeq", vo.getIfmmSeq());	//get
+		
+		return "redirect:/xdmin/member/memberView";
 	}
 	
 	@ResponseBody
