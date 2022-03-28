@@ -169,7 +169,7 @@
 				</tr>
 				<tr>
 					<th>자기소개</th>
-					<td colspan="3"></td>
+					<td colspan="3"><c:out value="${rt.ifmmDesc}"/></td>
 				</tr>
 			</table>
 			<button type="button" class="btn btn-success" onclick="javascript:goList()">목록</button>

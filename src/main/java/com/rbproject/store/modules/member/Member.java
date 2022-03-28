@@ -60,6 +60,8 @@ public class Member {
 	private String ifmeEmailAccount = "";
 	private String ifmeEmailDomainCd = "";
 	private String ifmmRecommenderName = "";
+	private Date regDateTime;
+	private Date modDateTime;
 	
 //	memberHobby
 	private String ifmhHobbyCd = "";
@@ -431,5 +433,20 @@ public class Member {
 	public void setIfcdUseNy(String ifcdUseNy) {
 		this.ifcdUseNy = ifcdUseNy;
 	}
+	
+	
+	public Date getRegDateTime() {
+		return regDateTime;
+	}
+	public void setRegDateTime(Date regDateTime) {
+		this.regDateTime = regDateTime;
+	}
+	public Date getModDateTime() {
+		return modDateTime;
+	}
+	public void setModDateTime(Date modDateTime) {
+		this.modDateTime = modDateTime;
+	}
+	
 	
 }

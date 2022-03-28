@@ -12,6 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="/resources/common/_bootstrap/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="/resources/common/css/style.css" rel="stylesheet" type="text/css">
+<link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet">
 <title>한예린</title>
 <style type="text/css">
 	td, th{
@@ -107,26 +108,26 @@
 			 		<div class="middle_sec">
 				 		<div class="row row-cols-2 row-cols-sm-4 g-3 align-items-center">
 					 		<div class="col-6 col-sm-3">
-					 			<select class="form-select">
-								  <option selected>Open this select menu</option>
-								  <option value="1">One</option>
-								  <option value="2">Two</option>
-								  <option value="3">Three</option>
+					 			<select class="form-select" id="ifmmDelNy" name="ifmmDelNy">
+								  <option value="" selected>삭제여부</option>
+								  <option value="0" <c:if test="${vo.ifmmDelNy eq 0}">selected</c:if>>N</option>
+								  <option value="1" <c:if test="${vo.ifmmDelNy eq 1}">selected</c:if>>Y</option>
 								</select>
 					 		</div>
 					 		<div class="col-6 col-sm-3">
-					 			<select class="form-select">
-								  <option selected>Open this select menu</option>
-								  <option value="1">One</option>
-								  <option value="2">Two</option>
-								  <option value="3">Three</option>
+					 			<select class="form-select" name="shOptionDate" id="shOptionDate">
+								  <option value=""  selected>선택</option>
+								  <option value="1" <c:if test="${vo.shOptionDate eq 1}">selected</c:if>>등록일</option>
+								  <option value="2" <c:if test="${vo.shOptionDate eq 2}">selected</c:if>>수정일</option>
+								  <option value="3" <c:if test="${vo.shOptionDate eq 3}">selected</c:if>>생일</option>
 								</select>
 					 		</div>
 					 		<div class="col-6 col-sm-3">
-					 			<input type="text" id="startDate" class="form-control" placeholder="시작일">
+					 			<input type="text" id="shDateStart" name="shDateStart" class="form-control" value="${vo.shDateStart}" placeholder="시작일">
 					 		</div>
 					 		<div class="col-6 col-sm-3">
-					 			<input type="text" id="endDate" class="form-control" placeholder="종료일">
+					 			<input type="text" id="shDateEnd" name="shDateEnd" class="form-control" value="${vo.shDateEnd}" placeholder="종료일">
+					 			<%-- <fmt:formatDate value="${vo.shDateEnd}" pattern="yyyy-MM-dd"/> --%>
 					 		</div>
 					 		<div class="col-6 col-sm-3">
 					 			<select class="form-select" name="shOption" id="shOption">
@@ -142,7 +143,7 @@
 					 		</div>
 					 		<div>
 					 			<button type="submit" id="btnSubmit" class="btn btn-outline-secondary">검색</button>
-					 			<button type="reset" id="btnReset" class="btn btn-outline-danger">초기화</button>
+					 			<button type="button" id="btnReset" class="btn btn-outline-danger" onclick="location.href='memberList';">초기화</button>
 					 		</div>
 				 		</div>
 			 		</div>
@@ -295,6 +296,7 @@
 	 <%@include file="../include/footer.jsp"%>
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
 	 <script src="/resources/xdmin/js/validation.js"></script>
+	 <script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 	 
 	 <script type="text/javascript">
 		$("#btnSubmit").on("click", function(){
@@ -341,6 +343,27 @@
 		    $("#rowNumToShow").val(selectedValue);
 			$("#formList").submit();
 		}
+		
+		
+		$(document).ready(function(){ 
+			$("#shDateStart").datepicker();
+		});
+		$(document).ready(function(){ 
+			$("#shDateEnd").datepicker();
+		});
+		
+		$.datepicker.setDefaults({
+		    dateFormat: 'yy-mm-dd',
+		    prevText: '이전 달',
+		    nextText: '다음 달',
+		    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+		    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+		    dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+		    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+		    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+		    showMonthAfterYear: true,
+		    yearSuffix: '년'
+		});
 	</script>
 	 
 	 <script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>

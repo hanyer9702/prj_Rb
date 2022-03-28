@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.rbproject.store.common.constants.Constants;
+import com.rbproject.store.common.util.UtilDateTime;
+
 
 
 
@@ -63,6 +66,14 @@ public class MemberController {
 	
 	@RequestMapping(value = "/xdmin/member/memberList")
 	public String memberList(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
+		
+		System.out.println("UtilDateTime.nowLocalDateTime(): " + UtilDateTime.nowLocalDateTime());
+		System.out.println("UtilDateTime.nowDate(): " + UtilDateTime.nowDate());
+		System.out.println("UtilDateTime.nowString(): " + UtilDateTime.nowString());
+		
+		vo.setShOptionDate(vo.getShOptionDate() == null ? 1 : vo.getShOptionDate());
+		vo.setShDateStart(vo.getShDateStart() == null ? UtilDateTime.calculateDayString(UtilDateTime.nowLocalDateTime(), Constants.DATE_INTERVAL) : vo.getShDateStart());
+		vo.setShDateEnd(vo.getShDateEnd() == null ? UtilDateTime.nowString() : vo.getShDateEnd());
 		
 		// count 가져올것
 		

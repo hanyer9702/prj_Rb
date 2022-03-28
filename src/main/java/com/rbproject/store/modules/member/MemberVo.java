@@ -7,9 +7,14 @@ public class MemberVo {
 	private String ifmmSeq = "";
 	private String ifmmId = "";
 	private String ifmmPassword = "";
+	private String ifmmDelNy;
 		
 	private String shValue;
 	private String shOption;
+	
+	private Integer shOptionDate;
+	private String shDateStart;
+	private String shDateEnd;
 	
 //	Code
 	
@@ -61,7 +66,7 @@ public class MemberVo {
 		if (startRnumForOracle < 1) startRnumForOracle = 1;
 		
 		
-		if (thisPage == 1) {
+		if (thisPage == 1 || thisPage == 0) {
 			startRnumForMysql = 0;
 		} else {
 			startRnumForMysql = ((rowNumToShow * (thisPage-1)));
@@ -217,6 +222,38 @@ public class MemberVo {
 
 	public void setIfmmPassword(String ifmmPassword) {
 		this.ifmmPassword = ifmmPassword;
+	}
+
+	public Integer getShOptionDate() {
+		return shOptionDate;
+	}
+
+	public void setShOptionDate(Integer shOptionDate) {
+		this.shOptionDate = shOptionDate;
+	}
+
+	public String getShDateStart() {
+		return shDateStart;
+	}
+
+	public void setShDateStart(String shDateStart) {
+		this.shDateStart = shDateStart;
+	}
+
+	public String getShDateEnd() {
+		return shDateEnd;
+	}
+
+	public void setShDateEnd(String shDateEnd) {
+		this.shDateEnd = shDateEnd;
+	}
+
+	public String getIfmmDelNy() {
+		return ifmmDelNy;
+	}
+
+	public void setIfmmDelNy(String ifmmDelNy) {
+		this.ifmmDelNy = ifmmDelNy;
 	}
 	
 }

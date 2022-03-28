@@ -123,6 +123,8 @@
 				  <div class="mb-3 col-sm-6">
 				    <label for="userBirth" class="form-label">생일</label>
 				    <input type="text" class="form-control" id="ifmmDob" name="ifmmDob" required>
+				    
+				    
 				  </div>
 				  <div class="mb-3 col-sm-6">
 				  	<label for="ifnaSeq" class="form-label">국적</label>

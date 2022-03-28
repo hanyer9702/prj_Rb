@@ -11,15 +11,24 @@
     <sql id="selectCommon">
     	from infrMember a
 			left join infrMemberAddress b on b.ifmaDelNy = 0 and b.ifmaDefaultNy = 1 and b.ifmmSeq = a.ifmmSeq
+			left join infrMembereMail d on d.ifmeDelNy = 0 and d.ifmeDefaultNy = 1 and d.ifmmSeq = a.ifmmSeq
 		    left join infrMemberNationality g on g.ifmnDefaultNy = 1 and g.ifmnDelNy = 0 and g.ifmmSeq = a.ifmmSeq
 		    left join infrmemberphone h on h.ifmpDelNy = 0 and h.ifmpDefaultNy = 1 and h.ifmmSeq = a.ifmmSeq and h.ifmpDeviceCd = 25 and h.ifmpDefaultNy = 1
 		where 1=1
-			and a.ifmmDelNy = 0
 			<choose>
 				<when test="shOption == 1">AND a.ifmmName LIKE concat('%',#{shValue},'%')</when>
 				<when test="shOption == 2">AND a.ifmmId LIKE concat('%',#{shValue},'%')</when>
 				<when test="shOption == 3">AND concat(b.ifmaAddress1," ",b.ifmaAddress2) LIKE concat('%',#{shValue},'%')</when>
 				<when test="shOption == 4">AND h.ifmpNumber LIKE concat('%',#{shValue},'%')</when>
+			</choose>
+			<choose>
+				<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				<when test="shOptionDate == 3">AND a.ifmmDob BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			</choose>
+			<choose>
+				<when test="ifmmDelNy == 0">AND a.ifmmDelNy = 0</when>
+				<when test="ifmmDelNy == 1">AND a.ifmmDelNy = 1</when>
 			</choose>
     </sql>
     
@@ -39,6 +48,7 @@
 		    , (select concat(substring(ifmpNumber,1,3),"-",substring(ifmpNumber,4,4),"-",substring(ifmpNumber,8,4)) from infrmemberphone where ifmpDeviceCd = 25 and ifmpDefaultNy = 1 and a.ifmmSeq = ifmmSeq) as ifmpNumberDash
 		    , (select ifnaName from infrNationality where ifnaSeq = g.ifnaSeq) as ifnaName
 		    , h.ifmpNumber
+		    , d.ifmeEmailFull
 		 <include refid="selectCommon" />
 		 limit #{startRnumForMysql}, #{rowNumToShow}
 	</select>
@@ -60,6 +70,7 @@
 			    , a.ifmmEmailConsentNy
 			    , a.ifmmSmsConsentNy
 			    , a.ifmmPushConsentNy
+			    , a.ifmmDesc
 			    , concat("[",b.ifmaZipcode,"] ",b.ifmaAddress1," ",b.ifmaAddress2) as ifmaAddress
 			    , b.ifmaZipcode
 			    , b.ifmaAddress1
@@ -131,12 +142,18 @@
 			,ifmmDesc
 			,ifmmRecommenderSeq
 			,ifmmDelNy
+			,regDateTime
+			,modDateTime
 		) values (
 			#{ifmmId}
 			,#{ifmmName}
 			,#{ifmmGenderCd}
 			,#{ifmmPassword}
-			,#{ifmmDob}
+			<choose>
+				<when test="ifmmDob.equals('')">,NULL</when>
+				<otherwise>,#{ifmmDob}</otherwise>
+			</choose>
+			<!-- ,#{ifmmDob} -->
 			,#{ifmmSmsConsentNy}
 			,#{ifmmEmailConsentNy}
 			,#{ifmmSavedCd}
@@ -144,17 +161,20 @@
 			,#{ifmmMarriageDate}
 			<!-- ,#{ifmmChildrenNum} -->
 			<choose>
-				<when test="ifmmChildrenNum != null and ifmmChildrenNum.equals('')">,#{ifmmChildrenNum}</when>
-				<when test="ifmmChildrenNum == null or ifmmChildrenNum.equals('')">,null</when>
+				<when test="ifmmChildrenNum != null and !ifmmChildrenNum.equals('')">,#{ifmmChildrenNum}</when>
+				<otherwise>,null</otherwise>
 			</choose>
 			,#{ifmmFavoriteColor}
 			,#{ifmmDesc}
 			<!-- <if test="ifmmRecommenderName != null and !ifmmRecommenderName.equals('')">,(select a.ifmmSeq from infrMember a where a.ifmmName LIKE #{ifmmRecommenderName})</if> -->
 			<choose>
 				<when test="ifmmRecommenderName != null and !ifmmRecommenderName.equals('')">,(select a.ifmmSeq from infrMember a where a.ifmmName LIKE #{ifmmRecommenderName})</when>
-				<when test="ifmmRecommenderName == null or ifmmRecommenderName.equals('')">,null</when>
+				<otherwise>,null</otherwise>
 			</choose>
 			,0
+			,#{regDateTime}
+			,#{modDateTime}
+			
 		)
 		<selectKey resultType="string" keyProperty="ifmmSeq" order="AFTER">
 			SELECT last_insert_id()
