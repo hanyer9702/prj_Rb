@@ -169,9 +169,10 @@
 						<tr class="table-secondary">
 							<td>
 								<div class="form-check">
-								  <input class="form-check-input" type="checkbox" value="" id="delCheck">
+								  <input class="form-check-input" type="checkbox" value="" id="delCheckAll" name="delCheckAll" onclick='selectAll(this)'>
 								</div>
 							</td>
+							<td>번호</td>
 							<td>이름</td>
 							<td>아이디</td>
 							<td>주소</td>
@@ -189,10 +190,11 @@
 									<tr>
 										<td>
 											<div class="form-check">
-											  <input class="form-check-input" type="checkbox" value="" id="delCheck">
+											  <input class="form-check-input" type="checkbox" value="" id="<c:out value="${item.ifmmSeq}"/>" name="delCheck">
 											</div>
 										</td>
 										<%-- <td><a href="memberView?ifmmSeq=${item.ifmmSeq}"><c:out value="${item.ifmmName}"/></a></td> --%>
+										<td><c:out value="${item.ifmmSeq}"/></a></td>
 										<td><a href="javascript:goView(${item.ifmmSeq})"><c:out value="${item.ifmmName}"/></a></td>
 										<td><c:out value="${item.ifmmId}"/></td>
 										<td><c:out value="${item.ifmaAddress}"/></td>
@@ -229,7 +231,8 @@
 					
 					<div class="btn-group" style="float:right;" role="group">
 					  <button type="button" class="btn btn-primary" onclick="javascript:goForm()">등록</button>
-					  <button type="button" class="btn btn-danger">삭제</button>
+					  <button type="button" class="btn btn-danger" onclick="javascript:btnUpdateDel()">목록에서 삭제</button>
+					  <button type="button" class="btn btn-dark" onclick="javascript:btnDelete()">DB에서 삭제</button>
 					</div>
 		 		</div>
 		 	</section>
@@ -335,6 +338,59 @@
 			$("#formList").submit();
 		} 
 		
+		btnDelete = function(){
+			var num = confirm("진짜로 DB에서 삭제 하시겠습니까?");
+			var checkbox = $("input[name=delCheck]:checked");
+			
+			var col0 = "";
+			var col1 = "";
+						
+			checkbox.each(function(i){
+				
+				var tr = checkbox.parent().parent().parent().eq(i);
+				var td = tr.children();
+				
+				col0 = td.eq(1).text();
+				col1 = td.eq(2).text();
+			});
+			
+			/* alert(col0);
+			alert(col1); */
+			
+			if(num){
+				$("#ifmmSeq").val(col1);
+				$("#formList").attr("action","memberDelete");
+				$("#formList").submit();
+			} else {
+				return false;
+			}
+		}
+		
+		btnUpdateDel = function(){
+			var num = confirm("목록에서 삭제 하시겠습니까?");
+			var checkbox = $("input[name=delCheck]:checked");
+			
+			var col0 = "";
+			var col1 = "";
+						
+			checkbox.each(function(i){
+				
+				var tr = checkbox.parent().parent().parent().eq(i);
+				var td = tr.children();
+				
+				col0 = td.eq(1).text();
+				col1 = td.eq(2).text();
+			});
+			
+			if(num){
+				$("#ifmmSeq").val(col0);
+				$("#formList").attr("action","memberUpdateDel");
+				$("#formList").submit();
+			} else {
+				return false;
+			}
+		}
+		
 		function changeSelectedValue(){
 		    var rowNumSelect = document.getElementById("selectRowNumShow");
 		      
@@ -343,6 +399,14 @@
 		    $("#rowNumToShow").val(selectedValue);
 			$("#formList").submit();
 		}
+		
+		function selectAll(selectAll)  {
+		  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		  
+		  checkboxes.forEach((checkbox) => {
+		    checkbox.checked = selectAll.checked
+		  })
+		} 
 		
 		
 		$(document).ready(function(){ 

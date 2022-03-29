@@ -74,6 +74,7 @@ public class MemberController {
 		vo.setShOptionDate(vo.getShOptionDate() == null ? 1 : vo.getShOptionDate());
 		vo.setShDateStart(vo.getShDateStart() == null ? UtilDateTime.calculateDayString(UtilDateTime.nowLocalDateTime(), Constants.DATE_INTERVAL) : vo.getShDateStart());
 		vo.setShDateEnd(vo.getShDateEnd() == null ? UtilDateTime.nowString() : vo.getShDateEnd());
+		vo.setIfmmDelNy(vo.getIfmmDelNy() == null ? "0" : vo.getIfmmDelNy()); 
 		
 		// count 가져올것
 		

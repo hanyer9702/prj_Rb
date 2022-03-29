@@ -67,7 +67,7 @@
 			    , a.ifmmMarriageDate
 			    , a.ifmmChildrenNum
 			    , a.ifmmFavoriteColor
-			    , a.ifmmEmailConsentNy
+			    , a.ifmmEmailConsentNy 
 			    , a.ifmmSmsConsentNy
 			    , a.ifmmPushConsentNy
 			    , a.ifmmDesc
@@ -112,7 +112,6 @@
 			    left join infrmemberphone i on i.ifmpDelNy = 0 and i.ifmpDefaultNy = 1 and i.ifmmSeq = a.ifmmSeq and i.ifmpDeviceCd = 24 and i.ifmpDefaultNy = 1
 			    left join infrmemberphone j on j.ifmpDelNy = 0 and j.ifmpDefaultNy = 1 and j.ifmmSeq = a.ifmmSeq and j.ifmpDeviceCd = 26 and j.ifmpDefaultNy = 1
 			where 1=1
-				and a.ifmmDelNy = 0
 				AND a.ifmmSeq = #{ifmmSeq}
 	</select>
 	
