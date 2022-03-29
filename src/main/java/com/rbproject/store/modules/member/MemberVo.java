@@ -37,6 +37,8 @@ public class MemberVo {
 	
 	private Integer startRnumForMysql = 0;							// ƒı∏Æ Ω√¿€ row
 	
+	private String[] checkboxSeqArray;
+	
 //	------------------------------
 	
 	public void setParamsPaging(int totalRowsParam) {
@@ -254,6 +256,14 @@ public class MemberVo {
 
 	public void setIfmmDelNy(String ifmmDelNy) {
 		this.ifmmDelNy = ifmmDelNy;
+	}
+
+	public String[] getCheckboxSeqArray() {
+		return checkboxSeqArray;
+	}
+
+	public void setCheckboxSeqArray(String[] checkboxSeqArray) {
+		this.checkboxSeqArray = checkboxSeqArray;
 	}
 	
 }

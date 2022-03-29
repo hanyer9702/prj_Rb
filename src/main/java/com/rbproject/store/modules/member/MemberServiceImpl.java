@@ -129,5 +129,34 @@ public class MemberServiceImpl implements MemberService{
 		return dao.updatePassword(vo);
 	}
 	
+	@Override
+	public int multiUele(MemberVo vo) throws Exception{
+		String[] checkboxSeqArray = vo.getCheckboxSeqArray();
+		
+		for(String checkboxSeq : checkboxSeqArray) {
+			vo.setIfmmSeq(checkboxSeq);
+			dao.updateDelete(vo);
+		}
+		
+		return 1;
+	}
 	
+	@Override
+	public int multiDele(MemberVo vo) throws Exception{
+		String[] checkboxSeqArray = vo.getCheckboxSeqArray();
+		
+		for(String checkboxSeq : checkboxSeqArray) {
+			vo.setIfmmSeq(checkboxSeq);
+			dao.deleteMemberNationality(vo);
+			dao.deleteMemberAddress(vo);
+			dao.deleteMemberMobile(vo);
+			dao.deleteMemberEmail(vo);
+			dao.deleteMemberJoinQna(vo);
+			dao.deleteMemberAddressOnline(vo);
+			dao.deleteMemberHobby(vo);
+			dao.deleteMember(vo);
+		}
+		
+		return 1;
+	}
 }

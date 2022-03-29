@@ -44,6 +44,7 @@
 			a.ifmmseq
 		    , a.ifmmName
 		    , a.ifmmId
+		    , a.ifmmGenderCd
 		    , concat("[",b.ifmaZipcode,"] ",b.ifmaAddress1," ",b.ifmaAddress2) as ifmaAddress
 		    , (select concat(substring(ifmpNumber,1,3),"-",substring(ifmpNumber,4,4),"-",substring(ifmpNumber,8,4)) from infrmemberphone where ifmpDeviceCd = 25 and ifmpDefaultNy = 1 and a.ifmmSeq = ifmmSeq) as ifmpNumberDash
 		    , (select ifnaName from infrNationality where ifnaSeq = g.ifnaSeq) as ifnaName

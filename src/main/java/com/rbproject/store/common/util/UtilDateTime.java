@@ -26,7 +26,7 @@ public class UtilDateTime {
 	
 	public static String nowString () throws Exception {
 		LocalDateTime localDateTime = LocalDateTime.now();
-		String localDateTimeString = localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATE_FORMAT_BASIC));
+		String localDateTimeString = localDateTime.format(DateTimeFormatter.ofPattern(Constants.DATETIME_FORMAT_BASIC));
 		return localDateTimeString;
 	}
 	
@@ -41,5 +41,13 @@ public class UtilDateTime {
 
 		String localDateTimeNewString = localDateTimeNew.format(DateTimeFormatter.ofPattern(Constants.DATE_FORMAT_BASIC));
 		return localDateTimeNewString;
+	}
+	
+	public static String addStringTime(String date) {
+		return date + " 00:00:00";
+	}
+	
+	public static String addStringTimeNight(String date) {
+		return date + " 23:59:59";
 	}
 }

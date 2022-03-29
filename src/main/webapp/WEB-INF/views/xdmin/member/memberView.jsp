@@ -5,6 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags" %>
 
+<% pageContext.setAttribute("br", "\n"); %>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -169,7 +171,10 @@
 				</tr>
 				<tr>
 					<th>자기소개</th>
-					<td colspan="3"><c:out value="${rt.ifmmDesc}"/></td>
+					<td colspan="3">
+						<%-- <p>${fn:replace(item.ifmmDesc, br, '<br/>')}</p> --%>
+            			<p><c:out value="${fn:replace(rt.ifmmDesc, br, '<br/>')}" escapeXml = "false"/></p>
+					</td>
 				</tr>
 			</table>
 			<button type="button" class="btn btn-success" onclick="javascript:goList()">목록</button>

@@ -5,6 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags" %>
 
+<jsp:useBean id="MemberServiceImpl" class="com.rbproject.store.modules.member.MemberServiceImpl"/>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -88,10 +90,11 @@
 </head>
 <body>
 	 <%@include file="../include/top.jsp"%>
-	 <form id="formList" name="formList" method="post" action="memberList">
+	 <form id="formList" name="formList" method="get" action="memberList">
 	 	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>">
 	 	<input type="hidden" id="rowNumToShow" name="rowNumToShow" value="<c:out value="${vo.rowNumToShow}" default="5"/>">
 	 	<input type="hidden" id="ifmmSeq" name="ifmmSeq">
+	 	<input type="hidden" name="checkboxSeqArray" >
 		 <section>
 		 		<h3>회원 목록</h3>
 		 		
@@ -123,10 +126,14 @@
 								</select>
 					 		</div>
 					 		<div class="col-6 col-sm-3">
-					 			<input type="text" id="shDateStart" name="shDateStart" class="form-control" value="${vo.shDateStart}" placeholder="시작일">
+					 			<fmt:parseDate var="shDateStart" value="${vo.shDateStart }" pattern="yyyy-MM-dd HH:mm:ss"/>
+					 			<input type="text" id="shDateStart" name="shDateStart" class="form-control" value="<fmt:formatDate value="${shDateStart }" pattern="yyyy-MM-dd" />" placeholder="시작일">
+								<%--<input type="text" id="shDateStart" name="shDateStart" class="form-control" value="${vo.shDateStart}" placeholder="시작일"> --%>
 					 		</div>
 					 		<div class="col-6 col-sm-3">
-					 			<input type="text" id="shDateEnd" name="shDateEnd" class="form-control" value="${vo.shDateEnd}" placeholder="종료일">
+					 			<fmt:parseDate var="shDateEnd" value="${vo.shDateEnd }" pattern="yyyy-MM-dd HH:mm:ss"/>
+					 			<input type="text" id="shDateEnd" name="shDateEnd" class="form-control" value="<fmt:formatDate value="${shDateEnd }" pattern="yyyy-MM-dd" />" placeholder="종료일">
+					 			<%-- <input type="text" id="shDateEnd" name="shDateEnd" class="form-control" value="${vo.shDateEnd}" placeholder="종료일"> --%>
 					 			<%-- <fmt:formatDate value="${vo.shDateEnd}" pattern="yyyy-MM-dd"/> --%>
 					 		</div>
 					 		<div class="col-6 col-sm-3">
@@ -169,12 +176,13 @@
 						<tr class="table-secondary">
 							<td>
 								<div class="form-check">
-								  <input class="form-check-input" type="checkbox" value="" id="delCheckAll" name="delCheckAll" onclick='selectAll(this)'>
+								  <input class="form-check-input" type="checkbox" value="" id="checkboxAll" name="checkboxAll">
 								</div>
 							</td>
 							<td>번호</td>
 							<td>이름</td>
 							<td>아이디</td>
+							<td>성별</td>
 							<td>주소</td>
 							<td>모바일</td>
 							<td>이메일</td>
@@ -190,15 +198,48 @@
 									<tr>
 										<td>
 											<div class="form-check">
-											  <input class="form-check-input" type="checkbox" value="" id="<c:out value="${item.ifmmSeq}"/>" name="delCheck">
+											  <input type="checkbox" class="form-check-input" id="checkboxSeq" name="checkboxSeq" value="<c:out value="${item.ifmmSeq}"/>">
 											</div>
 										</td>
 										<%-- <td><a href="memberView?ifmmSeq=${item.ifmmSeq}"><c:out value="${item.ifmmName}"/></a></td> --%>
 										<td><c:out value="${item.ifmmSeq}"/></a></td>
 										<td><a href="javascript:goView(${item.ifmmSeq})"><c:out value="${item.ifmmName}"/></a></td>
 										<td><c:out value="${item.ifmmId}"/></td>
+										<td> 
+											<c:set var="listCodeGender" value="${MemberServiceImpl.selectListCachedCode('2')}"/>
+											<c:forEach items="${listCodeGender}" var="itemGender" varStatus="statusGender">
+												<c:if test="${item.ifmmGenderCd eq itemGender.ifcdSeq}"><c:out value="${itemGender.ifcdName}"/></c:if>
+											</c:forEach>
+										</td>
 										<td><c:out value="${item.ifmaAddress}"/></td>
-										<td><c:out value="${item.ifmpNumberDash}"/></td>
+										<%-- <td><c:out value="${item.ifmpNumberDash}"/></td> --%>
+										<td>
+											<c:choose>
+						                		<c:when test="${fn:length(item.ifmpNumber) eq 10 }">
+													<c:out value="${fn:substring(item.ifmpNumber,0,3)}"/>
+													-<c:out value="${fn:substring(item.ifmpNumber,3,6)}"/>
+													-<c:out value="${fn:substring(item.ifmpNumber,6,10)}"/>
+						                		</c:when>
+						                		<c:otherwise>
+													<c:out value="${fn:substring(item.ifmpNumber,0,3)}"/>
+													-<c:out value="${fn:substring(item.ifmpNumber,3,7)}"/>
+													-<c:out value="${fn:substring(item.ifmpNumber,7,11)}"/>
+						                		</c:otherwise>
+						               		</c:choose>
+						               		<%-- <c:set var="numberPhone" value="${item.ifmpNumber }"/>
+						                	<c:choose>
+						                		<c:when test="${fn:length(numberPhone) eq 10 }">
+													<c:out value="${fn:substring(numberPhone,0,3)}"/>
+													- <c:out value="${fn:substring(numberPhone,3,6)}"/>
+													- <c:out value="${fn:substring(numberPhone,6,10)}"/>
+						                		</c:when>
+						                		<c:otherwise>
+													<c:out value="${fn:substring(numberPhone,0,3)}"/>
+													- <c:out value="${fn:substring(numberPhone,3,7)}"/>
+													- <c:out value="${fn:substring(numberPhone,7,11)}"/>
+						                		</c:otherwise>
+						               		</c:choose> --%>
+										</td>
 										<td><c:out value="${item.ifmeEmailFull}"/></td>
 									</tr>
 								</c:forEach>
@@ -229,8 +270,10 @@
 					  </ul>
 					</nav>
 					
-					<div class="btn-group" style="float:right;" role="group">
+					<div style="float:left;" role="group">
 					  <button type="button" class="btn btn-primary" onclick="javascript:goForm()">등록</button>
+					</div>
+					<div style="float:right;" role="group">
 					  <button type="button" class="btn btn-danger" onclick="javascript:btnUpdateDel()">목록에서 삭제</button>
 					  <button type="button" class="btn btn-dark" onclick="javascript:btnDelete()">DB에서 삭제</button>
 					</div>
@@ -338,59 +381,6 @@
 			$("#formList").submit();
 		} 
 		
-		btnDelete = function(){
-			var num = confirm("진짜로 DB에서 삭제 하시겠습니까?");
-			var checkbox = $("input[name=delCheck]:checked");
-			
-			var col0 = "";
-			var col1 = "";
-						
-			checkbox.each(function(i){
-				
-				var tr = checkbox.parent().parent().parent().eq(i);
-				var td = tr.children();
-				
-				col0 = td.eq(1).text();
-				col1 = td.eq(2).text();
-			});
-			
-			/* alert(col0);
-			alert(col1); */
-			
-			if(num){
-				$("#ifmmSeq").val(col1);
-				$("#formList").attr("action","memberDelete");
-				$("#formList").submit();
-			} else {
-				return false;
-			}
-		}
-		
-		btnUpdateDel = function(){
-			var num = confirm("목록에서 삭제 하시겠습니까?");
-			var checkbox = $("input[name=delCheck]:checked");
-			
-			var col0 = "";
-			var col1 = "";
-						
-			checkbox.each(function(i){
-				
-				var tr = checkbox.parent().parent().parent().eq(i);
-				var td = tr.children();
-				
-				col0 = td.eq(1).text();
-				col1 = td.eq(2).text();
-			});
-			
-			if(num){
-				$("#ifmmSeq").val(col0);
-				$("#formList").attr("action","memberUpdateDel");
-				$("#formList").submit();
-			} else {
-				return false;
-			}
-		}
-		
 		function changeSelectedValue(){
 		    var rowNumSelect = document.getElementById("selectRowNumShow");
 		      
@@ -400,13 +390,73 @@
 			$("#formList").submit();
 		}
 		
-		function selectAll(selectAll)  {
-		  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-		  
-		  checkboxes.forEach((checkbox) => {
-		    checkbox.checked = selectAll.checked
-		  })
-		} 
+		/* btnUpdateDel = function(){
+			var num = confirm("진짜로 DB에서 삭제 하시겠습니까?");
+			var checkbox = $("input[name=checkboxSeq]:checked");
+			
+			var col0 = "";
+			var col1 = "";
+						
+			checkbox.each(function(i){
+				
+				var tr = checkbox.parent().parent().parent().eq(i);
+				var td = tr.children();
+				
+				col0 = td.eq(1).text();
+				col1 = td.eq(2).text();
+			});
+			
+			alert(col0);
+			alert(col1); 
+			
+			if(num){
+				$("#ifmmSeq").val(col1);
+				$("#formList").attr("action","memberDelete");
+				$("#formList").submit();
+			} else {
+				return false;
+			}
+		} */
+		
+		btnUpdateDel = function(){
+			
+			var checkboxSeqArray = [];
+			
+			$("input[name=checkboxSeq]:checked").each(function() { 
+				checkboxSeqArray.push($(this).val());
+			});
+			
+			$("input:hidden[name=checkboxSeqArray]").val(checkboxSeqArray);
+											
+			var num = confirm("목록에서 삭제 하시겠습니까?");
+			
+			if(num){
+									
+				$("#formList").attr("action", "memberMultiUele").submit();
+			}
+		}
+		
+		btnDelete = function(){
+			var checkboxSeqArray = [];
+			
+			$("input[name=checkboxSeq]:checked").each(function() { 
+				checkboxSeqArray.push($(this).val());
+			});
+			
+			$("input:hidden[name=checkboxSeqArray]").val(checkboxSeqArray);
+			
+			var num = confirm("진짜로 DB에서 삭제 하시겠습니까?");
+			
+			if(num){			
+				$("#formList").attr("action", "memberMultiDele").submit();
+			}
+		}
+		
+		
+		$("#checkboxAll").click(function(){
+			if($("#checkboxAll").is(":checked")) $("input[name=checkboxSeq]").prop("checked",true);
+			else $("input[name=checkboxSeq]").prop("checked",false);
+		});
 		
 		
 		$(document).ready(function(){ 

@@ -72,8 +72,9 @@ public class MemberController {
 		System.out.println("UtilDateTime.nowString(): " + UtilDateTime.nowString());
 		
 		vo.setShOptionDate(vo.getShOptionDate() == null ? 1 : vo.getShOptionDate());
-		vo.setShDateStart(vo.getShDateStart() == null ? UtilDateTime.calculateDayString(UtilDateTime.nowLocalDateTime(), Constants.DATE_INTERVAL) : vo.getShDateStart());
-		vo.setShDateEnd(vo.getShDateEnd() == null ? UtilDateTime.nowString() : vo.getShDateEnd());
+//		vo.setShDateStart(vo.getShDateStart() == null ? UtilDateTime.calculateDayString(UtilDateTime.nowLocalDateTime(), Constants.DATE_INTERVAL) : UtilDateTime.addStringTime(vo.getShDateStart()));
+		vo.setShDateStart(vo.getShDateStart() == null ? UtilDateTime.addStringTime(UtilDateTime.calculateDayString(UtilDateTime.nowLocalDateTime(), Constants.DATE_INTERVAL)) : UtilDateTime.addStringTimeNight(vo.getShDateStart()));
+		vo.setShDateEnd(vo.getShDateEnd() == null ? UtilDateTime.nowString() : UtilDateTime.addStringTimeNight(vo.getShDateEnd()));
 		vo.setIfmmDelNy(vo.getIfmmDelNy() == null ? "0" : vo.getIfmmDelNy()); 
 		
 		// count 가져올것
@@ -237,6 +238,36 @@ public class MemberController {
 		
 		return "redirect:/xdmin/member/memberEdit" + vo.getIfmmSeq();
 	}
+	
+	@RequestMapping(value = "/xdmin/member/memberMultiUele")
+	public String memberMultiUele(@ModelAttribute("vo") MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
+		
+		service.multiUele(vo);
+		
+		redirectAttributes.addAttribute("thisPage", vo.getThisPage());	//get
+		redirectAttributes.addAttribute("shOption", vo.getShOption());	//get
+		redirectAttributes.addAttribute("shValue", vo.getShValue());	//get
+		redirectAttributes.addAttribute("rowNumToShow", vo.getRowNumToShow());	//get
+		redirectAttributes.addAttribute("ifmmSeq", vo.getIfmmSeq());	//get
+		
+		return "redirect:/xdmin/member/memberList";
+	}
+	
+	@RequestMapping(value = "/xdmin/member/memberMultiDele")
+	public String memberMultiDele(@ModelAttribute("vo") MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
+		
+		service.multiDele(vo);
+		
+		redirectAttributes.addAttribute("thisPage", vo.getThisPage());	//get
+		redirectAttributes.addAttribute("shOption", vo.getShOption());	//get
+		redirectAttributes.addAttribute("shValue", vo.getShValue());	//get
+		redirectAttributes.addAttribute("rowNumToShow", vo.getRowNumToShow());	//get
+		redirectAttributes.addAttribute("ifmmSeq", vo.getIfmmSeq());	//get
+		
+		return "redirect:/xdmin/member/memberList";
+	}
+	
+	
 	
 //	@RequestMapping(value = "/xdmin/member/updtPassword")
 //	public String updtPassword(@ModelAttribute("vo") MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
