@@ -95,10 +95,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/xdmin/member/memberView")
-	public String memberView(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
+	public String memberView(@ModelAttribute("vo") MemberVo vo, Member dto, Model model) throws Exception {
 		
 		Member rt = service.selectOne(vo);
+		List<Member> listHobby = service.selectHobby(dto);
 		model.addAttribute("rt", rt);
+		model.addAttribute("listHobby", listHobby);
 				
 		return "/xdmin/member/memberView";
 	}
@@ -130,10 +132,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/xdmin/member/memberEdit")
-	public String memberEdit(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
+	public String memberEdit(@ModelAttribute("vo") MemberVo vo, Member dto, Model model) throws Exception {
 		
 		Member rt = service.selectOne(vo);
+		List<Member> listHobby = service.selectHobby(dto);
+		
 		model.addAttribute("rt", rt);
+		model.addAttribute("listHobby", listHobby);
 		
 		getCode(model);
 		
@@ -143,7 +148,7 @@ public class MemberController {
 	@RequestMapping(value = "/xdmin/member/memberUpdt")
 	public String memberUpdt(@ModelAttribute("vo") MemberVo vo, Member dto, RedirectAttributes redirectAttributes) throws Exception {
 		
-		service.update(dto);
+		service.update(dto, vo);
 		
 		redirectAttributes.addAttribute("thisPage", vo.getThisPage());	//get
 		redirectAttributes.addAttribute("shOption", vo.getShOption());	//get

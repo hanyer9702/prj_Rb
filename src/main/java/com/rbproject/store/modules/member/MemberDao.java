@@ -35,6 +35,10 @@ public class MemberDao {
 		return sqlSession.selectList(namespace + ".selectCode", dto);
 	}
 	
+	public List<Member> selectHobby(Member dto){
+		return sqlSession.selectList(namespace + ".selectHobby", dto);
+	}
+	
 	public int insertInfrMember(Member dto) {
 		return sqlSession.insert(namespace + ".insertInfrMember", dto);
 	}

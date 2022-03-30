@@ -361,7 +361,7 @@
 							<input type="checkbox" class="btn-check" id="ifmhHobbyCd7" name="ifmhHobbyCd7" value="44" autocomplete="off">
 							<label class="btn btn-outline-primary" for="ifmhHobbyCd7">조각하기</label> -->
 							<c:forEach items="${codeHobby}" var="itemHobby" varStatus="statusHobby">
-								<input type="checkbox" class="btn-check" id="ifmhHobbyCd<c:out value="${itemHobby.ifcdSeq}"/>" name="ifmhHobbyCd" value="${itemHobby.ifcdSeq}" autocomplete="off">
+								<input type="checkbox" class="btn-check" id="ifmhHobbyCd<c:out value="${itemHobby.ifcdSeq}"/>" name="ifmhHobbyCdArray" value="${itemHobby.ifcdSeq}" autocomplete="off">
 								<label class="btn btn-outline-primary" for="ifmhHobbyCd<c:out value="${itemHobby.ifcdSeq}"/>"><c:out value="${itemHobby.ifcdName}"/></label>
 							</c:forEach>
 						</div> 

@@ -116,6 +116,16 @@
 				AND a.ifmmSeq = #{ifmmSeq}
 	</select>
 	
+	<select id="selectHobby" resultMap="resultMapObj">
+		SELECT
+			a.ifmhHobbyCd
+		FROM
+			infrMemberHobby a
+		WHERE 1=1
+			AND a.ifmmSeq = #{ifmmSeq}
+			AND a.ifmhDelNy = 0
+	</select>
+	
 	<select id="selectCode" resultMap="resultMapObj">
 		SELECT
 			ifcdSeq
@@ -316,7 +326,7 @@
 			ifmmSeq
 			,ifmhHobbyCd
 			,ifmhUseNy
-			,ifmaDelNy
+			,ifmhDelNy
 		) values (
 			#{ifmmSeq}
 			,#{ifmhHobbyCd}

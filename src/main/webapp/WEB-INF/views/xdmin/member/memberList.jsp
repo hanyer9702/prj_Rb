@@ -90,7 +90,7 @@
 </head>
 <body>
 	 <%@include file="../include/top.jsp"%>
-	 <form id="formList" name="formList" method="get" action="memberList">
+	 <form id="formList" name="formList" method="post" action="memberList">
 	 	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>">
 	 	<input type="hidden" id="rowNumToShow" name="rowNumToShow" value="<c:out value="${vo.rowNumToShow}" default="5"/>">
 	 	<input type="hidden" id="ifmmSeq" name="ifmmSeq">
@@ -288,7 +288,7 @@
 		        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
-		      <form id="" name="" method="get" action="memberList">
+		      <form id="" name="" method="post" action="memberList">
 			      <div class="modal-body">
 			        <div class="row row-cols-2 row-cols-sm-4 g-3 align-items-center">
 				 		<div class="col-6 col-sm-3">

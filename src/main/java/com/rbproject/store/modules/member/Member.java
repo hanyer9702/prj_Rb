@@ -66,6 +66,8 @@ public class Member {
 //	memberHobby
 	private String ifmhHobbyCd = "";
 	
+	private String[] ifmhHobbyCdArray;
+	
 //	code
 	private String ifcdSeq = "";
 	private String ifcdName = "";
@@ -448,5 +450,12 @@ public class Member {
 		this.modDateTime = modDateTime;
 	}
 	
+	
+	public String[] getIfmhHobbyCdArray() {
+		return ifmhHobbyCdArray;
+	}
+	public void setIfmhHobbyCdArray(String[] ifmhHobbyCdArray) {
+		this.ifmhHobbyCdArray = ifmhHobbyCdArray;
+	}
 	
 }

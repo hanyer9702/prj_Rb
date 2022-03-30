@@ -5,6 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags" %>
 
+<jsp:useBean id="MemberServiceImpl" class="com.rbproject.store.modules.member.MemberServiceImpl"/>
+
 <% pageContext.setAttribute("br", "\n"); %>
 
 <!DOCTYPE HTML>
@@ -167,7 +169,14 @@
 				</tr>
 				<tr>
 					<th>취미</th>
-					<td colspan="3">영화보기, 음악감상</td>
+					<td colspan="3">
+						<c:set var="listCodeHobby" value="${MemberServiceImpl.selectListCachedCode('12')}"/>
+						<c:forEach items="${listHobby}" var="itemHobby" varStatus="statusHobby">
+							<c:forEach items="${listCodeHobby}" var="itemHobbyCode" varStatus="statusHobbyCode">
+								<c:if test="${itemHobby.ifmhHobbyCd eq itemHobbyCode.ifcdSeq}"><c:out value="${itemHobbyCode.ifcdName}"/> </c:if>
+							</c:forEach>
+						</c:forEach>
+					</td>
 				</tr>
 				<tr>
 					<th>자기소개</th>

@@ -26,6 +26,11 @@ public class MemberServiceImpl implements MemberService{
 	public List<Member> selectList(MemberVo vo) throws Exception {
 		return dao.selectList(vo); 
 	}
+	
+	@Override
+	public List<Member> selectHobby(Member dto) throws Exception {
+		return dao.selectHobby(dto);
+	}
 
 	@Override
 	public Member selectOne(MemberVo vo) throws Exception {
@@ -47,13 +52,19 @@ public class MemberServiceImpl implements MemberService{
 		dao.insertInfrMemberEmail(dto);
 		dao.insertInfrMemberJoinQna(dto);
 		dao.insertInfrMemberAddressOnline(dto);
-		dao.insertInfrMemberHobby(dto);
+		
+		for(int i = 0; i < dto.getIfmhHobbyCdArray().length; i++) {
+			dto.setIfmhHobbyCd(dto.getIfmhHobbyCdArray()[i]);
+			
+			dao.insertInfrMemberHobby(dto);
+		}
+		
 		
 		return 1;
 	}
 
 	@Override
-	public int update(Member dto) throws Exception {
+	public int update(Member dto, MemberVo vo) throws Exception {
 		dao.updateMember(dto);
 		dao.updateAddress(dto);
 		dao.updateMobile(dto);
@@ -62,7 +73,14 @@ public class MemberServiceImpl implements MemberService{
 		dao.updateEmail(dto);
 		dao.updateJoinQna(dto);
 		dao.updateAddressOnline(dto);
-//		dao.updateHobby(dto);
+		
+		dao.deleteMemberHobby(vo);
+
+		for(int i = 0; i < dto.getIfmhHobbyCdArray().length; i++) {
+			dto.setIfmhHobbyCd(dto.getIfmhHobbyCdArray()[i]);
+			
+			dao.insertInfrMemberHobby(dto);
+		}
 		
 		return 1;
 	}
@@ -159,4 +177,6 @@ public class MemberServiceImpl implements MemberService{
 		
 		return 1;
 	}
+
+	
 }

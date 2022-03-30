@@ -5,6 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags" %>
 
+<jsp:useBean id="MemberServiceImpl" class="com.rbproject.store.modules.member.MemberServiceImpl"/>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -361,15 +363,17 @@
 							<label class="btn btn-outline-primary" for="ifmhHobbyCd6">종이접기</label> 
 							<input type="checkbox" class="btn-check" id="ifmhHobbyCd7" name="ifmhHobbyCd7" value="44" autocomplete="off">
 							<label class="btn btn-outline-primary" for="ifmhHobbyCd7">조각하기</label> -->
-							<c:forEach items="${codeHobby}" var="itemHobby" varStatus="statusHobby">
-								<input type="checkbox" class="btn-check" id="ifmhHobbyCd<c:out value="${itemHobby.ifcdSeq}"/>" name="ifmhHobbyCd" value="${itemHobby.ifcdSeq}" autocomplete="off">
-								<label class="btn btn-outline-primary" for="ifmhHobbyCd<c:out value="${itemHobby.ifcdSeq}"/>"><c:out value="${itemHobby.ifcdName}"/></label>
+							<c:set var="listCodeHobby" value="${MemberServiceImpl.selectListCachedCode('12')}"/>
+							<c:forEach items="${listCodeHobby}" var="itemHobbyCode" varStatus="statusHobbyCode">
+								<input type="checkbox" class="btn-check" id="ifmhHobbyCd<c:out value="${itemHobbyCode.ifcdSeq}"/>" name="ifmhHobbyCdArray" value="${itemHobbyCode.ifcdSeq}" autocomplete="off">
+								<label class="btn btn-outline-primary" for="ifmhHobbyCd<c:out value="${itemHobbyCode.ifcdSeq}"/>"><c:out value="${itemHobbyCode.ifcdName}"/></label>
 							</c:forEach>
+							
 						</div> 
 					</div>
 					<div class="mb-3">
 						<label for="userIntroduce" class="form-label">자기소개</label>
-						<textarea class="form-control" id="ifmmDesc" name="ifmmDesc" rows="3" value="${rt.ifmmDesc}"></textarea>
+						<textarea class="form-control" id="ifmmDesc" name="ifmmDesc" rows="3"><c:out value="${rt.ifmmDesc}"/></textarea>
 					</div>
 				</div>
 			  <button type="button" class="btn btn-danger m-2" onclick="javascript:goList(${rt.ifmmSeq})">돌아가기</button>
@@ -461,6 +465,12 @@
 			if(!checkNull($("#ifmmName"), $("#ifmmName").val(), "이름을 입력하세요!")) return false;
 			if(!checkNull($("#ifmmId"), $("#ifmmId").val(), "아이디를 입력하세요!")) return false;
 		}) */
+		
+		$(document).ready(function(){
+			<c:forEach items="${listHobby}" var="itemHobby" varStatus="statusHobby">
+				$("input[id=ifmhHobbyCd"+${itemHobby.ifmhHobbyCd}+"]").prop("checked",true);
+			</c:forEach>
+		});
 		
 		$(document).ready(function(){ 
 			$("#ifmmDob").datepicker();
