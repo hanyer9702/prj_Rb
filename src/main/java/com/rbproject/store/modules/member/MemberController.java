@@ -2,8 +2,12 @@ package com.rbproject.store.modules.member;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -272,6 +276,28 @@ public class MemberController {
 		return "redirect:/xdmin/member/memberList";
 	}
 	
+	@RequestMapping(value = "/member/loginForm")
+	public String loginForm(Model model) throws Exception {
+				
+		return "/xdmin/login/loginForm";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/member/loginProc")
+	public Map<String, Object> loginProc(Member dto) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		Member rtMember = service.selectOneLogin(dto);
+
+		if(rtMember != null) {
+//			rtMember = service.selectOneLogin(dto);
+			
+			returnMap.put("rt", "success");
+		} else {
+			returnMap.put("rt", "fail");
+		}
+		return returnMap;
+	}
 	
 	
 //	@RequestMapping(value = "/xdmin/member/updtPassword")

@@ -143,4 +143,9 @@ public class MemberDao {
 		return sqlSession.delete(namespace + ".deleteMemberHobby", vo);
 	}
 	
+//	·Î±×ÀÎ
+	public Member selectOneLogin(Member dto) {
+		return sqlSession.selectOne(namespace + ".selectOneLogin", dto);
+	}
+	
 }

@@ -24,4 +24,7 @@ public interface MemberService {
 	
 	public int multiUele(MemberVo vo) throws Exception;
 	public int multiDele(MemberVo vo) throws Exception;
+	
+//	·Î±×ÀÎ
+	public Member selectOneLogin(Member dto) throws Exception;
 }

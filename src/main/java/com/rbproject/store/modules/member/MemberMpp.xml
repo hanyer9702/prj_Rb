@@ -544,4 +544,18 @@
 		WHERE 1=1
 			AND ifmmSeq = #{ifmmSeq}
 	</delete>
+	
+	<!-- 로그인 -->
+	<select id="selectOneLogin" resultMap="resultMapObj">
+		SELECT
+			a.ifmmSeq
+			,a.ifmmId
+			,a.ifmmName
+			,a.ifmmDesc
+		FROM
+			infrMember a
+		WHERE 1=1
+			AND a.ifmmId = #{ifmmId}
+			AND a.ifmmPassword = #{ifmmPassword}
+	</select>
 </mapper>
