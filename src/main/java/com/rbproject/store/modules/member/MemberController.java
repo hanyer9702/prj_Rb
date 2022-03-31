@@ -284,7 +284,7 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/member/loginProc")
-	public Map<String, Object> loginProc(Member dto) throws Exception {
+	public Map<String, Object> loginProc(Member dto, HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
 		Member rtMember = service.selectOneLogin(dto);
@@ -292,10 +292,26 @@ public class MemberController {
 		if(rtMember != null) {
 //			rtMember = service.selectOneLogin(dto);
 			
+			httpSession.setAttribute("sessSeq", rtMember.getIfmmSeq());
+			httpSession.setAttribute("sessId", rtMember.getIfmmId());
+			httpSession.setAttribute("sessName", rtMember.getIfmmName());
+			
 			returnMap.put("rt", "success");
 		} else {
 			returnMap.put("rt", "fail");
 		}
+		return returnMap;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/member/logoutProc")
+	public Map<String, Object> logoutProc(Member dto, HttpSession httpSession) throws Exception {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		httpSession.invalidate();
+		
+		returnMap.put("rt", "success");
+		
 		return returnMap;
 	}
 	

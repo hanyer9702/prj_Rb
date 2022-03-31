@@ -90,7 +90,7 @@
 	 	<header class="container-fluid">
 	 		<div class="row">
 	 			<div class="col-11 col-sm-6">
-	 				<img style="max-width:15%;" class="mainIcon" alt="" src="/resources/xdmin/image/icon_main_128.png" onclick="location.href='memberList';">
+	 				<img style="max-width:15%;" class="mainIcon" alt="" src="/resources/xdmin/image/icon_main_128.png" onclick="location.href='/xdmin/member/memberList';">
 		 			<h1 style="display: inline-block; padding-left: 10px;">RB</h1>
 	 			</div>
 	 			<div class="col-1 col-sm-4 offset-sm-2">
@@ -112,10 +112,10 @@
 		    <div class="collapse navbar-collapse" id="navbarNav">
 		      <ul class="navbar-nav">
 		        <li class="nav-item">
-			    <a class="nav-link active" aria-current="page" href="memberList">Home</a>
+			    <a class="nav-link active" aria-current="page" href="/xdmin/member/memberList">Home</a>
 				  </li>
 				  <li class="nav-item">
-				    <a class="nav-link" href="memberList">회원관리</a>
+				    <a class="nav-link" href="/xdmin/member/memberList">회원관리</a>
 				  </li>
 				  <!-- <li class="nav-item">
 				    <a class="nav-link" href="#">상품관리</a>
