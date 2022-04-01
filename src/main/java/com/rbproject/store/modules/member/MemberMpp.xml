@@ -335,6 +335,31 @@
 		)
 	</insert>
 	
+	<!-- 로그인 아이피 저장 -->
+	
+	<insert id="insertLoginIp">
+		INSERT INTO infrLogLogin(
+			ifmmId
+			,ifmmSeq
+			,iflgResultNy
+			,iflgDelNy
+			,regIp
+			,regSeq
+			,regDateTime
+		) VALUES (
+			#{ifmmId}
+			,#{ifmmSeq}
+			,#{iflgResultNy}
+			,0
+			,#{regIp}
+			,#{ifmmSeq}
+			,#{regDateTime}
+		)
+	</insert>
+	
+	<!-- 로그인 아이피 저장 -->
+	
+	
 	<select id="selectListForCache" resultMap="resultMapObj">
 		SELECT
 			a.ifcdSeq
