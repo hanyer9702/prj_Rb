@@ -294,7 +294,7 @@ public class MemberController {
 			
 			httpSession.setAttribute("sessSeq", rtMember.getIfmmSeq());
 			httpSession.setAttribute("sessId", rtMember.getIfmmId());
-			httpSession.setAttribute("sessName", rtMember.getIfmmName());
+			httpSession.setAttribute("sessName", rtMember.getIfmmName()); 
 			
 			returnMap.put("rt", "success");
 		} else {
