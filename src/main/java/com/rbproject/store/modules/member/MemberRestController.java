@@ -40,7 +40,7 @@ public class MemberRestController {
 	
 	@RequestMapping(value = "/{seq}", method = RequestMethod.PATCH)
 //	@PatchMapping("/{seq}")
-	public void update(@PathVariable String seq, @RequestBody Member dto, @RequestBody MemberVo vo) throws Exception{
+	public void update(@PathVariable String seq, @RequestBody Member dto, MemberVo vo) throws Exception{
 		dto.setIfmmSeq(seq);
 		service.update(dto, vo);
 	}

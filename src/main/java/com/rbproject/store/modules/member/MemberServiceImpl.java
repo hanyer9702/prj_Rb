@@ -83,8 +83,7 @@ public class MemberServiceImpl implements MemberService{
 		}
 		
 		return 1;
-	}
-	
+	}	
 
 	@Override
 	public List<Member> selectCode(Member dto) throws Exception {
