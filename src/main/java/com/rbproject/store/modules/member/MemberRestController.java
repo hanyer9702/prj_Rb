@@ -45,5 +45,11 @@ public class MemberRestController {
 		service.update(dto, vo);
 	}
 	
+	@RequestMapping(value = "/{seq}", method = RequestMethod.DELETE)
+//	@PostMapping("")
+	public void delete(@PathVariable String seq, MemberVo vo) throws Exception{
+		vo.setIfmmSeq(seq);
+		service.delete(vo);
+	}
 	
 }
