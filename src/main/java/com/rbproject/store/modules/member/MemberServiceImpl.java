@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rbproject.store.common.util.UtilDateTime;
+import com.rbproject.store.common.util.UtilMail;
 
 
 @Service
@@ -59,6 +60,7 @@ public class MemberServiceImpl implements MemberService{
 			dao.insertInfrMemberHobby(dto);
 		}
 		
+		UtilMail.sendMail();
 		
 		return 1;
 	}
@@ -177,7 +179,7 @@ public class MemberServiceImpl implements MemberService{
 		return 1;
 	}
 
-//	·Î±×ÀÎ
+//	ï¿½Î±ï¿½ï¿½ï¿½
 	@Override
 	public Member selectOneLogin(Member dto) throws Exception {
 		return dao.selectOneLogin(dto);
