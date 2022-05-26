@@ -136,6 +136,10 @@
 	 <script src="/resources/common/_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 	 <script type="text/javascript">
 	 	$("#btnLogin").on("click",function(){
+	 		
+	 		if(!checkNull($("#ifmmId"), $("#ifmmId").val(), "아이디를 입력하세요.")) return false;
+	 		if(!checkNull($("#ifmmPassword"), $("#ifmmPassword").val(), "비밀번호를 입력하세요.")) return false;
+	 		
 	 		$.ajax({
 				async: true 
 				,cache: false
