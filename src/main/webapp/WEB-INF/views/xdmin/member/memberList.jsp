@@ -134,7 +134,7 @@
 					 			<fmt:parseDate var="shDateEnd" value="${vo.shDateEnd }" pattern="yyyy-MM-dd HH:mm:ss"/>
 					 			<input type="text" id="shDateEnd" name="shDateEnd" class="form-control" value="<fmt:formatDate value="${shDateEnd }" pattern="yyyy-MM-dd" />" placeholder="종료일">
 					 			<%-- <input type="text" id="shDateEnd" name="shDateEnd" class="form-control" value="${vo.shDateEnd}" placeholder="종료일"> --%>
-					 			<%-- <fmt:formatDate value="${vo.shDateEnd}" pattern="yyyy-MM-dd"/> --%>z
+					 			<%-- <fmt:formatDate value="${vo.shDateEnd}" pattern="yyyy-MM-dd"/> --%>
 					 		</div>
 					 		<div class="col-6 col-sm-3">
 					 			<select class="form-select" name="shOption" id="shOption">

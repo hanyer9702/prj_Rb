@@ -153,13 +153,13 @@
 		</dependency>
 		<!-- @Resource in DAO: multi db connection : e 2022.02.13 -->
 		
-		<!-- mysql s 2022.03.10 -->
+		<!-- mysql s 2022.06.07 -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.27</version>
 		</dependency>
-		<!-- mysql e 2022.03.10 -->	
+		<!-- mysql e 2022.06.07 -->	
 		
 		<!-- mariadb s 2022.03.10 -->
 		<dependency>
@@ -217,8 +217,16 @@
 		    <version>1.4.7</version>
 		</dependency>
 		<!-- mail e 2022.05.26 -->
+		
+		<!-- ojdbc8 s 2022.06.07 -->
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>21.5.0.0</version>
+		</dependency>
+		<!-- ojdbc8 e 2022.06.07 -->
 	</dependencies>
-    <build>
+    <build> 
         <plugins>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>

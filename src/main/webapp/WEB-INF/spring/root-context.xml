@@ -6,13 +6,22 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
 	<!-- mysql s 2022.03.10 -->
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<!-- <property name="driverClassName" value="com.mysql.jdbc.Driver" /> -->
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		주석 <property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
-		<!-- <property name="url" value="jdbc:mysql://localhost:3306/rb" /> -->
+		주석 <property name="url" value="jdbc:mysql://localhost:3306/rb" />
 		<property name="url" value="jdbc:log4jdbc:mysql://localhost:3306/rb" />
 		<property name="username" value="root" />
 		<property name="password" value="dpfls4680" />
+	</bean> -->
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />	<!-- log4j2로 디비 로그를 찍기 위하여 아래 내용으로 변경 -->
+		<!-- <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" /> -->
+		<property name="url" value="jdbc:mysql://database-2.cfsemal4p8qd.us-west-1.rds.amazonaws.com:33062/rb" />	<!-- log4j2로 디비 로그를 찍기 위하여 아래 내용으로 변경 -->
+		<!-- <property name="url" value="jdbc:log4jdbc:mariadb://sj-maria-1.cvnd1cw1haiu.ap-northeast-2.rds.amazonaws.com:33062/nct" /> -->
+		<property name="username" value="admin" />
+		<property name="password" value="spdlqj4680" />
 	</bean>
 	    
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -27,4 +36,30 @@
 	</bean>
 	<!-- mysql e 2022.03.10 -->
 	
+	<!-- oracle s 2022.06.03 -->
+	<bean id="dataSourceOracle" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" /> -->	<!-- log4j2로 디비 로그를 찍기 위하여 아래 내용으로 변경 -->
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+		<!-- <property name="url" value="jdbc:mariadb://rds-inst-1.cqrisz1cmtkf.ap-northeast-2.rds.amazonaws.com:33062/nct" /> -->	<!-- log4j2로 디비 로그를 찍기 위하여 아래 내용으로 변경 -->
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521/xe" />
+		<property name="username" value="han" />
+		<property name="password" value="dpfls4680" />
+	</bean>
+	
+	<bean id="sqlSessionFactoryOracle" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceOracle" />
+		<property name="configLocation" value="classpath:/mybatis-config.xml" />
+		<!-- <property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml" /> -->	<!-- 기본설정 : 패키지 변경으로 아래와 같이 수정 -->
+		<!-- <property name="mapperLocations" value="classpath:com/junefw/infra/**/**/*Mpp.xml"/> -->	<!-- 매퍼여러개 추가를 위해서 아래 내용으로 수정 -->
+		<property name="mapperLocations">
+			<list>
+		 		<value>classpath:com/rbproject/store/**/**/*Mpp.xml</value>
+			</list>
+		</property>
+	</bean>
+		
+	<bean id="sqlSessionOracle" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryOracle"/>
+	</bean>
+	<!-- oracle e oracle s 2022.06.03 -->
 </beans>
