@@ -7,6 +7,8 @@ public interface MemberService {
 	public int selectOneCount(MemberVo vo) throws Exception;
 	
 	public List<Member> selectList(MemberVo vo) throws Exception; 
+	public List<Member> selectListOracle(MemberVo vo) throws Exception; 
+	
 	public Member selectOne(MemberVo vo) throws Exception;
 	public List<Member> selectHobby(Member dto) throws Exception; 
 	
@@ -25,6 +27,6 @@ public interface MemberService {
 	public int multiUele(MemberVo vo) throws Exception;
 	public int multiDele(MemberVo vo) throws Exception;
 	
-//	·Î±×ÀÎ
+//	ï¿½Î±ï¿½ï¿½ï¿½
 	public Member selectOneLogin(Member dto) throws Exception;
 }

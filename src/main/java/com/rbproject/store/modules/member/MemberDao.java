@@ -17,6 +17,10 @@ public class MemberDao {
 	@Resource(name = "sqlSession")
 	private SqlSession sqlSession;
 	
+	@Inject
+	@Resource(name = "sqlSessionOracle")
+	private SqlSession sqlSessionOracle;
+	
 	private static String namespace = "com.rbproject.store.modules.member.MemberMpp";
 	
 	public int selectOneCount(MemberVo vo) {
@@ -25,6 +29,10 @@ public class MemberDao {
 
 	public List<Member> selectList(MemberVo vo){ 
 		return sqlSession.selectList(namespace + ".selectList", vo);
+	}
+	
+	public List<Member> selectListOracle(MemberVo vo){ 
+		return sqlSessionOracle.selectList(namespace + ".selectListOracle", vo);
 	}
 	
 	public Member selectOne(MemberVo vo){ 
@@ -143,7 +151,7 @@ public class MemberDao {
 		return sqlSession.delete(namespace + ".deleteMemberHobby", vo);
 	}
 	
-//	·Î±×ÀÎ
+//	ï¿½Î±ï¿½ï¿½ï¿½
 	public Member selectOneLogin(Member dto) {
 		return sqlSession.selectOne(namespace + ".selectOneLogin", dto);
 	}

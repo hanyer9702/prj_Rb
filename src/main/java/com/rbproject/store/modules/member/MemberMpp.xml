@@ -41,7 +41,7 @@
 
 	<select id="selectList" resultMap="resultMapObj">
 		select
-			a.ifmmseq
+			a.ifmmSeq
 		    , a.ifmmName
 		    , a.ifmmId
 		    , a.ifmmGenderCd
@@ -52,6 +52,17 @@
 		    , d.ifmeEmailFull
 		 <include refid="selectCommon" />
 		 limit #{startRnumForMysql}, #{rowNumToShow}
+	</select>
+	
+	<select id="selectListOracle" resultMap="resultMapObj">
+		select
+			a.ifmmSeq
+		    , a.ifmmName
+		    , a.ifmmId
+		   	, a.ifmmAge
+		   	, a.ifmmDob
+		FROM
+			member a
 	</select>
 	
 	<select id="selectOne" resultMap="resultMapObj">

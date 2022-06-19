@@ -29,6 +29,11 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
+	public List<Member> selectListOracle(MemberVo vo) throws Exception {
+		return dao.selectListOracle(vo); 
+	}
+	
+	@Override
 	public List<Member> selectHobby(Member dto) throws Exception {
 		return dao.selectHobby(dto);
 	}

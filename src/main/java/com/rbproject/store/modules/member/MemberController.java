@@ -81,13 +81,13 @@ public class MemberController {
 		vo.setShDateEnd(vo.getShDateEnd() == null ? UtilDateTime.nowString() : UtilDateTime.addStringTimeNight(vo.getShDateEnd()));
 		vo.setIfmmDelNy(vo.getIfmmDelNy() == null ? "0" : vo.getIfmmDelNy()); 
 		
-		// count °¡Á®¿Ã°Í
+		// count ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
 		
 		int count = service.selectOneCount(vo);
 				
 		vo.setParamsPaging(count);
 		
-		// count°¡ 0ÀÌ ¾Æ´Ï¸é list °¡Á®¿À´Â ºÎºÐ ¼öÇà ÈÄ model °³Ã¼¿¡ ´ã±â
+		// countï¿½ï¿½ 0ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ list ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ model ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½
 		if(count != 0) {
 			List<Member> list = service.selectList(vo);
 			model.addAttribute("list", list);
@@ -96,6 +96,15 @@ public class MemberController {
 		}
 		
 		return "/xdmin/member/memberList";
+	}
+	
+	@RequestMapping(value = "memberOracleList")
+	public String memberOracleList(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception{
+		
+		List<Member> list = service.selectListOracle(vo);
+		model.addAttribute("list", list);
+		
+		return "/xdmin/member/memberOracleList";
 	}
 	
 	@RequestMapping(value = "/xdmin/member/memberView")
@@ -124,7 +133,7 @@ public class MemberController {
 	@RequestMapping(value = "/xdmin/member/memberInst")
 	public String memberInst(@ModelAttribute("vo") MemberVo vo, Member dto, RedirectAttributes redirectAttributes) throws Exception {
 		
-//		ÀÔ·Â ½ÇÇà
+//		ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½
 		service.insert(dto);
 		
 		redirectAttributes.addAttribute("thisPage", vo.getThisPage());	//get
