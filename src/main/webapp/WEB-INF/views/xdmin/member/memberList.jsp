@@ -15,6 +15,7 @@
 <link href="/resources/common/_bootstrap/bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="/resources/common/css/style.css" rel="stylesheet" type="text/css">
 <link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <title>한예린</title>
 <style type="text/css">
 	td, th{
@@ -276,8 +277,9 @@
 					<div style="float:right;" role="group">
 					  <button type="button" class="btn btn-danger" onclick="javascript:btnUpdateDel()">목록에서 삭제</button>
 					  <button type="button" class="btn btn-dark" onclick="javascript:btnDelete()">DB에서 삭제</button>
+					  <button type="button" id="btnExcel" class="btn btn-success">액셀로 저장</button>
 					</div>
-		 		</div>
+		 		</div> 
 		 	</section>
 	 	</form>
 	 	<!-- Modal -->
@@ -345,6 +347,9 @@
 	 <script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 	 
 	 <script type="text/javascript">
+	 	$("#btnExcel").click(function() {
+	 		$("#formList").attr("action", "/member/excelDownload").submit();
+		});
 		$("#btnSubmit").on("click", function(){
 			if(!checkNull($("#shOption"), $("#shOption").val(), "항목을 선택하세요!")) return false;
 			if(!checkNull($("#shValue"), $("#shValue").val(), "검색어를 입력하세요!")) return false;
